@@ -47,8 +47,8 @@ const Header: React.FC<HeaderProps> = () => {
             </div>
 
             <div className="login_buttons">
-                <button className="registration_button">Зарегистрироваться</button>
-                <button className="login_button">Войти</button>
+                <Link to="#"><button className="registration_button">Зарегистрироваться</button></Link>
+                <Link to="#"><button className="login_button">Войти</button></Link>
             </div>
         </header>
     )
