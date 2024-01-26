@@ -1,0 +1,9 @@
+/*div, link, button {*/
+/*    font-family: Mediator, serif;*/
+/*}*/
+.page_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Mediator, serif;
+}
