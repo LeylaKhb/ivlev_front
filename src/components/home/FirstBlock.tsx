@@ -1,6 +1,6 @@
 import React from "react";
 
-import background from "../../static/background_first_fragment.png";
+import background from "../../static/background.png";
 import cart_and_boxes from "../../static/cart_and_boxes.png";
 import "./first_block.css"
 
@@ -25,7 +25,7 @@ const FirstBlock: React.FC = () => {
                         <br/><br/>Работаем с любым типом поставок (FBS/FBO/КРОСС-ДОК)
                     </div>
 
-                    <button className="first_button">Получить консультацию</button>
+                    <button className="big_gradient_button">Получить консультацию</button>
                 </div>
 
                 <div className="first_img_cart_div">

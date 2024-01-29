@@ -34,7 +34,7 @@
     width: 50%;
 }
 
-.first_button {
+.big_gradient_button {
     background: linear-gradient(to bottom right, #f81c87, #b752c9);
     border: none;
     color: white;

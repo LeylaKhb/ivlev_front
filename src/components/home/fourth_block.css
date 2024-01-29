@@ -10,10 +10,10 @@
     flex-flow: row;
     width: 66%;
 }
-.fourth_block_info .second_info_title {
+.fourth_block_info .block_info_title {
     width: 70%;
 }
-.fourth_block_info, .second_info_desc {
+.fourth_block_info, .block_info_desc {
     width: 70%;
 }
 .fourth_block_info {
@@ -94,10 +94,10 @@
     .fourth_block_columns {
         width: 100%;
     }
-    .fourth_block_info .second_info_title {
+    .fourth_block_info .block_info_title {
         width: 100%;
     }
-    .fourth_block_info, .second_info_desc {
+    .fourth_block_info, .block_info_desc {
         width: 100%;
     }
 }

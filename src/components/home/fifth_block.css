@@ -1,0 +1,37 @@
+.fifth_desc {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.fifth_desc .third_info_desc {
+    text-align: left;
+    width: 45%;
+}
+.fifth_block .block_info_title {
+    margin-bottom: 20px;
+    width: 45%;
+}
+.fifth_block {
+    margin-top: 80px;
+}
+@media screen and (max-width: 1200px) {
+    .fifth_desc {
+        flex-flow: column;
+    }
+    .fifth_desc .third_info_desc {
+        width: 98%;
+    }
+    .fifth_block .block_info_title {
+        margin-bottom: 0;
+        width: 100%;
+    }
+    .fifth_block {
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .fifth_block {
+        margin-top: 0;
+    }
+}

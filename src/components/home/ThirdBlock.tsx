@@ -27,7 +27,7 @@ const FirstBlock: React.FC = () => {
                 <div className="third_info_desc">Пройдите небольшой тест, чтобы узнать, сколько будут стоить услуги
                     фулфилмента для вашего бизнеса.</div>
 
-                <button className="first_button">Узнать стоимость</button>
+                <button className="big_gradient_button">Узнать стоимость</button>
                 <div className="third_info_desc">Или напишите нам в мессенджер:</div>
                 <div className="social_network">
                     <a href="tg://resolve?domain=Ivlevff" >

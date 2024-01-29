@@ -12,10 +12,10 @@ const FourthBlock: React.FC = () => {
         <div className="page_content">
             <div className="fourth_block">
                 <div className="fourth_block_info">
-                    <h2 className="second_info_title">
+                    <h2 className="block_info_title">
                         Мы поможем вам повысить эффективность вашего бизнеса
                     </h2>
-                    <div className="second_info_desc">
+                    <div className="block_info_desc">
                         Мы предлагаем вам полную поддержку на каждом этапе - от приемки товара до доставки на любой склад!
                     </div>
                 </div>
@@ -45,7 +45,7 @@ const FourthBlock: React.FC = () => {
                                 <div className="fourth_column_desc">Доставка осуществляется с помощью нашего собственного
                                 транспорта, а наши экспедиторы прошли обучение, чтобы обеспечить приемку 99,5% от общей
                                 массы поставок.
-                                <br/> <b>Склады: Казань, Краснодар, Москва (все склады)</b></div>
+                                <br/> <strong>Склады: Казань, Краснодар, Москва (все склады)</strong></div>
                             </div>
                         </div>
                     </div>
