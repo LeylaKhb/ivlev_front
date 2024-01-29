@@ -1,0 +1,117 @@
+.second_block {
+    display: flex;
+    align-items: center;
+    padding-right: 7%;
+    padding-left: 7%;
+}
+.second_block_info {
+    width: 50%;
+    padding-top: 70px;
+    margin-right: 30px;
+}
+
+.second_block_images {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: column;
+}
+
+.second_info_title {
+    font-weight: 700;
+    color: #343F52;
+    font-size: 34px;
+    line-height: 41px;
+}
+
+.second_info_desc {
+    color: #343F52;
+    font-size: 17px;
+    line-height: 26px;
+}
+
+.second_img_1 {
+    width: 40%;
+    border-radius: 6px;
+}
+.second_img_2{
+    width: 45%;
+    height: 22%;
+    border-radius: 6px;
+    margin-top: 4%;
+}
+.second_img_3{
+    width: 75%;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.check_img {
+    width: 4%;
+    height: 4%;
+}
+.second_img_arrow {
+    width: 20%;
+
+}
+.second_img_title {
+    transform: rotate(-18deg);
+    width: 35%;
+}
+.second_arrow_and_title {
+    margin-top: 450px;
+    display: flex;
+    flex-flow: column;
+    position: absolute;
+    right: -12%;
+}
+
+@media screen and (max-width: 1370px) {
+    .second_arrow_and_title {
+        right: -15%;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .second_arrow_and_title {
+        right: -17%;
+        margin-top: 400px;
+    }
+}
+
+@media screen and (max-width: 1125px) {
+    .second_arrow_and_title {
+        right: -20%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .second_block {
+        flex-flow: column;
+    }
+    .second_block_info {
+        width: 95%;
+    }
+    .second_block_images {
+        width: 95%;
+        margin-top: 80px;
+    }
+    .second_arrow_and_title {
+        margin-top: -72%;
+        margin-right: 44%;
+    }
+    .second_img_arrow {
+        transform: rotate(281deg);
+    }
+    .second_img_title {
+        transform: translate(70px, -70px) rotate(-13deg);
+        width: 44%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .second_arrow_and_title {
+        margin-right: 20%;
+    }
+}

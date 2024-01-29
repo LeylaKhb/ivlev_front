@@ -5,7 +5,7 @@ import cart_and_boxes from "../../static/cart_and_boxes.png";
 import "./first_block.css"
 
 
-const FirstBlock: React.FC<{ }> = () => {
+const FirstBlock: React.FC = () => {
     const backgroundImage = {
         backgroundImage: `url(${background})`,
         width: '95%',
@@ -29,7 +29,7 @@ const FirstBlock: React.FC<{ }> = () => {
                 </div>
 
                 <div className="first_img_cart_div">
-                    <img src={cart_and_boxes} className="first_img_cart"/>
+                    <img src={cart_and_boxes} className="first_img_cart" alt="cart and boxes"/>
                 </div>
             </div>
         </div>
