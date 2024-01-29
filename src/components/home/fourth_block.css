@@ -1,0 +1,121 @@
+.fourth_block {
+    margin-top: 30px;
+    padding-right: 7%;
+    padding-left: 7%;
+    display: flex;
+    flex-flow: row;
+}
+.fourth_block_columns {
+    display: flex;
+    flex-flow: row;
+    width: 66%;
+}
+.fourth_block_info .second_info_title {
+    width: 70%;
+}
+.fourth_block_info, .second_info_desc {
+    width: 70%;
+}
+.fourth_block_info {
+    width: 33%;
+}
+.fourth_block_column {
+    margin-top: 30px;
+    width: 50%;
+}
+
+.fourth_img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.fourth_column_title {
+    color: #343F52;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+}
+.fourth_column_desc {
+    width: 80%;
+    height: 200px;
+    margin-top: 10px;
+    color: #60697B;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+}
+.fourth_column_info {
+
+}
+.fourth_column_div {
+    display: flex;
+    flex-flow: row;
+}
+
+@media screen and (max-width: 1220px) {
+    .fourth_block {
+        flex-flow: column;
+    }
+    .fourth_block_columns {
+        width: 100%;
+    }
+    .fourth_block_info {
+        width: 700px;
+    }
+    .fourth_column_desc {
+        height: 150px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .fourth_block {
+        align-items: center;
+        justify-content: center;
+    }
+    .fourth_block_columns {
+        width: 80%;
+    }
+    .fourth_block_info {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .fourth_column_desc {
+        height: 170px;
+        width: 92%;
+        font-size: 15px;
+        line-height: 20px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .fourth_block_columns {
+        width: 100%;
+    }
+    .fourth_block_info .second_info_title {
+        width: 100%;
+    }
+    .fourth_block_info, .second_info_desc {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .fourth_block_columns {
+        flex-flow: column;
+    }
+    .fourth_block_column {
+        width: 100%;
+    }
+    .fourth_column_desc {
+        height: 100px;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .fourth_column_desc {
+        height: 130px;
+    }
+}

@@ -101,6 +101,14 @@
         transform: translate(87px, -80px) rotate(-13deg);
         width: 44%;
     }
+    .second_info_title {
+        font-size: 30px;
+        line-height: 36px;
+    }
+    .second_info_desc {
+        font-size: 16px;
+        line-height: 24px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -110,5 +118,13 @@
     .second_img_title {
         transform: translate(50%, -170%) rotate(-10deg);
         width: 40%;
+    }
+    .second_info_title {
+        font-size: 24px;
+        line-height: 29px;
+    }
+    .second_info_desc {
+        font-size: 15px;
+        line-height: 20px;
     }
 }
