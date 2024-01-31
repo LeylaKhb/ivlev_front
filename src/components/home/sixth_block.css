@@ -1,0 +1,118 @@
+.sixth_block {
+    margin-top: 40px;
+    padding-left: 7%;
+    padding-right: 7%;
+    width: 100%;
+}
+
+.sixth_services {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.sixth_service {
+    width: 380px;
+    height: 640px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    text-align: left;
+    position: relative;
+}
+.space {
+    /*display: none;*/
+    min-width: 40px;
+}
+.sixth_img {
+    width: 360px;
+    height: 324px;
+    border-radius: 8px;
+    position: absolute;
+    top: 10px;
+}
+.sixth_info {
+    align-items: flex-start;
+    position: absolute;
+    top: 370px;
+    padding-right: 4%;
+    padding-left: 4%;
+
+}
+.sixth_title {
+    color: #343F52;
+    font-size: 24px;
+    line-height: 29px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.sixth_desc {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+}
+.small_gradient_button {
+    background: linear-gradient(to bottom right, #f81c87, #b752c9);
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    width: 200px;
+    height: 36px;
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+}
+
+@media screen and (max-width: 1350px) {
+    .sixth_block {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .sixth_block {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+    .sixth_service {
+        min-width: 300px;
+        height: 580px;
+    }
+    .sixth_img{
+        width: 280px;
+        height: 252px;
+    }
+    .sixth_info {
+        top: 270px;
+        padding-right: 6%;
+        padding-left: 6%;
+    }
+    .sixth_title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    .sixth_desc {
+        font-size: 15px;
+        line-height: 20px;
+    }
+}
+@media screen and (max-width: 1130px) {
+    .sixth_block {
+        padding: 0;
+        margin-left: 20px;
+    }
+    .sixth_services {
+        padding-left: 20px;
+        padding-right: 30px;
+        width: 100%;
+        justify-content: space-between;
+        overflow: scroll;
+    }
+    .space {
+        min-width: 25px;
+    }
+}
