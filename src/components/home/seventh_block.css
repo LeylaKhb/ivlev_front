@@ -1,0 +1,112 @@
+.seventh_block {
+    display: flex;
+    flex-flow: column;
+    width: 90%;
+    margin-top: 60px;
+}
+.seventh_reviews {
+    margin-top: 30px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.seventh_column {
+    display: flex;
+    flex-flow: column;
+}
+.seventh_column img {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 260px;
+    cursor: zoom-in;
+}
+.cross {
+    position: absolute;
+    right: 40px;
+    top: 20px;
+    font-size: 40px;
+    cursor: pointer;
+}
+.review_second_pos_shown {
+    display: none;
+}
+.review_third_pos_shown {
+    display: none;
+}
+.swiper-button-prev {
+    color: black;
+    height: 20px;
+}
+.swiper-button-next {
+    color: black;
+}
+.medium_gradient_button {
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 500;
+    border-radius: 8px;
+    background: linear-gradient(to bottom right, #f81c87, #b752c9);
+    border: none;
+    color: white;
+    width: 180px;
+    height: 40px;
+}
+
+@media (max-width: 1200px) {
+    .seventh_column img {
+        width: 221px;
+    }
+    .seventh_block {
+        width: 92%;
+    }
+}
+@media screen and (max-width: 980px) {
+    .seventh_column img {
+        width: 196px;
+    }
+    .fourth_seventh_column {
+        display: none;
+    }
+    .review_second_pos_hidden {
+        display: none;
+    }
+    .review_second_pos_shown {
+        display: initial;
+    }
+    .seventh_block {
+        width: 640px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .seventh_column img {
+        width: 145px;
+        margin-bottom: 10px;
+    }
+    .seventh_block {
+        width: 480px;
+    }
+    .medium_gradient_button {
+        width: 160px;
+        height: 35px;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .seventh_column img {
+        margin-bottom: 8px;
+    }
+    .third_seventh_column {
+        display: none;
+    }
+    .review_third_pos_shown {
+        display: initial;
+    }
+    .seventh_block {
+        width: 320px;
+    }
+    .medium_gradient_button {
+        width: 140px;
+        height: 30px;
+        font-size: 13px;
+    }
+}
