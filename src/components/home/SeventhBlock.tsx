@@ -46,6 +46,14 @@ const SeventhBlock: React.FC = () => {
         document.body.style.overflow = "scroll";
     }
 
+    function onKeyPressed(e: any) {
+        console.log(e.key)
+        if (e.key === "Escape") {
+            setSwiperOpen(false);
+            document.body.style.overflow = "scroll";
+        }
+    }
+
     return (
        <div className="page_content">
            <div className="seventh_block">
@@ -99,6 +107,8 @@ const SeventhBlock: React.FC = () => {
                        slidesPerView={1}
                        keyboard={{ enabled: true }}
                        initialSlide={initialSlide}
+                       onKeyPress={onKeyPressed}
+                       tabIndex="0"
                    >
                        <div className="swiper-button-prev"></div>
                        <div className="swiper-button-next"></div>

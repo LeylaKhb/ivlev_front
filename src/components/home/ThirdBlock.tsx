@@ -1,6 +1,6 @@
 import React from "react";
 
-import background from "../../static/background_third_fragment.png";
+import background from "../../static/background_with_images.png";
 import telegram from "../../static/telegram.png";
 import whatsapp from "../../static/whatsapp.png";
 import viber from "../../static/viber.png";
