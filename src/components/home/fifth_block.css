@@ -3,7 +3,7 @@
     flex-flow: row;
     justify-content: space-between;
 }
-.fifth_desc .third_info_desc {
+.fifth_desc .background_info_desc {
     text-align: left;
     width: 45%;
 }
@@ -18,7 +18,7 @@
     .fifth_desc {
         flex-flow: column;
     }
-    .fifth_desc .third_info_desc {
+    .fifth_desc .background_info_desc {
         width: 98%;
     }
     .fifth_block .block_info_title {

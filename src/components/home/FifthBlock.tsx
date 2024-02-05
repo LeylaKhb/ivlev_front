@@ -18,16 +18,16 @@ const FifthBlock: React.FC = () => {
     return (
         <div className="page_content">
             <div style={backgroundImage} className="fifth_block">
-                <div className="block_info_title">Мы поможем вам оптимизировать затраты и
+                <div className="background_info_title" style={{textAlign: 'left'}}>Мы поможем вам оптимизировать затраты и
                     избавиться от рутины</div>
                 <div className="fifth_desc">
-                    <div className="third_info_desc">
+                    <div className="background_info_desc">
                         <strong>Фулфилмент</strong> - это возможность сосредоточиться на развитии и управлении своим
                         бизнесом, не тратя время на организацию хранения и логистику заказов.
                         <br/><br/>С помощью этой услуги вы можете осуществлять все необходимые операции складского хозяйства через
                         единую платформу, включая отгрузку и доставку заказов на различные службы доставки и маркетплейсы.
                     </div>
-                    <div  className="third_info_desc">
+                    <div  className="background_info_desc">
                         <strong>Мы можем оказать Вам следующую помощь:</strong>
                         <li>Сократить расходы на аренду склада;</li>
                         <li>Снизить затраты на оплату персонала;</li>

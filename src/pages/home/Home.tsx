@@ -8,6 +8,7 @@ import SixthBlock from "../../components/home/SixthBlock";
 import SeventhBlock from "../../components/home/SeventhBlock";
 import NinthBlock from "../../components/home/NinthBlock";
 import EighthBlock from "../../components/home/EighthBlock";
+import TenthBlock from "../../components/home/TenthBlock";
 
 const Home: React.FC<{}> = () => {
     return (
@@ -21,6 +22,7 @@ const Home: React.FC<{}> = () => {
             <SeventhBlock />
             <EighthBlock />
             <NinthBlock />
+            <TenthBlock />
         </div>
     )
 }

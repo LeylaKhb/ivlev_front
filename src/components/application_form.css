@@ -39,14 +39,15 @@
     transform: translate(-242px, 16px);
 }
 
-.eighth_form {
+.application_form {
     margin-top: 20px;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
     width: 700px;
 }
-.eighth_error {
+
+.form_error {
     color: red;
     font-size: 15px;
     font-weight: 400;
@@ -56,7 +57,7 @@
 }
 
 @media screen and (max-width: 850px) {
-    .eighth_form {
+    .application_form {
         width: 600px;
     }
     .name_input {
@@ -66,7 +67,7 @@
         width: 205px;
         margin-left: 10px;
     }
-    .eighth_error {
+    .form_error {
         margin-left: 10px;
     }
     .span_tel {
@@ -74,7 +75,7 @@
     }
 }
 @media screen and (max-width: 640px) {
-    .eighth_form {
+    .application_form {
         flex-flow: column;
         align-items: center;
         justify-content: center;
@@ -88,7 +89,7 @@
         margin-left: 0;
         margin-top: 5px;
     }
-    .eighth_error {
+    .form_error {
         margin-top: 1px;
     }
     .submit_button {
