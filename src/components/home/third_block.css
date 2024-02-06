@@ -16,17 +16,6 @@
     margin-top: 20px;
 }
 
-.social_network {
-    width: 200px;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.soc_network_img {
-    width: 60%;
-}
-
 @media screen and (max-width: 640px) {
     .background_info_title {
         width: 400px;

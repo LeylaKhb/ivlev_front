@@ -1,10 +1,8 @@
 import React from "react";
 
 import background from "../../static/background_with_images.png";
-import telegram from "../../static/telegram.png";
-import whatsapp from "../../static/whatsapp.png";
-import viber from "../../static/viber.png";
 import "./third_block.css";
+import SocialNetwork from "../SocialNetwork";
 
 
 const FirstBlock: React.FC = () => {
@@ -29,17 +27,7 @@ const FirstBlock: React.FC = () => {
 
                 <button className="big_gradient_button">Узнать стоимость</button>
                 <div className="background_info_desc">Или напишите нам в мессенджер:</div>
-                <div className="social_network">
-                    <a href="tg://resolve?domain=Ivlevff" >
-                        <img src={telegram} alt="telegram" className="soc_network_img"  />
-                    </a>
-                    <a href="https://wa.me/79608293555">
-                        <img src={whatsapp} alt="whatsapp" className="soc_network_img"  />
-                    </a>
-                    <a href="viber://chat?number=%2B79608293555">
-                        <img src={viber} alt="viber" className="soc_network_img"  />
-                    </a>
-                </div>
+                <SocialNetwork />
             </div>
         </div>
     )

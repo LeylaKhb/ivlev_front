@@ -9,7 +9,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = () => {
     const [open, setOpen] = useState("");
     const [hidden, setHidden] = useState(true);
-    function handleSelectTitle(e: React.MouseEvent) {
+    function handleSelectTitle() {
         if (open === "") {
             setOpen("active");
             setHidden(false);
@@ -32,21 +32,21 @@ const Header: React.FC<HeaderProps> = () => {
                     ☰
                 </div>
 
-                <Link to="/" className="header_emblem" onClick={handleOptionClick}>
-                    <img src={logo} style={{width: '70%'}}/>
+                <Link to="/" onClick={handleOptionClick}>
+                    <img src={logo} style={{width: '70%'}} alt="emblem"/>
                 </Link>
             </div>
 
-            <div className="links_container">
-                <Link to="#" className="link_header">О нас</Link>
-                <Link to="#" className="link_header">Наши услуги</Link>
-                <Link to="#" className="link_header">Отзывы</Link>
-                <Link to="#" className="link_header">Контакты</Link>
-                <Link to="#" className="link_header">Расписание поставок</Link>
-                <Link to="#" className="link_header">Наши партнеры</Link>
+            <div className="links_container_header">
+                <Link to="#" className="link_header_footer">О нас</Link>
+                <Link to="#" className="link_header_footer">Наши услуги</Link>
+                <Link to="#" className="link_header_footer">Отзывы</Link>
+                <Link to="#" className="link_header_footer">Контакты</Link>
+                <Link to="#" className="link_header_footer">Расписание поставок</Link>
+                <Link to="#" className="link_header_footer">Наши партнеры</Link>
             </div>
 
-            <div className="login_buttons">
+            <div className="header_footer_buttons">
                 <Link to="#"><button className="registration_button">Зарегистрироваться</button></Link>
                 <Link to="#"><button className="login_button">Войти</button></Link>
             </div>
