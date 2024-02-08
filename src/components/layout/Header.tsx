@@ -38,12 +38,12 @@ const Header: React.FC<HeaderProps> = () => {
             </div>
 
             <div className="links_container_header">
-                <Link to="#" className="link_header_footer">О нас</Link>
-                <Link to="#" className="link_header_footer">Наши услуги</Link>
-                <Link to="#" className="link_header_footer">Отзывы</Link>
-                <Link to="#" className="link_header_footer">Контакты</Link>
-                <Link to="#" className="link_header_footer">Расписание поставок</Link>
-                <Link to="#" className="link_header_footer">Наши партнеры</Link>
+                <a href="/#about" className="link_header_footer">О нас</a>
+                <a href="/#service" className="link_header_footer">Наши услуги</a>
+                <a href="/#reviews" className="link_header_footer">Отзывы</a>
+                <a href="/#contacts" className="link_header_footer">Контакты</a>
+                <a href="/schedule" className="link_header_footer">Расписание поставок</a>
+                <a href="https://t.me/+nVp-YvKEbJJjOTRi" className="link_header_footer">Чат в Telegram</a>
             </div>
 
             <div className="header_footer_buttons">

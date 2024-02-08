@@ -55,7 +55,7 @@ const SeventhBlock: React.FC = () => {
     }
 
     return (
-       <div className="page_content">
+       <div className="page_content" id="reviews">
            <div className="seventh_block">
                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                    <div className="block_info_title">Отзывы наших клиентов</div>

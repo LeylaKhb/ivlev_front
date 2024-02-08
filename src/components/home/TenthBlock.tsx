@@ -16,7 +16,7 @@ const TenthBlock: React.FC = () => {
         paddingBottom: 30
     };
     return (
-        <div className="page_content">
+        <div className="page_content" id="contacts">
             <div style={backgroundImage} className="tenth_block">
                 <div className="block_info_title">Контакты</div>
                 <div className="contacts_block">

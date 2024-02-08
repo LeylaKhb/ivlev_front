@@ -40,7 +40,7 @@ footer {
 .links_container_header, .links_container_footer {
     display: flex;
     justify-content: space-between;
-    width: 55%;
+    width: 53%;
 }
 
 .link_header_footer {

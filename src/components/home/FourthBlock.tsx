@@ -9,7 +9,7 @@ import fourth_6 from "../../static/fourth_6.png"
 
 const FourthBlock: React.FC = () => {
     return (
-        <div className="page_content">
+        <div className="page_content" id="service">
             <div className="fourth_block">
                 <div className="fourth_block_info">
                     <h2 className="block_info_title">

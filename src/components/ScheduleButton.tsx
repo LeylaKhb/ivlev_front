@@ -1,5 +1,5 @@
 import React from "react";
-import "./schedule_button.css"
+import "../styles/schedule_button.css"
 
 const ScheduleButton:React.FC = () => {
     return (

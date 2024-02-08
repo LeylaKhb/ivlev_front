@@ -12,7 +12,7 @@ import warehouse_title from "../../static/warehouse_title.png";
 
 const SecondBlock: React.FC = () => {
     return (
-        <div className="page_content">
+        <div className="page_content" id="about">
             <div className="second_block">
                 <div className="second_block_info">
                     <h2 className="block_info_title">
