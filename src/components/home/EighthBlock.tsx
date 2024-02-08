@@ -22,7 +22,7 @@ const EighthBlock: React.FC = () => {
                 <div className="background_info_title">Оставить заявку</div>
                 <div className="background_info_desc">Оставьте свои контактные данные в форме ниже. Мы вам перезвоним и
                     ответим на все интересующие вас вопросы.</div>
-                <ApplicationForm />
+                <ApplicationForm location="application"/>
                 <div className="background_info_desc">Или напишите нам в мессенджер:</div>
                 <SocialNetwork />
             </div>

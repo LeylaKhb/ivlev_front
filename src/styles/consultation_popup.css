@@ -1,0 +1,142 @@
+.consultation_popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    cursor: pointer;
+    padding: 0 20px;
+    background-color: rgba(0,0,0,.6);
+    z-index: 999;
+    display: none;
+    transition: opacity ease-in-out .3s;
+}
+
+.popup_window {
+    display: block;
+    padding: 50px 45px;
+    cursor: default;
+    background: #fff;
+    margin: 0 auto;
+    width: 460px;
+    height: 433px;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    left: 20px;
+    animation: window-popup 0.5s ease-in-out;
+    z-index: 10000;
+}
+@keyframes window-popup {
+    from {
+        transform: translateY(-29em);
+    }
+    to {
+        transform: translateY(-14em);
+    }
+}
+.popup_cross {
+    position: fixed;
+    right: 40px;
+    top: 40px;
+    z-index: 100000;
+}
+
+.popup_title {
+    font-size: 20px;
+    margin-bottom: 11px;
+    font-family: 'Montserrat',Arial,sans-serif;
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+}
+.popup_desc {
+    font-size: 15px;
+    font-family: 'Montserrat',Arial,sans-serif;
+    font-weight: 300;
+    color: #000000;
+    text-align: center;
+    line-height: 1.55;
+}
+.popup_form_radio_div {
+    width: 100%;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+}
+.popup_name_input, .popup_tel_input {
+    margin-top: 10px;
+    width: 100%;
+    color: #000000;
+    border: none;
+    border-bottom: 1px solid #c9c9c9;
+    height: 60px;
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 1.33;
+}
+.popup_button_glare {
+    animation: move-light-popup 1s ease-in-out infinite;
+    background-color: rgba(256, 256, 256, 0.2);
+    z-index: 4;
+    opacity: 0.99;
+    height: 60px;
+    width: 1.5em;
+    position: absolute;
+    bottom: 30px;
+    left: 90px;
+    display: initial;
+}
+
+@keyframes move-light-popup {
+    from {
+        transform: translateX(-4em) skewX(-45deg);
+    }
+    to {
+        transform: translateX(20em) skewX(-45deg);
+    }
+}
+.popup_form_button {
+    color: #ffffff;
+    background-color: #f81c87;
+    border-radius: 6px;
+    height: 54px;
+    font-size: 16px;
+    padding-left: 60px;
+    padding-right: 60px;
+    width: 100%;
+    font-weight: 700;
+    border: none;
+    margin-top: 25px;
+    cursor: pointer;
+    overflow: hidden;
+
+}
+.popup_span_tel {
+    position: absolute;
+    transform: translateY(-55px);
+}
+
+@media screen and (max-width: 650px) {
+    .popup_span_tel {
+        transform: translateY(-51px);
+    }
+}
+@media screen and (max-width: 510px) {
+    .popup_window {
+        width: 100vw;
+        height: 100vh;
+        left: 0;
+    }
+    @keyframes window-popup {
+        from {
+            transform: translateY(-39em);
+        }
+        to {
+            transform: translateY(-22em);
+        }
+    }
+    .popup_cross {
+        top: 30px;
+        right: 30px;
+    }
+}

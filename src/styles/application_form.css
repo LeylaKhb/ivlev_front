@@ -74,7 +74,7 @@
         transform: translate(-196px, 16px);
     }
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 650px) {
     .application_form {
         flex-flow: column;
         align-items: center;

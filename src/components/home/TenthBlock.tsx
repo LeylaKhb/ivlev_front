@@ -38,7 +38,7 @@ const TenthBlock: React.FC = () => {
                 <div className="block_info_title">
                     Свяжитесь с нами для бесплатной консультации
                 </div>
-                <ApplicationForm />
+                <ApplicationForm location="application"/>
             </div>
         </div>
     );

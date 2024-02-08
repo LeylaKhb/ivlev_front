@@ -1,7 +1,13 @@
 import React, {useState} from "react";
 import "../styles/application_form.css"
 
-const ApplicationForm: React.FC = () => {
+
+interface ApplicationFormProps {
+    location: string
+
+}
+
+const ApplicationForm: React.FC<ApplicationFormProps> = ({location}) => {
     const [telError, setTelError] = useState("");
     const [nameError, setNameError] = useState("");
     const [telInput, setTelInput] = useState("");
@@ -14,6 +20,9 @@ const ApplicationForm: React.FC = () => {
             if (inputValue.endsWith(") "))
                 e.target.value = inputValue.slice(0, -2);
             return;
+        }
+        if (inputValue.length === 15) {
+            setTelError("");
         }
         if (inputValue.length === 1)
             e.target.value = '(' + inputValue;
@@ -50,21 +59,45 @@ const ApplicationForm: React.FC = () => {
             setNameError("");
         }
     }
-    return (
-        <form method="POST" action="" className="application_form" onSubmit={checkForm}>
-            <div>
-                <input type="text" className="name_input" placeholder="Ваше имя"
-                       onInput={handleNameInput} />
-                <div className="form_error">{nameError}</div>
-            </div>
-            <div style={{margin: 'auto'}}>
-                <input type="text" className="tel_input" placeholder="(999) 999-99-99"
-                       onInput={handleTelInput} />
-                <div className="form_error">{telError}</div>
-            </div>
-            <span className="span_tel">+7</span>
-            <button type="submit" className="submit_button">Отправить</button>
-        </form>
-    )
+    if (location === "popup") {
+        return (
+            <form method="POST" action="" className="popup_form" onSubmit={checkForm}>
+                <div>
+                    <input type="text" className="popup_name_input" placeholder="Ваше имя"
+                           onInput={handleNameInput} />
+                    <div className="form_error">{nameError}</div>
+                </div>
+                <div>
+                    <input type="text" className="popup_tel_input" placeholder="(999) 999-99-99"
+                           onInput={handleTelInput} />
+                    <div className="form_error">{telError}</div>
+                </div>
+                <span className="popup_span_tel">+7</span>
+                <button type="submit" className="popup_form_button">Отправить
+                    <div className="popup_button_glare">
+                    </div>
+                </button>
+
+            </form>
+        )
+    }
+    else {
+        return (
+            <form method="POST" action="" className="application_form" onSubmit={checkForm}>
+                <div>
+                    <input type="text" className="name_input" placeholder="Ваше имя"
+                           onInput={handleNameInput}/>
+                    <div className="form_error">{nameError}</div>
+                </div>
+                <div>
+                    <input type="text" className="tel_input" placeholder="(999) 999-99-99"
+                           onInput={handleTelInput}/>
+                    <div className="form_error">{telError}</div>
+                </div>
+                <span className="span_tel">+7</span>
+                <button type="submit" className="submit_button">Отправить</button>
+            </form>
+        )
+    }
 }
 export default ApplicationForm

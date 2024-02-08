@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 
 import background from "../../static/background.png";
 import cart_and_boxes from "../../static/cart_and_boxes.png";
 import "../../styles/first_block.css"
+import ConsultationPopup from "../ConsultationPopup";
 
 
 const FirstBlock: React.FC = () => {
@@ -14,6 +15,15 @@ const FirstBlock: React.FC = () => {
         alignItems: 'center',
         borderRadius: 10,
     };
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+    function setPopupTrue() {
+        setIsPopupVisible(true);
+        document.body.style.overflow = "hidden";
+    }
+    function setPopupFalse() {
+        setIsPopupVisible(false);
+        document.body.style.overflow = "scroll";
+    }
 
     return (
         <div className="page_content">
@@ -25,8 +35,9 @@ const FirstBlock: React.FC = () => {
                         <br/><br/>Работаем с любым типом поставок (FBS/FBO/КРОСС-ДОК)
                     </div>
 
-                    <button className="big_gradient_button">Получить консультацию</button>
+                    <button className="big_gradient_button" onClick={setPopupTrue}>Получить консультацию</button>
                 </div>
+                <ConsultationPopup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse}/>
 
                 <div className="first_img_cart_div">
                     <img src={cart_and_boxes} className="first_img_cart" alt="cart and boxes"/>
