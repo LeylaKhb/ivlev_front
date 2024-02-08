@@ -1,5 +1,5 @@
 import React from "react";
-import "./sixth_block.css"
+import "../../styles/sixth_block.css"
 import background from "../../static/background.png";
 import sixth_1 from "../../static/sixth_1.jpeg";
 import sixth_2 from "../../static/sixth_2.jpeg";

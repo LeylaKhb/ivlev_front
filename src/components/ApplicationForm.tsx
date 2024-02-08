@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./application_form.css"
+import "../styles/application_form.css"
 
 const ApplicationForm: React.FC = () => {
     const [telError, setTelError] = useState("");

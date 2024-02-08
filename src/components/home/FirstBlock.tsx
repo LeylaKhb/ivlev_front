@@ -2,7 +2,7 @@ import React from "react";
 
 import background from "../../static/background.png";
 import cart_and_boxes from "../../static/cart_and_boxes.png";
-import "./first_block.css"
+import "../../styles/first_block.css"
 
 
 const FirstBlock: React.FC = () => {

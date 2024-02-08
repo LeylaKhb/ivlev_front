@@ -1,6 +1,6 @@
 import React from "react";
 import background from "../../static/background.png";
-import "./fifth_block.css";
+import "../../styles/fifth_block.css";
 
 const FifthBlock: React.FC = () => {
     const backgroundImage = {

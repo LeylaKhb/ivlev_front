@@ -1,7 +1,7 @@
 import React from "react";
 
 import background from "../../static/background_with_images.png";
-import "./third_block.css";
+import "../../styles/third_block.css";
 import SocialNetwork from "../SocialNetwork";
 
 

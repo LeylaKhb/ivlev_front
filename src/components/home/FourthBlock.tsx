@@ -1,5 +1,5 @@
 import React from "react";
-import "./fourth_block.css"
+import "../../styles/fourth_block.css"
 import fourth_1 from "../../static/fourth_1.png"
 import fourth_2 from "../../static/fourth_2.png"
 import fourth_3 from "../../static/fourth_3.png"

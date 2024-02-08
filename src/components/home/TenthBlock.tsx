@@ -1,6 +1,6 @@
 import React from "react";
 import background from "../../static/background_with_images.png";
-import "./tenth_block.css";
+import "../../styles/tenth_block.css";
 import ApplicationForm from "../ApplicationForm";
 import SocialNetwork from "../SocialNetwork";
 

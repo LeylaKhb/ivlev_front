@@ -3,7 +3,7 @@ import React, {ReactNode} from 'react';
 import Header from "./Header";
 import Footer from "./Footer";
 
-import "./layout.css"
+import "../../styles/layout.css"
 
 
 
