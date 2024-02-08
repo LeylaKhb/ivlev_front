@@ -10,18 +10,18 @@ const Footer: React.FC = () => {
                     <img src={logo} style={{width: '70%'}} alt="emblem"/>
                 </Link>
                 <div className="header_footer_buttons">
-                    <Link to="#"><button className="footer_button">Чат в телеграм</button></Link>
+                    <Link to="https://t.me/+nVp-YvKEbJJjOTRi"><button className="footer_button">Чат в телеграм</button></Link>
                 </div>
             </div>
             <div className="links_container_footer">
-                <Link to="#" className="link_header_footer">О нас</Link>
-                <Link to="#" className="link_header_footer">Наши услуги</Link>
-                <Link to="#" className="link_header_footer">Отзывы</Link>
-                <Link to="#" className="link_header_footer">Контакты</Link>
-                <Link to="#" className="link_header_footer">Расписание поставок</Link>
+                <a href="/#about" className="link_header_footer">О нас</a>
+                <a href="/#service" className="link_header_footer">Наши услуги</a>
+                <a href="/#reviews" className="link_header_footer">Отзывы</a>
+                <a href="/#contacts" className="link_header_footer">Контакты</a>
+                <a href="/schedule" className="link_header_footer">Расписание поставок</a>
             </div>
             <div className="header_footer_buttons">
-                <Link to="#"><button className="footer_button">Чат в телеграм</button></Link>
+                <Link to="https://t.me/+nVp-YvKEbJJjOTRi"><button className="footer_button">Чат в телеграм</button></Link>
             </div>
         </footer>
     )
