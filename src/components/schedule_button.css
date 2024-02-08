@@ -1,0 +1,58 @@
+.schedule_button {
+    background-color: #b752c9;
+    border-radius: 4px;
+    border: none;
+    color: #ffffff;
+    font-family: Monstserrat, sans-serif;
+    font-weight: 500;
+    height: 50px;
+    line-height: 50px;
+    font-size: 22px;
+    padding-left: 35px;
+    padding-right: 35px;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    overflow: hidden;
+}
+
+.button_glare {
+    animation: move-light 2.5s ease-in-out infinite;
+    background-color: rgba(256, 256, 256, 0.2);
+    z-index: 4;
+    transform: skewX(-45deg) translateX(-4em);
+    height: 50px;
+    width: 2em;
+    position: fixed;
+    bottom: 0;
+    display: none;
+}
+
+@media screen and (max-width: 920px) {
+    .schedule_button {
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+        font-weight: 600;
+    }
+    .button_glare {
+        display: initial;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .schedule_button {
+        font-size: 14px;
+    }
+}
+
+@keyframes move-light {
+    from {
+        transform: translateX(-4em) skewX(-45deg);
+    }
+    to {
+        transform: translateX(100em) skewX(-45deg);
+    }
+}

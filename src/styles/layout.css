@@ -116,6 +116,7 @@ footer {
     }
     footer {
         flex-flow: column;
+        padding-bottom: 50px;
     }
     .links_container_footer {
         width: 600px;

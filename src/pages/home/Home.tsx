@@ -10,6 +10,7 @@ import NinthBlock from "../../components/home/NinthBlock";
 import EighthBlock from "../../components/home/EighthBlock";
 import TenthBlock from "../../components/home/TenthBlock";
 import SocialNetworkButton from "../../components/SocialNetworkButton";
+import ScheduleButton from "../../components/ScheduleButton";
 
 const Home: React.FC<{}> = () => {
     return (
@@ -26,6 +27,7 @@ const Home: React.FC<{}> = () => {
             <TenthBlock />
 
             <SocialNetworkButton />
+            <ScheduleButton />
         </div>
     )
 }
