@@ -1,0 +1,51 @@
+.registration_window {
+    box-sizing: border-box;
+    width: 370px;
+    padding: 35px 35px 40px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    margin: 140px auto auto;
+    height: 500px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+    position: relative;
+}
+.registration_form {
+    display: flex;
+    flex-flow: column;
+    width: 90%;
+}
+.registration_input {
+    margin-top: 30px;
+    border: none;
+    border-bottom: 1px solid #c9c9c9;
+    height: 40px;
+    padding: 20px;
+}
+.password_eye_hidden, .password_eye_shown {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 55px;
+    bottom: 190px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.registration_form_button {
+    background: #333;
+    color: #fff;
+    padding: 10px 50px;
+    border-radius: 30px;
+    border: 1px solid #333;
+    font-size: 16px;
+    width: 250px;
+    margin: 50px auto auto;
+}
+.registration_to_login {
+    text-decoration: none;
+    font-size: 14px;
+    color: #000;
+    margin-top: 25px;
+}

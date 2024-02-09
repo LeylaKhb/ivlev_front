@@ -60,8 +60,6 @@
 }
 .popup_form_radio_div {
     width: 100%;
-    /*display: flex;*/
-    /*justify-content: space-between;*/
 }
 .popup_name_input, .popup_tel_input {
     margin-top: 10px;
