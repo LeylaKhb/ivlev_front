@@ -59,7 +59,9 @@ const SeventhBlock: React.FC = () => {
            <div className="seventh_block">
                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                    <div className="block_info_title">Отзывы наших клиентов</div>
-                   <button className="medium_gradient_button">Телеграм чат</button>
+                   <a href="https://t.me/+nVp-YvKEbJJjOTRi" className="link_header_footer">
+                       <button className="medium_gradient_button">Телеграм чат</button>
+                   </a>
                </div>
                <div className="seventh_reviews" >
                    <div className="seventh_column">
