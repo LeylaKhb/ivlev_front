@@ -42,7 +42,7 @@
     z-index: 100000;
 }
 
-.popup_title {
+.modal_window_title {
     font-size: 20px;
     margin-bottom: 11px;
     font-family: 'Montserrat',Arial,sans-serif;

@@ -20,7 +20,7 @@ class ConsultationPopup extends React.Component<ConsultationPopupProps> {
             onClick={(e) => {this.handleClose(e)}}>
                 <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
                 transform: this.props.isVisible ? "translateY(-50%)" : 'none'}}>
-                    <div className="popup_title">
+                    <div className="modal_window_title">
                         Получите консультацию
                     </div>
                     <div className="popup_desc">
