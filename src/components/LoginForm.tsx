@@ -6,13 +6,51 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
-    let buttonText = location === "registration" ? 'Зарегистрироваться' : 'Войти'
+    const [emailValid, setEmailValid] = useState(true);
+    const [passwordValid, setPasswordValid] = useState(true);
+    let buttonText = location === "registration" ? 'Зарегистрироваться' : 'Войти';
+    let [emailText, setEmailText] = useState("");
+    let [passwordText, setPasswordText] = useState("");
+
+
+    function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
+        let inputValue = e.target.value;
+        setEmailValid(true);
+        setEmailText(inputValue);
+    }
+
+    function checkForm(event: React.FormEvent<HTMLFormElement>) {
+        if(!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+$/.test(emailText))) {
+            setEmailValid(false);
+            event.preventDefault();
+        }
+        else {
+            setEmailValid(true)
+        }
+        if (!(/^[a-zA-Z0-9._-]{6,}$/.test(passwordText))) {
+            setPasswordValid(false);
+            event.preventDefault()
+        }
+        else {
+            setPasswordValid(true);
+        }
+    }
+
+    function handlePasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
+        let inputValue = e.target.value;
+        setPasswordValid(true);
+        setPasswordText(inputValue);
+    }
 
     return (
-        <form action="" method="POST" className="registration_form">
+        <form action="" method="POST" className="registration_form" onSubmit={checkForm}>
             {location === "registration" && <input type="text" className="registration_input" placeholder="Имя"/>}
-            <input type="email" className="registration_input" placeholder="Email"/>
-            <input type={passwordHidden ? "password" : "text"} className="registration_input" placeholder="Пароль"/>
+            <input type="text" className="registration_input" placeholder="Email" onInput={handleEmailInput} />
+            <div className="login_form_error" style={{display: emailValid ? "none" : "initial"}}>Неправильная электронная почта</div>
+            <input type={passwordHidden ? "password" : "text"} className="registration_input" placeholder="Пароль"
+                   onInput={handlePasswordInput}/>
+            <div className="login_form_error" style={{display: passwordValid ? "none" : "initial"}}>Пароль должен быть от 6 символов и содержать буквы латинского алфавита и
+                цифры</div>
             <button type="submit" className="registration_form_button">{buttonText}</button>
             <svg className="password_eye_hidden" focusable="false"
                  style={{display: passwordHidden ? "initial" : "none"}} onClick={() => {setPasswordHidden(false)}}
