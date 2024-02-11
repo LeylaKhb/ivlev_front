@@ -10,7 +10,7 @@ const Login: React.FC = () => {
                 title="Авторизация"
             />
 
-            <div className="login_window" style={{height: 400}}>
+            <div className="login_window" style={{height: 410}}>
                 <div className="modal_window_title">Авторизация</div>
                 <LoginForm location="login" />
                 <div className="login_links">

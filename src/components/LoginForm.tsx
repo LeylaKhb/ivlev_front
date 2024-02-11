@@ -8,9 +8,12 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [emailValid, setEmailValid] = useState(true);
     const [passwordValid, setPasswordValid] = useState(true);
+    const [nameValid, setNameValid] = useState(true);
+
     let buttonText = location === "registration" ? 'Зарегистрироваться' : 'Войти';
     let [emailText, setEmailText] = useState("");
     let [passwordText, setPasswordText] = useState("");
+    let [nameText, setNameText] = useState("");
 
 
     function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -24,15 +27,13 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
             setEmailValid(false);
             event.preventDefault();
         }
-        else {
-            setEmailValid(true)
-        }
         if (!(/^[a-zA-Z0-9._-]{6,}$/.test(passwordText))) {
             setPasswordValid(false);
             event.preventDefault()
         }
-        else {
-            setPasswordValid(true);
+        if (!(/^[a-zA-ZА-Яа-я-]+$/.test(nameText))) {
+            setNameValid(false);
+            event.preventDefault()
         }
     }
 
@@ -42,14 +43,30 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
         setPasswordText(inputValue);
     }
 
+    function handleNameInput(e: React.ChangeEvent<HTMLInputElement>) {
+        let inputValue = e.target.value;
+        setNameValid(true);
+        setNameText(inputValue);
+
+    }
+
     return (
         <form action="" method="POST" className="registration_form" onSubmit={checkForm}>
-            {location === "registration" && <input type="text" className="registration_input" placeholder="Имя"/>}
-            <input type="text" className="registration_input" placeholder="Email" onInput={handleEmailInput} />
-            <div className="login_form_error" style={{display: emailValid ? "none" : "initial"}}>Неправильная электронная почта</div>
-            <input type={passwordHidden ? "password" : "text"} className="registration_input" placeholder="Пароль"
+            {location === "registration" && <input type="text" className="registration_input" onInput={handleNameInput}/>}
+            {location === "registration" && <div className="login_form_label" style={{transform: nameText !== "" ?
+                    'translate(-20px, -20px) scale(0.8)' : "none", bottom:  340}}>Имя</div>}
+            {location === "registration" &&  <div className="login_form_error" style={{display: nameValid ? "none" : "initial",
+                bottom: 318}}>Поле не может быть пустым</div>}
+            <input type="text" className="registration_input" onInput={handleEmailInput} />
+            <label className="login_form_label" style={{transform: emailText !== "" ? 'translate(-20px, -20px) scale(0.8)' : "none"}}>Email</label>
+            <div className="login_form_error" style={{display: emailValid ? "none" : "initial",
+                bottom: 247}}>Неправильная электронная почта</div>
+            <input type={passwordHidden ? "password" : "text"} className="registration_input"
                    onInput={handlePasswordInput}/>
-            <div className="login_form_error" style={{display: passwordValid ? "none" : "initial"}}>Пароль должен быть от 6 символов и содержать буквы латинского алфавита и
+            <div className="login_form_label" style={{transform: passwordText !== "" ? 'translate(-20px, -20px) scale(0.8)' : "none",
+            bottom: 198}}>Пароль</div>
+            <div className="login_form_error" style={{display: passwordValid ? "none" : "initial",
+                    bottom: 176}}>Пароль должен быть от 6 символов и содержать буквы латинского алфавита и
                 цифры</div>
             <button type="submit" className="registration_form_button">{buttonText}</button>
             <svg className="password_eye_hidden" focusable="false"

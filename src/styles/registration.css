@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: center;
     flex-flow: column;
-    height: 500px;
+    height: 510px;
     box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
     position: relative;
     margin-left: 10px;
@@ -61,7 +61,18 @@
     color: red;
     font-size: 13px;
     font-weight: 500;
-    padding-left: 2px;
     height: 10px;
-    margin-top: 3px;
+    position: absolute;
+    left: 55px;
+}
+
+.login_form_label {
+    font-size: 15px;
+    color: #60697B;
+    position: absolute;
+    left: 73px;
+    bottom: 270px;
+    transition: all 0.5s;
+    user-select: none;
+    pointer-events: none;
 }

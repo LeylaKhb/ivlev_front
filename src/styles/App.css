@@ -5,6 +5,9 @@
     font-family: 'Mediator',Arial,sans-serif;
     width: 100%;
 }
+input {
+    outline: none;
+}
 
 @media (prefers-reduced-motion: no-preference) {
     :root {
