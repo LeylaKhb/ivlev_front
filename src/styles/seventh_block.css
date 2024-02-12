@@ -33,12 +33,39 @@
 .review_third_pos_shown {
     display: none;
 }
+.swiper-button-prev-wrap, .swiper-button-next-wrap {
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.3);
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.swiper-button-prev-wrap {
+    left: 15px;
+    padding-left: 10px;
+}
+.swiper-button-next-wrap {
+    right: 15px;
+    padding-right: 10px;
+    transform: translateY(-2px);
+}
+.swiper-button-prev, .swiper-button-next {
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    height: 18px;
+    width: 18px;
+    /*position: absolute;*/
+    cursor: pointer;
+}
 .swiper-button-prev {
-    color: black;
-    height: 20px;
+    transform: rotate(45deg);
 }
 .swiper-button-next {
-    color: black;
+    transform: rotate(225deg);
 }
 .medium_gradient_button {
     font-size: 16px;

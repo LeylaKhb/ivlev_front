@@ -14,7 +14,6 @@ import review_9 from "../../static/review_9.jpeg";
 import review_10 from "../../static/review_10.jpeg";
 import "../../styles/seventh_block.css";
 import 'swiper/css';
-import 'swiper/css/navigation';
 
 
 
@@ -46,7 +45,7 @@ const SeventhBlock: React.FC = () => {
         document.body.style.overflow = "scroll";
     }
 
-    function onKeyPressed(e: any) {
+    function onKeyPressed(e: KeyboardEvent) {
         console.log(e.key)
         if (e.key === "Escape") {
             setSwiperOpen(false);
@@ -99,8 +98,8 @@ const SeventhBlock: React.FC = () => {
                // <div>
                    <Swiper
                        modules={[Navigation, Pagination, Keyboard]}
-                       navigation={{ nextEl: ".swiper-button-next",
-                           prevEl: ".swiper-button-prev",}}
+                       navigation={{ nextEl: ".swiper-button-next-wrap",
+                           prevEl: ".swiper-button-prev-wrap",}}
                        pagination={{ clickable: true }}
                        loop={true}
                        style={{marginLeft: 0, width: '100vw', height: '100vh', display: 'flex', justifyContent: "center",
@@ -112,8 +111,12 @@ const SeventhBlock: React.FC = () => {
                        onKeyPress={onKeyPressed}
                        tabIndex="0"
                    >
-                       <div className="swiper-button-prev"></div>
-                       <div className="swiper-button-next"></div>
+                       <div className="swiper-button-prev-wrap">
+                           <div className="swiper-button-prev"></div>
+                       </div>
+                       <div className="swiper-button-next-wrap">
+                           <div className="swiper-button-next"></div>
+                       </div>
                        {reviews.map((reviewContent, index) => (
                            <SwiperSlide key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center',
                                margin: 'auto'}}>
