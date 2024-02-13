@@ -27,7 +27,7 @@ const SixthBlock: React.FC = () => {
     return (
         <div className="page_content">
             <div className="sixth_block">
-                <ConsultationPopup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse}/>
+                <ConsultationPopup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse} content="form"/>
 
                 <div className="block_info_title">Дополнительные услуги</div>
                 <div className="sixth_services">

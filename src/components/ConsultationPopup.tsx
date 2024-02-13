@@ -1,10 +1,12 @@
 import React from "react";
 import "../styles/consultation_popup.css"
 import ApplicationForm from "./ApplicationForm";
+import PriceForm from "./PriceForm";
 
 interface ConsultationPopupProps {
     isVisible: boolean,
     setVisibleFalse: any;
+    content: string;
 }
 class ConsultationPopup extends React.Component<ConsultationPopupProps> {
     handleClose(e: React.MouseEvent) {
@@ -18,16 +20,25 @@ class ConsultationPopup extends React.Component<ConsultationPopupProps> {
             <div className="consultation_popup" style={{display: this.props.isVisible ? "initial" : "none",
                 opacity: this.props.isVisible ? 1 : 0}}
             onClick={(e) => {this.handleClose(e)}}>
-                <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
+                {this.props.content === "form" &&
+                    <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
                 transform: this.props.isVisible ? "translateY(-50%)" : 'none'}}>
-                    <div className="modal_window_title">
-                        Получите консультацию
+                        <div className="modal_window_title">
+                            Получите консультацию
+                        </div>
+                        <div className="popup_desc">
+                            Оставьте свои контактные данные в форме ниже или позвоните по номеру телефона <br/> 8
+                            (917) 148-66-88
+                        </div>
+                        <ApplicationForm location="popup"/>
                     </div>
-                    <div className="popup_desc">
-                        Оставьте свои контактные данные в форме ниже или позвоните по номеру телефона <br /> 8 (917) 148-66-88
+                }
+                {this.props.content === "price" &&
+                    <div className="popup_window popup_window_price" style={{opacity: this.props.isVisible ? 1 : 0,
+                        transform: this.props.isVisible ? "translateY(-50%)" : 'none'}}>
+                        <PriceForm />
                     </div>
-                    <ApplicationForm location="popup"/>
-                </div>
+                }
                 <div className="popup_cross" onClick={this.props.setVisibleFalse}>
                     <svg role="presentation" className="t-popup__close-icon" width="23px" height="23px"
                          viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg">

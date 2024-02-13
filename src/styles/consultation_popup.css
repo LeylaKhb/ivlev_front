@@ -29,10 +29,10 @@
 }
 @keyframes window-popup {
     from {
-        transform: translateY(-29em);
+        transform: translateY(-29em) scale(0.5);
     }
     to {
-        transform: translateY(-14em);
+        transform: translateY(-14em) scale(1);
     }
 }
 .popup_cross {
@@ -77,10 +77,10 @@
     background-color: rgba(256, 256, 256, 0.2);
     z-index: 4;
     opacity: 0.99;
-    height: 60px;
+    height: 62px;
     width: 1.5em;
     position: absolute;
-    bottom: 30px;
+    bottom: 21px;
     left: 90px;
     display: initial;
 }
@@ -111,7 +111,7 @@
 }
 .popup_span_tel {
     position: absolute;
-    transform: translateY(-55px);
+    transform: translateY(-54px);
 }
 
 @media screen and (max-width: 650px) {

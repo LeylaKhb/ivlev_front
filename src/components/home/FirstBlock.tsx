@@ -37,7 +37,7 @@ const FirstBlock: React.FC = () => {
 
                     <button className="big_gradient_button" onClick={setPopupTrue}>Получить консультацию</button>
                 </div>
-                <ConsultationPopup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse}/>
+                <ConsultationPopup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse}  content="form"/>
 
                 <div className="first_img_cart_div">
                     <img src={cart_and_boxes} className="first_img_cart" alt="cart and boxes"/>

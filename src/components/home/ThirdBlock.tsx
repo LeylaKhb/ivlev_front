@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 
 import background from "../../static/background_with_images.png";
 import "../../styles/third_block.css";
 import SocialNetwork from "../SocialNetwork";
+import ConsultationPopup from "../ConsultationPopup";
 
 
 const FirstBlock: React.FC = () => {
@@ -18,6 +19,16 @@ const FirstBlock: React.FC = () => {
         marginTop: 100,
     };
 
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+    function setPopupTrue() {
+        setIsPopupVisible(true);
+        document.body.style.overflow = "hidden";
+    }
+    function setPopupFalse() {
+        setIsPopupVisible(false);
+        document.body.style.overflow = "scroll";
+    }
+
     return (
         <div className="page_content">
             <div className="background-image" style={backgroundImage}>
@@ -25,9 +36,10 @@ const FirstBlock: React.FC = () => {
                 <div className="background_info_desc">Пройдите небольшой тест, чтобы узнать, сколько будут стоить услуги
                     фулфилмента для вашего бизнеса.</div>
 
-                <button className="big_gradient_button">Узнать стоимость</button>
+                <button className="big_gradient_button" onClick={setPopupTrue}>Узнать стоимость</button>
                 <div className="background_info_desc">Или напишите нам в мессенджер:</div>
                 <SocialNetwork />
+                <ConsultationPopup isVisible={isPopupVisible} setVisibleFalse={setPopupFalse} content="price" />
             </div>
         </div>
     )
