@@ -27,10 +27,16 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
             setEmailValid(false);
             event.preventDefault();
         }
-        if (!(/^[a-zA-Z0-9._-]{6,}$/.test(passwordText))) {
+        const containsLetters = /^.*[a-zA-Z]+.*$/
+        const containsDigits = /^.*[0-9]+.*$/
+        const minimum6Chars = /^.{6,}$/
+        if (!(containsLetters.test(passwordText) &&
+        containsDigits.test(passwordText) &&
+        minimum6Chars.test(passwordText))) {
             setPasswordValid(false);
             event.preventDefault()
         }
+
         if (!(/^[a-zA-ZА-Яа-я-]+$/.test(nameText))) {
             setNameValid(false);
             event.preventDefault()
