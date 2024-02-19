@@ -253,7 +253,6 @@ const PriceForm: React.FC = () => {
                     alignItems: 'center',}}
                 slidesPerView={1}
                 tabIndex="0"
-                scrollEnabled={false }
                 noSwiping={true}
             >
                 {slideTitles.map((reviewContent, index) => (

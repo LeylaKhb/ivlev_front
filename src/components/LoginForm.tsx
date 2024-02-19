@@ -1,4 +1,8 @@
 import React, {useState} from "react";
+import {Person} from "../models/Person";
+import {useNavigate} from "react-router-dom";
+
+
 
 interface LoginFormProps {
     location: string
@@ -6,7 +10,7 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
-    const [emailValid, setEmailValid] = useState(true);
+    const [emailError, setEmailError] = useState("");
     const [passwordValid, setPasswordValid] = useState(true);
     const [nameValid, setNameValid] = useState(true);
 
@@ -14,33 +18,92 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     let [emailText, setEmailText] = useState("");
     let [passwordText, setPasswordText] = useState("");
     let [nameText, setNameText] = useState("");
+    const navigate = useNavigate();
+
 
 
     function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
-        setEmailValid(true);
+        setEmailError("");
         setEmailText(inputValue);
     }
 
-    function checkForm(event: React.FormEvent<HTMLFormElement>) {
+    function checkEmail() {
         if(!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+$/.test(emailText))) {
-            setEmailValid(false);
-            event.preventDefault();
+            setEmailError("Неправильная электронная почта");
+            return false;
         }
+        return true;
+    }
+
+    function checkName() {
+        if (!(/^[a-zA-ZА-Яа-я-]+$/.test(nameText))) {
+            setNameValid(false);
+            return false;
+        }
+        return true;
+    }
+
+    function checkPassword() {
         const containsLetters = /^.*[a-zA-Z]+.*$/
         const containsDigits = /^.*[0-9]+.*$/
         const minimum6Chars = /^.{6,}$/
         if (!(containsLetters.test(passwordText) &&
-        containsDigits.test(passwordText) &&
-        minimum6Chars.test(passwordText))) {
+            containsDigits.test(passwordText) &&
+            minimum6Chars.test(passwordText))) {
             setPasswordValid(false);
-            event.preventDefault()
+            return false;
         }
+        return true;
+    }
 
-        if (!(/^[a-zA-ZА-Яа-я-]+$/.test(nameText))) {
-            setNameValid(false);
-            event.preventDefault()
-        }
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        let email = checkEmail();
+        let name = checkName();
+        let password = checkPassword();
+
+        if (!email || !password) return;
+        if (!name && location === "registration") return;
+
+        let person = new Person(nameText, emailText, passwordText);
+        const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+        let url = location === "registration" ? 'http://localhost:8080/registration' : 'http://localhost:8080/login';
+
+        fetch(url, {
+            // mode: 'no-cors',
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': "*",
+                'X-XSRF-TOKEN': csrfToken
+                // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+                // "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+
+            },
+            body: JSON.stringify(person),
+        }).then(function(response){
+            response.json()
+                .then(function (data) {
+                console.log(data);
+                if (data["header"] !== "error") {
+                    navigate("/");
+                } else {
+                    setEmailError(data["content"]);
+                }
+        })}).catch(function(error) {
+            console.log('There has been a problem with your fetch operation: ' + error.message);
+            // ADD THIS THROW error
+            throw error;
+        });
+        // localStorage.setItem();
+
+        // console.log(response)
+        // const body = await response.json();
+        // console.log(body)
     }
 
     function handlePasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -57,18 +120,19 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     }
 
     return (
-        <form action="" method="POST" className="registration_form" onSubmit={checkForm}>
-            {location === "registration" && <input type="text" className="registration_input" onInput={handleNameInput}/>}
+        <form action="http://localhost:8080/registration" method="POST" className="registration_form" onSubmit={handleSubmit}>
+            {location === "registration" && <input type="text" className="registration_input" onInput={handleNameInput}
+                                                   name="name"/>}
             {location === "registration" && <div className="login_form_label" style={{transform: nameText !== "" ?
                     'translate(-20px, -20px) scale(0.8)' : "none", bottom:  340}}>Имя</div>}
             {location === "registration" &&  <div className="login_form_error" style={{display: nameValid ? "none" : "initial",
                 bottom: 318}}>Поле не может быть пустым</div>}
-            <input type="text" className="registration_input" onInput={handleEmailInput} />
+            <input type="text" className="registration_input" onInput={handleEmailInput} name="email" />
             <label className="login_form_label" style={{transform: emailText !== "" ? 'translate(-20px, -20px) scale(0.8)' : "none"}}>Email</label>
-            <div className="login_form_error" style={{display: emailValid ? "none" : "initial",
-                bottom: 247}}>Неправильная электронная почта</div>
+            <div className="login_form_error" style={{display: emailError === "" ? "none" : "initial",
+                bottom: 247}}>{emailError}</div>
             <input type={passwordHidden ? "password" : "text"} className="registration_input"
-                   onInput={handlePasswordInput}/>
+                   onInput={handlePasswordInput} name="password"/>
             <div className="login_form_label" style={{transform: passwordText !== "" ? 'translate(-20px, -20px) scale(0.8)' : "none",
             bottom: 198}}>Пароль</div>
             <div className="login_form_error" style={{display: passwordValid ? "none" : "initial",
