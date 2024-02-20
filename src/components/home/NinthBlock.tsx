@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../../styles/ninth_block.css"
+import "../../styles/home/ninth_block.css"
 
 const NinthBlock: React.FC = () => {
     const [firstAnswer, setFirstAnswer] = useState(false);

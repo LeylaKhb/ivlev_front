@@ -72,6 +72,9 @@
     font-size: 16px;
     line-height: 1.33;
 }
+.popup_tel_input {
+    position: relative;
+}
 
 @keyframes move-light-popup {
     from {
@@ -112,7 +115,8 @@
 }
 .popup_span_tel {
     position: absolute;
-    transform: translateY(-54px);
+    /*top: 15px;*/
+    transform: translateY(-55px);
 }
 
 @media screen and (max-width: 650px) {

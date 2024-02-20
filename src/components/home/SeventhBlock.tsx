@@ -12,7 +12,7 @@ import review_7 from "../../static/review_7.jpeg";
 import review_8 from "../../static/review_8.jpeg";
 import review_9 from "../../static/review_9.jpeg";
 import review_10 from "../../static/review_10.jpeg";
-import "../../styles/seventh_block.css";
+import "../../styles/home/seventh_block.css";
 import 'swiper/css';
 
 

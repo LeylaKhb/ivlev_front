@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import background from "../../static/background.png";
 import cart_and_boxes from "../../static/cart_and_boxes.png";
-import "../../styles/first_block.css"
+import "../../styles/home/first_block.css"
 import ConsultationPopup from "../ConsultationPopup";
 
 

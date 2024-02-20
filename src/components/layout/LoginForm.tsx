@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import {Person} from "../models/Person";
+import {Person} from "../../models/Person";
 import {useNavigate} from "react-router-dom";
+import Cookies from 'js-cookie';
 
 
 
@@ -69,8 +70,14 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
 
         let person = new Person(nameText, emailText, passwordText);
         const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+        console.log(csrfToken);
+        console.log(Cookies.get('XSRF-TOKEN'));
         let url = location === "registration" ? 'http://localhost:8080/registration' : 'http://localhost:8080/login';
 
+        const jwtToken = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+        console.log(jwtToken);
+        console.log(Cookies.get('jwt'));
+        console.log(document.cookie);
         fetch(url, {
             // mode: 'no-cors',
             method: 'POST',
@@ -88,7 +95,6 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
         }).then(function(response){
             response.json()
                 .then(function (data) {
-                console.log(data);
                 if (data["header"] !== "error") {
                     localStorage.setItem("loggedIn", "true");
                     navigate("/");
@@ -115,6 +121,10 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
 
     function handleNameInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
+        let lastChar = inputValue.charAt(inputValue.length - 1);
+        if(!(/^[a-zA-Zа-яА-Я-]+$/.test(lastChar))) {
+            e.target.value = inputValue.slice(0, -1);
+        }
         setNameValid(true);
         setNameText(inputValue);
 

@@ -2,7 +2,7 @@ import React from "react";
 import warehouse_1 from "../../static/warehouse_1.jpeg";
 import warehouse_2 from "../../static/warehouse_2.jpeg";
 import warehouse_3 from "../../static/warehouse_3.jpeg";
-import "../../styles/second_block.css";
+import "../../styles/home/second_block.css";
 import check from "../../static/check.png";
 import warehouse_arrow from "../../static/warehouse_arrow.png";
 import warehouse_title from "../../static/warehouse_title.png";

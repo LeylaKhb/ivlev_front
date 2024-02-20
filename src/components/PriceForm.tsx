@@ -52,13 +52,10 @@ const PriceForm: React.FC = () => {
     function handleInputText(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
         setDataFourthSlide(inputValue);
-
     }
 
     function changeInputConnectWay(e: React.ChangeEvent<HTMLInputElement>) {
         setDataFifthSlide({ ...dataFifthSlide, selectedRadioInput: e.target.value });
-
-
     }
 
     const slideForms = [
@@ -264,7 +261,9 @@ const PriceForm: React.FC = () => {
                     </SwiperSlide>
                 ))}
                 <SwiperSlide style={{ padding: 20}}>
-                    <ApplicationForm location="popup" />
+                    <ApplicationForm location="popup" priceData={[dataFirstSlide.selectedRadioInput,
+                        dataSecondSlide.selectedRadioInput, dataThirdSlide.selectedRadioInput,
+                    dataFourthSlide, dataFifthSlide.selectedRadioInput]}/>
                 </SwiperSlide>
 
 

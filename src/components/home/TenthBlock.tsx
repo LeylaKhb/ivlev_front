@@ -1,6 +1,6 @@
 import React from "react";
 import background from "../../static/background_with_images.png";
-import "../../styles/tenth_block.css";
+import "../../styles/home/tenth_block.css";
 import ApplicationForm from "../ApplicationForm";
 import SocialNetwork from "../SocialNetwork";
 
@@ -31,7 +31,6 @@ const TenthBlock: React.FC = () => {
                     <div className="contact">
                         Адреса:
                         <br/>г. Самара, ул. Ближняя д. 3
-                        <br/>г. Москва, ул. Бирюлевская 24к1
                     </div>
                     <SocialNetwork />
                 </div>

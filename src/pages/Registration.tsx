@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/registration.css";
+import "../styles/layout/registration.css";
 import {Link} from "react-router-dom";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/layout/LoginForm";
 import {Helmet} from "react-helmet";
 
 const Registration: React.FC = () => {

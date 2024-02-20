@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import background from "../../static/background_with_images.png";
-import "../../styles/third_block.css";
+import "../../styles/home/third_block.css";
 import SocialNetwork from "../SocialNetwork";
 import ConsultationPopup from "../ConsultationPopup";
 
