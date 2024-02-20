@@ -16,8 +16,7 @@ const PriceForm: React.FC = () => {
     const [dataFirstSlide, setDataFirstSlide] = React.useState({
         value1: 'Wildberries',
         value2: 'Ozon',
-        value3: 'Kazan Express',
-        value4: 'Яндекс Маркет',
+        value3: 'Яндекс Маркет',
         selectedRadioInput: 'Wildberries'
     });
     const [dataSecondSlide, setDataSecondSlide] = React.useState({
@@ -94,16 +93,6 @@ const PriceForm: React.FC = () => {
                 <div className="price_radio_indicator" style={{borderColor:'#000000'}}></div>
                 {dataFirstSlide.value3}
             </label>
-            <label className="price_radio_label">
-                <input type="radio"
-                       name="На склад какого маркетплейса необходимо отправить товар"
-                       value={dataFirstSlide.value4}
-                       onChange={changeInputStore}
-                       checked={dataFirstSlide.selectedRadioInput === dataFirstSlide.value4}
-                       className="price_radio"/>
-                <div className="price_radio_indicator" style={{borderColor:'#000000'}}></div>
-                {dataFirstSlide.value4}
-            </label>
         </form>,
         <form >
             <label className="price_radio_label">
@@ -150,7 +139,7 @@ const PriceForm: React.FC = () => {
         <form >
             <label className="price_radio_label">
                 <input type="radio"
-                       name="second slide"
+                       name="third slide"
                        value={dataThirdSlide.value1}
                        onChange={changeInputFirstTime}
                        checked={dataThirdSlide.selectedRadioInput === dataThirdSlide.value1}
@@ -160,7 +149,7 @@ const PriceForm: React.FC = () => {
             </label>
             <label className="price_radio_label">
                 <input type="radio"
-                       name="second slide"
+                       name="third slide"
                        value={dataThirdSlide.value2}
                        onChange={changeInputFirstTime}
                        checked={dataThirdSlide.selectedRadioInput === dataThirdSlide.value2}
@@ -179,7 +168,7 @@ const PriceForm: React.FC = () => {
         <form >
             <label className="price_radio_label">
                 <input type="radio"
-                       name="second slide"
+                       name="fourth slide"
                        value={dataFifthSlide.value1}
                        onChange={changeInputConnectWay}
                        checked={dataFifthSlide.selectedRadioInput === dataFifthSlide.value1}
@@ -189,7 +178,7 @@ const PriceForm: React.FC = () => {
             </label>
             <label className="price_radio_label">
                 <input type="radio"
-                       name="second slide"
+                       name="fourth slide"
                        value={dataFifthSlide.value2}
                        onChange={changeInputConnectWay}
                        checked={dataFifthSlide.selectedRadioInput === dataFifthSlide.value2}
@@ -199,7 +188,7 @@ const PriceForm: React.FC = () => {
             </label>
             <label className="price_radio_label">
                 <input type="radio"
-                       name="second slide"
+                       name="fourth slide"
                        value={dataFifthSlide.value3}
                        onChange={changeInputConnectWay}
                        checked={dataFifthSlide.selectedRadioInput === dataFifthSlide.value3}

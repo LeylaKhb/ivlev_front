@@ -28,12 +28,22 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({handleMenuLinks}) => {
                     <a className="menu_li_link" href="https://t.me/+nVp-YvKEbJJjOTRi">Чат в Telegram</a></li>
                 <li className="menu_li">
                     <a className="menu_li_link" href="/">Наши партнеры</a></li>
-                <li className="menu_li">
-                    <a className="menu_li_link" href="/login">Войти</a>
-                </li>
-                <li className="menu_li">
-                    <a className="menu_li_link" href="/registration">Зарегистрироваться</a>
-                </li>
+                {localStorage.getItem("loggedIn") === null &&
+                    <>
+                        <li className="menu_li">
+                            <a className="menu_li_link" href="/login">Войти</a>
+                        </li>
+                        <li className="menu_li">
+                            <a className="menu_li_link" href="/registration">Зарегистрироваться</a>
+                        </li>
+                    </>
+                }
+
+                {localStorage.getItem("loggedIn") === null &&
+                    <li className="menu_li">
+                        <a className="menu_li_link" href="/personal_account">Личный кабинет</a>
+                    </li>
+                }
             </ul>
         </div>
     )

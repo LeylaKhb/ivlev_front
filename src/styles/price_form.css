@@ -3,6 +3,15 @@
     height: 530px;
     padding: 0;
     box-sizing: border-box;
+    animation: window-popup-price 0.5s ease-in-out;
+}
+@keyframes window-popup-price {
+    from {
+        transform: translateY(-29em) scale(0.5);
+    }
+    to {
+        transform: translateY(-265px) scale(1);
+    }
 }
 .price_slide_content {
     padding: 30px 30px 45px;

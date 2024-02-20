@@ -32,7 +32,7 @@
         transform: translateY(-29em) scale(0.5);
     }
     to {
-        transform: translateY(-14em) scale(1);
+        transform: translateY(-215px) scale(1);
     }
 }
 .popup_cross {
@@ -130,7 +130,7 @@
             transform: translateY(-39em);
         }
         to {
-            transform: translateY(-22em);
+            transform: translateY(-23em);
         }
     }
     .popup_cross {

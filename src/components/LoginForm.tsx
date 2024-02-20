@@ -90,6 +90,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
                 .then(function (data) {
                 console.log(data);
                 if (data["header"] !== "error") {
+                    localStorage.setItem("loggedIn", "true");
                     navigate("/");
                 } else {
                     setEmailError(data["content"]);
