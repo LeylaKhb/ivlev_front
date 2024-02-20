@@ -10,10 +10,10 @@ const SocialNetwork: React.FC = () => {
             <a href="tg://resolve?domain=Ivlevff" >
                 <img src={telegram} alt="telegram" className="soc_network_img"  />
             </a>
-            <a href="https://wa.me/79608293555">
+            <a href="tg://resolve?domain=Ivlevff">
                 <img src={whatsapp} alt="whatsapp" className="soc_network_img"  />
             </a>
-            <a href="viber://chat?number=%2B79608293555">
+            <a href="tg://resolve?domain=Ivlevff">
                 <img src={viber} alt="viber" className="soc_network_img"  />
             </a>
         </div>

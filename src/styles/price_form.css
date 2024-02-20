@@ -173,4 +173,17 @@
     .arrow_price {
         display: none;
     }
+    @keyframes window-popup-price {
+        from {
+            transform: translateY(-39em);
+        }
+        to {
+            transform: translateY(-380px);
+        }
+    }
+    .popup_cross {
+        top: 15px;
+        right: 15px;
+
+    }
 }

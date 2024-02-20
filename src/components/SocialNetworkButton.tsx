@@ -24,7 +24,7 @@ const SocialNetworkButton: React.FC = () => {
                     </g>
                 </svg>
             </label>
-            <a href="viber://chat?number=%2B79608293555" className="viber_link"
+            <a href="tg://resolve?domain=Ivlevff" className="viber_link"
                style={{transform: open ? 'translate(0,-135%)' : "none",
                visibility: open ? 'visible' : "hidden" }}>
                 <img src={viber} alt="viber" style={{ width: '100%'}} />
@@ -34,7 +34,7 @@ const SocialNetworkButton: React.FC = () => {
                    visibility: open ? 'visible' : "hidden" }}>
                 <img src={telegram} alt="telegram" style={{ width: '100%'}}  />
             </a>
-            <a href="https://wa.me/79608293555" className="whatsapp_link"
+            <a href="tg://resolve?domain=Ivlevff" className="whatsapp_link"
                style={{transform: open ? 'translate(0,-375%)' : "none",
                    visibility: open ? 'visible' : "hidden" }}>
                 <img src={whatsapp} alt="whatsapp" style={{ width: '100%'}}/>

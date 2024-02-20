@@ -61,7 +61,8 @@ const Header: React.FC<HeaderProps> = () => {
             }
             {localStorage.getItem("loggedIn") === "true" &&
                 <div className="header_footer_buttons">
-                    <Link to="/personal_account"><button className="registration_button">Личный кабинет</button></Link>
+                    <Link to="/personal_account"><button className="registration_button"
+                    style={{height: 40}}>Личный кабинет</button></Link>
                 </div>
             }
         </header>

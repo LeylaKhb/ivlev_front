@@ -119,6 +119,7 @@ footer {
 .menu_ul {
     text-align: center;
     margin-top: 150px;
+    padding-left: 0;
 }
 .menu_li {
     list-style-type: none;
