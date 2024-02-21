@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import background from "../../static/background_with_images.png";
 import "../../styles/home/third_block.css";
 import SocialNetwork from "../SocialNetwork";
-import ConsultationPopup from "../ConsultationPopup";
+import Popup from "../Popup";
 
 
 const FirstBlock: React.FC = () => {
@@ -39,7 +39,7 @@ const FirstBlock: React.FC = () => {
                 <button className="big_gradient_button" onClick={setPopupTrue}>Узнать стоимость</button>
                 <div className="background_info_desc">Или напишите нам в мессенджер:</div>
                 <SocialNetwork />
-                <ConsultationPopup isVisible={isPopupVisible} setVisibleFalse={setPopupFalse} content="price" />
+                <Popup isVisible={isPopupVisible} setVisibleFalse={setPopupFalse} content="price" />
             </div>
         </div>
     )

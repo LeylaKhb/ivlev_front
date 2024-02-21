@@ -4,7 +4,7 @@ import background from "../../static/background.png";
 import sixth_1 from "../../static/sixth_1.jpeg";
 import sixth_2 from "../../static/sixth_2.jpeg";
 import sixth_3 from "../../static/sixth_3.jpeg";
-import ConsultationPopup from "../ConsultationPopup";
+import Popup from "../Popup";
 
 
 const SixthBlock: React.FC = () => {
@@ -27,7 +27,7 @@ const SixthBlock: React.FC = () => {
     return (
         <div className="page_content">
             <div className="sixth_block">
-                <ConsultationPopup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse} content="form"/>
+                <Popup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse} content="form"/>
 
                 <div className="block_info_title">Дополнительные услуги</div>
                 <div className="sixth_services">

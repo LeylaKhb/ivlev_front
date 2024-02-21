@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import background from "../../static/background.png";
 import cart_and_boxes from "../../static/cart_and_boxes.png";
 import "../../styles/home/first_block.css"
-import ConsultationPopup from "../ConsultationPopup";
+import Popup from "../Popup";
 
 
 const FirstBlock: React.FC = () => {
@@ -37,7 +37,7 @@ const FirstBlock: React.FC = () => {
 
                     <button className="big_gradient_button" onClick={setPopupTrue}>Получить консультацию</button>
                 </div>
-                <ConsultationPopup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse}  content="form"/>
+                <Popup isVisible={isPopupVisible}  setVisibleFalse={setPopupFalse}  content="form"/>
 
                 <div className="first_img_cart_div">
                     <img src={cart_and_boxes} className="first_img_cart" alt="cart and boxes"/>

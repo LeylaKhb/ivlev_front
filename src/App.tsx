@@ -13,8 +13,9 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/registration" element={localStorage.getItem("jwt") === null ?
-                <Registration /> : <PersonalAccount />} />
+            {/*<Route path="/registration" element={localStorage.getItem("jwt") === null ?*/}
+            {/*    <Registration /> : <PersonalAccount />} />*/}
+              <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={localStorage.getItem("jwt") === null ?
                 <Login /> : <PersonalAccount />} />
             <Route path="/personal_account" element={<PersonalAccount />} />

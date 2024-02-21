@@ -1,14 +1,17 @@
 import React from "react";
-import "../styles/consultation_popup.css"
+import "../styles/popup.css"
 import ApplicationForm from "./ApplicationForm";
 import PriceForm from "./PriceForm";
+import ProfileChangeForm from "./ProfileChangeForm";
+import {Person} from "../models/Person";
 
-interface ConsultationPopupProps {
+interface PopupProps {
     isVisible: boolean,
     setVisibleFalse: any;
     content: string;
+    person?: Person;
 }
-class ConsultationPopup extends React.Component<ConsultationPopupProps> {
+class Popup extends React.Component<PopupProps> {
     handleClose(e: React.MouseEvent) {
         const target = e.target as Element;
         const classList = target.classList;
@@ -39,6 +42,14 @@ class ConsultationPopup extends React.Component<ConsultationPopupProps> {
                         <PriceForm />
                     </div>
                 }
+                {this.props.content === "profile" &&
+                    <div className="popup_window popup_window_profile" style={{opacity: this.props.isVisible ? 1 : 0,
+                        transform: this.props.isVisible ? "translateY(-50%)" : 'none'}}>
+                        {this.props.person !== undefined &&
+                            <ProfileChangeForm person={this.props.person}/>
+                        }
+                    </div>
+                }
                 <div className="popup_cross" onClick={this.props.setVisibleFalse}>
                     <svg role="presentation" className="t-popup__close-icon" width="23px" height="23px"
                          viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -56,4 +67,4 @@ class ConsultationPopup extends React.Component<ConsultationPopupProps> {
         )
     }
 }
-export default ConsultationPopup;
+export default Popup;

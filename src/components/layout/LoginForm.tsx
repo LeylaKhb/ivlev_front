@@ -69,27 +69,14 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
         if (!name && location === "registration") return;
 
         let person = new Person(nameText, emailText, passwordText);
-        const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-        console.log(csrfToken);
-        console.log(Cookies.get('XSRF-TOKEN'));
-        let url = location === "registration" ? 'http://localhost:8080/registration' : 'http://localhost:8080/login';
 
-        const jwtToken = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, '$1');
-        console.log(jwtToken);
-        console.log(Cookies.get('jwt'));
-        console.log(document.cookie);
+        let url = location === "registration" ? 'http://localhost:8080/registration' : 'http://localhost:8080/login';
         fetch(url, {
-            // mode: 'no-cors',
             method: 'POST',
             credentials: "same-origin",
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': "*",
-                'X-XSRF-TOKEN': csrfToken
-                // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-                // "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
-
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(person),
         }).then(function(response){
@@ -103,7 +90,6 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
                 }
         })}).catch(function(error) {
             console.log('There has been a problem with your fetch operation: ' + error.message);
-            // ADD THIS THROW error
             throw error;
         });
     }
