@@ -47,19 +47,13 @@ const Header: React.FC<HeaderProps> = () => {
                 <a href="https://t.me/+nVp-YvKEbJJjOTRi" className="link_header_footer">Чат в Telegram</a>
             </div>
 
-            {localStorage.getItem("loggedIn") === null &&
+            {localStorage.getItem("jwt") === null &&
                 <div className="header_footer_buttons">
                     <Link to="/registration"><button className="registration_button">Зарегистрироваться</button></Link>
                     <Link to="/login"><button className="login_button">Войти</button></Link>
                 </div>
             }
-            {localStorage.getItem("loggedIn") === null &&
-                <div className="header_footer_buttons">
-                    <Link to="/registration"><button className="registration_button">Зарегистрироваться</button></Link>
-                    <Link to="/login"><button className="login_button">Войти</button></Link>
-                </div>
-            }
-            {localStorage.getItem("loggedIn") === "true" &&
+            {localStorage.getItem("jwt") !== null &&
                 <div className="header_footer_buttons">
                     <Link to="/personal_account"><button className="registration_button"
                     style={{height: 40}}>Личный кабинет</button></Link>

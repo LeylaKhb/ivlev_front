@@ -96,7 +96,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
             response.json()
                 .then(function (data) {
                 if (data["header"] !== "error") {
-                    localStorage.setItem("loggedIn", "true");
+                    localStorage.setItem("jwt", data["content"]);
                     navigate("/");
                 } else {
                     setEmailError(data["content"]);
@@ -106,11 +106,6 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
             // ADD THIS THROW error
             throw error;
         });
-        // localStorage.setItem();
-
-        // console.log(response)
-        // const body = await response.json();
-        // console.log(body)
     }
 
     function handlePasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -131,7 +126,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     }
 
     return (
-        <form action="http://localhost:8080/registration" method="POST" className="registration_form" onSubmit={handleSubmit}>
+        <form action="" method="POST" className="registration_form" onSubmit={handleSubmit}>
             {location === "registration" && <input type="text" className="registration_input" onInput={handleNameInput}
                                                    name="name"/>}
             {location === "registration" && <div className="login_form_label" style={{transform: nameText !== "" ?
