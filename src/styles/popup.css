@@ -13,7 +13,6 @@
 }
 
 .popup_window {
-    /*display: block;*/
     padding: 50px 45px;
     cursor: default;
     background: #fff;
@@ -111,11 +110,9 @@
     animation: move-light-popup 1.5s ease-in-out infinite;
     background-color: rgba(256, 256, 256, 0.2);
     overflow: hidden;
-    /*z-index: 1;*/
 }
 .popup_span_tel {
     position: absolute;
-    /*top: 15px;*/
     transform: translateY(-55px);
 }
 

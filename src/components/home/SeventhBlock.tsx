@@ -95,41 +95,40 @@ const SeventhBlock: React.FC = () => {
            </div>
 
            {swiperOpen &&
-               // <div>
-                   <Swiper
-                       modules={[Navigation, Pagination, Keyboard]}
-                       navigation={{ nextEl: ".swiper-button-next-wrap",
-                           prevEl: ".swiper-button-prev-wrap",}}
-                       pagination={{ clickable: true }}
-                       loop={true}
-                       style={{marginLeft: 0, width: '100vw', height: '100vh', display: 'flex', justifyContent: "center",
-                           alignItems: 'center', marginBottom: 90,
-                           position: 'fixed', top: 0, zIndex: 999, background: "white"}}
-                       slidesPerView={1}
-                       keyboard={{ enabled: true }}
-                       initialSlide={initialSlide}
-                       onKeyPress={onKeyPressed}
-                       tabIndex="0"
-                   >
-                       <div className="swiper-button-prev-wrap">
-                           <div className="swiper-button-prev"></div>
-                       </div>
-                       <div className="swiper-button-next-wrap">
-                           <div className="swiper-button-next"></div>
-                       </div>
-                       {reviews.map((reviewContent, index) => (
-                           <SwiperSlide key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center',
-                               margin: 'auto'}}>
-                               <div>
-                                   <img src={reviewContent} alt="review" style={{width: '100%'}}/>
-                               </div>
-                               <div className="cross" onClick={handleSwiperClose}>
-                                   ×
-                               </div>
-                           </SwiperSlide>
-                       ))}
+               <Swiper
+                   modules={[Navigation, Pagination, Keyboard]}
+                   navigation={{ nextEl: ".swiper-button-next-wrap",
+                       prevEl: ".swiper-button-prev-wrap",}}
+                   pagination={{ clickable: true }}
+                   loop={true}
+                   style={{marginLeft: 0, width: '100vw', height: '100vh', display: 'flex', justifyContent: "center",
+                       alignItems: 'center', marginBottom: 90,
+                       position: 'fixed', top: 0, zIndex: 999, background: "white"}}
+                   slidesPerView={1}
+                   keyboard={{ enabled: true }}
+                   initialSlide={initialSlide}
+                   onKeyPress={onKeyPressed}
+                   tabIndex="0"
+               >
+                   <div className="swiper-button-prev-wrap">
+                       <div className="swiper-button-prev"></div>
+                   </div>
+                   <div className="swiper-button-next-wrap">
+                       <div className="swiper-button-next"></div>
+                   </div>
+                   {reviews.map((reviewContent, index) => (
+                       <SwiperSlide key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center',
+                           margin: 'auto'}}>
+                           <div>
+                               <img src={reviewContent} alt="review" style={{width: '100%'}}/>
+                           </div>
+                           <div className="cross" onClick={handleSwiperClose}>
+                               ×
+                           </div>
+                       </SwiperSlide>
+                   ))}
 
-                   </Swiper>
+               </Swiper>
            }
        </div>
     )

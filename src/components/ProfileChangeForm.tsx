@@ -10,7 +10,7 @@ interface ProfileChangeFormProps {
 const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person, openSecondPopup}) => {
     return (
         <div className="profile_change_div_form">
-            Изменить профиль
+            <label style={{fontWeight: 600}}>Изменить профиль</label>
             <form className="change_profile_form">
                 <div className="change_photo_div">
                     <img src={person.photo} alt="user profile" />
