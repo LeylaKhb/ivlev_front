@@ -4,9 +4,10 @@ import "../styles/profile_change_form.css";
 
 interface ProfileChangeFormProps {
     person: Person;
+    openSecondPopup: any
 }
 
-const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person}) => {
+const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person, openSecondPopup}) => {
     return (
         <div className="profile_change_div_form">
             Изменить профиль
@@ -26,7 +27,7 @@ const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person}) => {
 
                 <div className="change_password_div">
                     Пароль
-                    <label className="change_password_button">Изменить</label>
+                    <label className="change_password_button" onClick={openSecondPopup}>Изменить</label>
                 </div>
 
                 <div className="change_profile_buttons" >

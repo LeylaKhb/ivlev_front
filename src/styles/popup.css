@@ -1,5 +1,5 @@
 .consultation_popup {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
@@ -13,7 +13,7 @@
 }
 
 .popup_window {
-    display: block;
+    /*display: block;*/
     padding: 50px 45px;
     cursor: default;
     background: #fff;

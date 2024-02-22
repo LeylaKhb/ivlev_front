@@ -4,19 +4,34 @@ import ApplicationForm from "./ApplicationForm";
 import PriceForm from "./PriceForm";
 import ProfileChangeForm from "./ProfileChangeForm";
 import {Person} from "../models/Person";
+import ChangePasswordForm from "./ChangePasswordForm";
 
 interface PopupProps {
     isVisible: boolean,
     setVisibleFalse: any;
+    openSecondPopup?: any;
     content: string;
     person?: Person;
 }
-class Popup extends React.Component<PopupProps> {
+interface PopupState {
+    key: number;
+}
+class Popup extends React.Component<PopupProps, PopupState> {
+    constructor(props: PopupProps) {
+        super(props);
+        this.state = {key: 1};
+    }
     handleClose(e: React.MouseEvent) {
         const target = e.target as Element;
         const classList = target.classList;
-        if (classList.contains("consultation_popup") || classList.contains("popup_cross"))
+        if (classList.contains("consultation_popup") || classList.contains("popup_cross") || classList.contains("cancel_changes")) {
             this.props.setVisibleFalse();
+            this.setState({key: this.state.key + 1});
+        }
+    }
+
+    close() {
+        this.props.setVisibleFalse();
     }
     render() {
         return (
@@ -25,7 +40,7 @@ class Popup extends React.Component<PopupProps> {
             onClick={(e) => {this.handleClose(e)}}>
                 {this.props.content === "form" &&
                     <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
-                transform: this.props.isVisible ? "translateY(-50%)" : 'none'}}>
+                transform: "translateY(-50%)"}}>
                         <div className="modal_window_title">
                             Получите консультацию
                         </div>
@@ -38,15 +53,22 @@ class Popup extends React.Component<PopupProps> {
                 }
                 {this.props.content === "price" &&
                     <div className="popup_window popup_window_price" style={{opacity: this.props.isVisible ? 1 : 0,
-                        transform: this.props.isVisible ? "translateY(-50%)" : 'none'}}>
+                        transform: "translateY(-50%)"}}>
                         <PriceForm />
+                    </div>
+                }
+                {this.props.content === "change_password" &&
+                    <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
+                        transform: "translateY(-50%)", padding: '40px 51px'}}>
+                        <ChangePasswordForm />
                     </div>
                 }
                 {this.props.content === "profile" &&
                     <div className="popup_window popup_window_profile" style={{opacity: this.props.isVisible ? 1 : 0,
-                        transform: this.props.isVisible ? "translateY(-50%)" : 'none'}}>
+                        transform: "translateY(-50%)"}}>
                         {this.props.person !== undefined &&
-                            <ProfileChangeForm person={this.props.person}/>
+                            <ProfileChangeForm person={this.props.person} key={this.state.key}
+                                               openSecondPopup={this.props.openSecondPopup}/>
                         }
                     </div>
                 }

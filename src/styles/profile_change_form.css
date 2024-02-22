@@ -1,8 +1,9 @@
 .popup_window_profile {
     height: 650px;
     width: 460px;
+    transition: all 0.5s ease-in-out;
     animation: window-popup-profile 0.5s ease-in-out;
-
+    /*position: relative;*/
 }
 
 @keyframes window-popup-profile {
@@ -10,7 +11,7 @@
         transform: translateY(-29em) scale(0.5);
     }
     to {
-        transform: translateY(-215px) scale(1);
+        transform: translateY(-325px) scale(1);
     }
 }
 .profile_change_div_form {
@@ -101,4 +102,15 @@
 .submit_changes {
     background-color: #000000;
     color: white;
+}
+
+.change_password_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+
 }

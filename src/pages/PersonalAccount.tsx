@@ -1,6 +1,5 @@
 import React from "react";
 import {Person} from "../models/Person";
-import user_profile from "../static/user_profile.png";
 import "../styles/personal_account.css";
 import {Link} from "react-router-dom";
 import background from "../static/background.png";
@@ -11,7 +10,8 @@ interface PersonalAccountProps {
 
 interface PersonalAccountState {
     person: Person;
-    isPopupVisible: boolean;
+    isFirstPopupVisible: boolean;
+    isSecondPopupVisible: boolean;
 }
 
 class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAccountState> {
@@ -19,11 +19,14 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
         super(props);
         this.state = {
             person: new Person("", "", ""),
-            isPopupVisible: false
+            isFirstPopupVisible: false,
+            isSecondPopupVisible: false
         };
 
-        this.setPopupFalse = this.setPopupFalse.bind(this);
-        this.setPopupTrue = this.setPopupTrue.bind(this);
+        this.setFirstPopupFalse = this.setFirstPopupFalse.bind(this);
+        this.setFirstPopupTrue = this.setFirstPopupTrue.bind(this);
+        this.setSecondPopupFalse = this.setSecondPopupFalse.bind(this);
+        this.setSecondPopupTrue = this.setSecondPopupTrue.bind(this);
 
     }
     componentDidMount() {
@@ -44,13 +47,23 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
         })
     }
 
-    setPopupFalse() {
-        this.setState({isPopupVisible: false});
+    setFirstPopupFalse() {
+        this.setState({isFirstPopupVisible: false});
         document.body.style.overflow = "scroll";
     }
 
-    setPopupTrue() {
-        this.setState({isPopupVisible: true});
+    setFirstPopupTrue() {
+        this.setState({isFirstPopupVisible: true});
+        document.body.style.overflow = "hidden";
+    }
+
+    setSecondPopupFalse() {
+        this.setState({isSecondPopupVisible: false});
+        document.body.style.overflow = "scroll";
+    }
+
+    setSecondPopupTrue() {
+        this.setState({isSecondPopupVisible: true});
         document.body.style.overflow = "hidden";
     }
 
@@ -76,7 +89,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                         </div>
                     </div>
                     <div style={{display: 'flex', flexFlow: 'column'}} >
-                        <button className="personal_change_info" onClick={me.setPopupTrue}>Изменить данные</button>
+                        <button className="personal_change_info" onClick={me.setFirstPopupTrue}>Изменить данные</button>
                         <button className="personal_logout_button">Выйти из аккаунта</button>
                     </div>
                 </div>
@@ -89,8 +102,11 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                         <div className="person_order_button">История заказов</div>
                     </Link>
                 </div>
-                <Popup isVisible={me.state.isPopupVisible} setVisibleFalse={me.setPopupFalse} content="profile"
-                       person={me.state.person}/>
+                <Popup isVisible={me.state.isFirstPopupVisible} setVisibleFalse={me.setFirstPopupFalse} content="profile"
+                       person={me.state.person} openSecondPopup={this.setSecondPopupTrue}/>
+                <Popup isVisible={me.state.isSecondPopupVisible} setVisibleFalse={me.setSecondPopupFalse}
+                       content="change_password" />
+
             </div>
         )
     }

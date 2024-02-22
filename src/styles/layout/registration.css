@@ -26,6 +26,7 @@
     height: 40px;
     padding: 20px;
     font-size: 15px;
+    width: 100%;
 }
 .password_eye_hidden, .password_eye_shown {
     width: 20px;
@@ -75,4 +76,5 @@
     transition: all 0.5s;
     user-select: none;
     pointer-events: none;
+    font-weight: 400;
 }
