@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import PersonalAccount from "./pages/PersonalAccount";
+import Schedule from "./pages/Schedule";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/login" element={localStorage.getItem("jwt") === null ?
                 <Login /> : <PersonalAccount />} />
             <Route path="/personal_account" element={<PersonalAccount />} />
+            <Route path="/schedule" element={<Schedule />} />
           </Routes>
         </Layout>
       </BrowserRouter>
