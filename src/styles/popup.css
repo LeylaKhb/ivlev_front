@@ -1,5 +1,5 @@
 .consultation_popup {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -129,10 +129,10 @@
     }
     @keyframes window-popup {
         from {
-            transform: translateY(-39em);
+            transform: translateY(-45em);
         }
         to {
-            transform: translateY(-420px);
+            transform: translateY(-350px);
         }
     }
     .popup_cross {

@@ -111,3 +111,11 @@
     font-size: 20px;
 
 }
+
+@media screen and (max-width: 510px) {
+    .popup_window_profile {
+        margin-left: 3%;
+        margin-right: 3%;
+        width: 95%;
+    }
+}

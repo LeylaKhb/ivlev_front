@@ -78,9 +78,9 @@ const ChangePasswordForm: React.FC = () => {
             <br />
             <br />
 
-            <PasswordForm handleInput={handleFirstPasswordInput} error={firstPasswordError} bottom={288}
+            <PasswordForm handleInput={handleFirstPasswordInput} error={firstPasswordError} top={130}
                           passwordText={firstPasswordText} label="Текущий пароль"/>
-            <PasswordForm handleInput={handleSecondPasswordInput} error={secondPasswordError} bottom={218}
+            <PasswordForm handleInput={handleSecondPasswordInput} error={secondPasswordError} top={200}
                           passwordText={secondPasswordText} label="Новый пароль"/>
             <button type="submit" className="registration_form_button" onClick={handleChangeClick}>Изменить пароль</button>
             <label style={{display: success ? 'initial' : 'none', color: 'green', marginTop: 25, fontSize: 17}}>Пароль успешно изменён</label>

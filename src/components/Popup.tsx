@@ -58,7 +58,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
                     </div>
                 }
                 {this.props.content === "change_password" &&
-                    <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
+                    <div className="popup_window popup" style={{opacity: this.props.isVisible ? 1 : 0,
                         transform: "translateY(-50%)", padding: '40px 51px'}}>
                         <ChangePasswordForm />
                     </div>

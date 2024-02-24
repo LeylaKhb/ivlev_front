@@ -42,6 +42,7 @@
 .person_order_button {
     color: white;
     font-size: 30px;
+    text-align: center;
 }
 .person_order_link {
     text-decoration: none;

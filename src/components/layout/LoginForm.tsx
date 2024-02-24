@@ -122,7 +122,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
             <label className="login_form_label" style={{transform: emailText !== "" ? 'translate(-20px, -20px) scale(0.8)' : "none"}}>Email</label>
             <div className="login_form_error" style={{display: emailError === "" ? "none" : "initial",
                 bottom: 247}}>{emailError}</div>
-            <PasswordForm handleInput={handlePasswordInput} error={passwordError} bottom={198} passwordText={passwordText} label="Пароль"/>
+            <PasswordForm handleInput={handlePasswordInput} error={passwordError} top={295} passwordText={passwordText} label="Пароль"/>
             <button type="submit" className="registration_form_button">{buttonText}</button>
 
         </form>
