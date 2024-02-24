@@ -14,12 +14,14 @@ const ChangePasswordForm: React.FC = () => {
         let inputValue = e.target.value;
         setFirstPasswordVError("");
         setFirstPasswordText(inputValue);
+        setSuccess(false);
     }
 
     function handleSecondPasswordInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
         setSecondPasswordVError("");
         setSecondPasswordText(inputValue);
+        setSuccess(false);
     }
 
     function checkPassword() {
@@ -50,12 +52,15 @@ const ChangePasswordForm: React.FC = () => {
                 'Accept': 'application/json',
                 'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
             },
-            body: firstPasswordText
+            body: JSON.stringify({
+                "old": firstPasswordText,
+                "new": secondPasswordText
+            })
         }).then(function (resp) {
             resp.json()
                 .then(function (data) {
                     if (data["header"] === "error") {
-                        setFirstPasswordVError("Неверный пароль");
+                        setFirstPasswordVError(data["content"]);
                         return;
                     } else {
                        setSuccess(true);
