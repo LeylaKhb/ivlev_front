@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 import logo from "../../static/logo.png"
 import React, {useState} from "react";
-import "../../styles/dropdown.scss";
 import MenuHeader from "./MenuHeader";
 
 interface HeaderProps {

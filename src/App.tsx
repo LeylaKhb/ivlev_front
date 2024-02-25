@@ -7,6 +7,7 @@ import Registration from "./pages/Registration";
 import Login from "./pages/Login";
 import PersonalAccount from "./pages/PersonalAccount";
 import Schedule from "./pages/Schedule";
+import Calculator from "./pages/Calculator";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                 <Login /> : <PersonalAccount />} />
             <Route path="/personal_account" element={<PersonalAccount />} />
             <Route path="/schedule" element={<Schedule />} />
+            <Route path="/calculator" element={<Calculator />} />
           </Routes>
         </Layout>
       </BrowserRouter>
