@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import "../styles/application_form.css"
-import {Request} from "../models/Request";
+import {AnswerRequest} from "../models/AnswerRequest";
 
 
 interface ApplicationFormProps {
@@ -62,13 +62,13 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
         }
         let req;
         if (priceData) {
-            req = new Request(nameInput, telInput, priceData[0], priceData[1], priceData[2], priceData[3],
+            req = new AnswerRequest(nameInput, telInput, priceData[0], priceData[1], priceData[2], priceData[3],
                 priceData[4]);
         } else {
-            req = new Request(nameInput, "8" + telInput)
+            req = new AnswerRequest(nameInput, "8" + telInput)
         }
 
-        fetch('http://localhost:8080/api/request', {
+        fetch('http://localhost:8080/api/answer_request', {
             // mode: 'no-cors',
             method: 'POST',
             credentials: "same-origin",

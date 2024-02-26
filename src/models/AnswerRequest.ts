@@ -1,4 +1,4 @@
-export class Request {
+export class AnswerRequest {
     name: string | null;
     phoneNumber: string | null;
     store?: string | null;
