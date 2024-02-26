@@ -11,14 +11,16 @@ import EighthBlock from "../components/home/EighthBlock";
 import TenthBlock from "../components/home/TenthBlock";
 import SocialNetworkButton from "../components/SocialNetworkButton";
 import ScheduleButton from "../components/ScheduleButton";
-import {Helmet} from "react-helmet";
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const Home: React.FC<{}> = () => {
     return (
         <div style={{width: '100%'}}>
-            <Helmet
-                title="Фулфилмент в Самаре"
-            />
+                <HelmetProvider>
+                    <Helmet
+                        title="Фулфилмент в Самаре"
+                    />
+                </HelmetProvider>
             <FirstBlock />
             <SecondBlock />
             <ThirdBlock />

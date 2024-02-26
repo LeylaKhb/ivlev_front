@@ -3,6 +3,7 @@ import "../styles/calculator.css";
 import "../styles/dropdown.scss";
 import CalculatorDropdown from "../components/CalculatorDropdown";
 import {PriceRequest} from "../models/PriceRequest";
+import {Helmet, HelmetProvider} from "react-helmet-async";
 
 const Calculator: React.FC = () => {
     const [departureCityIndex, setDepartureCityIndex] = useState(0);
@@ -110,6 +111,11 @@ const Calculator: React.FC = () => {
 
     return (
         <div className="page_content" style={{flexFlow: 'column', minHeight: '90vh'}}>
+            <HelmetProvider>
+                <Helmet
+                    title="Калькулятор"
+                />
+            </HelmetProvider>
             <div className="first_info_title" style={{marginTop: 120}}>
                 Калькулятор заказов
             </div>
