@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/calculator.css";
 import "../styles/dropdown.scss";
 import CalculatorDropdown from "../components/CalculatorDropdown";
+import {PriceRequest} from "../models/PriceRequest";
 
 const Calculator: React.FC = () => {
     const [departureCityIndex, setDepartureCityIndex] = useState(0);
@@ -69,16 +70,23 @@ const Calculator: React.FC = () => {
     }
 
     function countPrice() {
-        let sum = 0;
+        let volume = 0;
+        let wrong = false;
         inputs.map(input => {
-            sum += input["length"] * input["width"] * input["height"] * input["amount"]
-        })
-        let citySend;
+            let current = input["length"] * input["width"] * input["height"] * input["amount"];
+            if (current === 0) {
+                setPrice(-1);
+                wrong = true
+            }
+            volume += current;
+        });
+        if (wrong) return;
+        volume /= 1000000;
+        let citySend = "";
         if (storeIndex === 0) citySend = citiesWildberries[cityWildberriesIndex];
         if (storeIndex === 1) citySend = citiesOzon[cityOzonIndex];
         if (storeIndex === 2) citySend = citiesMarket[cityMarketIndex];
-        fetch('http://localhost:8080/api/request', {
-            // mode: 'no-cors',
+        fetch('http://localhost:8080/api/calculator', {
             method: 'POST',
             credentials: "same-origin",
             headers: {
@@ -86,11 +94,8 @@ const Calculator: React.FC = () => {
                 'Content-Type': 'application/json',
 
             },
-            body: JSON.stringify({
-                "departure": departureCities[departureCityIndex],
-                "send": citySend,
-                "volume": sum
-                }
+            body: JSON.stringify(new PriceRequest(departureCities[departureCityIndex], stores[storeIndex],
+                citySend, volume)
             ),
         }).then(function(resp){
             resp.json()
@@ -101,7 +106,6 @@ const Calculator: React.FC = () => {
             console.log('There has been a problem with your fetch operation: ' + error.message);
             throw error;
         });
-        console.log(sum);
     }
 
     return (
@@ -109,7 +113,8 @@ const Calculator: React.FC = () => {
             <div className="first_info_title" style={{marginTop: 120}}>
                 Калькулятор заказов
             </div>
-            <div style={{visibility: "hidden"}}>Цена доставки: {price}</div>
+            <div style={{visibility: price > 0 ? "visible" : "hidden"}}>Цена доставки: {price} рублей</div>
+            <div style={{visibility: price < 0 ? "visible" : "hidden"}}>Данные введены некорректно</div>
             <label className="calculator_label">Город отправки: </label>
             <CalculatorDropdown  handleSelectClick={handleDepartureCity} items={departureCities}
                                  selectTitle={departureCities[departureCityIndex]}/>

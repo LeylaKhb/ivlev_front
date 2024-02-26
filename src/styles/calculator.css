@@ -10,9 +10,9 @@
     font-size: 16px;
     font-family: 'Montserrat',Arial,sans-serif;
 }
-/*.boxes_div {*/
-/*    width: 45%;*/
-/*}*/
+.boxes_div {
+    width: 45%;
+}
 .inputs_div {
     width: 100%;
     display: flex;
@@ -34,6 +34,7 @@
     border-radius: 5px;
     width: 18%;
     margin-top: 10px;
+    font-size: 15px;
 }
 .plus_box {
     margin-top: 8px;
