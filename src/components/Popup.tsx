@@ -5,6 +5,8 @@ import PriceForm from "./PriceForm";
 import ProfileChangeForm from "./ProfileChangeForm";
 import {Person} from "../models/Person";
 import ChangePasswordForm from "./ChangePasswordForm";
+import ScheduleForm from "./ScheduleForm";
+import {Supply} from "../models/Supply";
 
 interface PopupProps {
     isVisible: boolean,
@@ -12,6 +14,7 @@ interface PopupProps {
     openSecondPopup?: any;
     content: string;
     person?: Person;
+    supply?: Supply;
 }
 interface PopupState {
     key: number;
@@ -58,7 +61,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
                     </div>
                 }
                 {this.props.content === "change_password" &&
-                    <div className="popup_window popup" style={{opacity: this.props.isVisible ? 1 : 0,
+                    <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
                         transform: "translateY(-50%)", padding: '40px 51px'}}>
                         <ChangePasswordForm />
                     </div>
@@ -69,6 +72,14 @@ class Popup extends React.Component<PopupProps, PopupState> {
                         {this.props.person !== undefined &&
                             <ProfileChangeForm person={this.props.person} key={this.state.key}
                                                openSecondPopup={this.props.openSecondPopup}/>
+                        }
+                    </div>
+                }
+                {this.props.content === "schedule_form" &&
+                    <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
+                        transform: "translateY(-50%)"}}>
+                        {this.props.supply !== undefined &&
+                            <ScheduleForm supply={this.props.supply}/>
                         }
                     </div>
                 }

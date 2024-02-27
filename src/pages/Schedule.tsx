@@ -4,6 +4,9 @@ import FirstBlock from "../components/schedule/FirstBlock";
 import CalcuatorBlock from "../components/schedule/CalcuatorBlock";
 import {Helmet, HelmetProvider} from "react-helmet-async";
 import {Supply} from "../models/Supply";
+import { format } from 'date-fns';
+import Popup from "../components/Popup";
+
 
 
 interface ScheduleProps {
@@ -11,6 +14,7 @@ interface ScheduleProps {
 
 interface ScheduleState {
     supplies: Supply[];
+    isPopupVisible: boolean[]
 }
 
 class Schedule extends React.Component<ScheduleProps, ScheduleState> {
@@ -18,8 +22,22 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         super(props);
 
         this.state = {
-            supplies: []
+            supplies: [],
+            isPopupVisible: []
         }
+    }
+
+     setPopupTrue(index: number) {
+        let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
+        copy[index] = true;
+        this.setState({isPopupVisible: copy});
+        document.body.style.overflow = "hidden";
+    }
+     setPopupFalse(index: number) {
+         let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
+         copy[index] = false;
+         this.setState({isPopupVisible: copy});
+         document.body.style.overflow = "scroll";
     }
 
     componentDidMount() {
@@ -34,17 +52,23 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
             // console.log(resp);
             resp.json()
                 .then(function (data) {
-                    console.log(data)
-                    // me.setState({
-                    //     supplies: data});
+                    me.setState({supplies: data})
                 })
-        })
-        console.log(me.state.supplies)
+        });
+        console.log(this.state.supplies);
+    }
+
+    getWeekDay(acceptanceDate: Date) {
+        let days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
+        return days[new Date(acceptanceDate).getDay()];
     }
 
     render() {
+        let me = this;
+
         return (
-            <div className="page_content" style={{ flexFlow: "column"}}>
+            <div className="page_content" style={{ flexFlow: "column", height: '100vh'}}>
                 <HelmetProvider>
                     <Helmet
                         title="Расписание поставок"
@@ -53,6 +77,33 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
 
                 <FirstBlock />
                 <CalcuatorBlock />
+
+                <div className="table_header">
+                    <label className="first_column_schedule">Дата поставки</label>
+                    <label className="second_column_schedule">Город отправки</label>
+                    <label className="third_column_schedule">Отправка на склад</label>
+                    <label className="fourth_column_schedule">Записаться</label>
+                </div>
+
+                {me.state.supplies.map((value, index) => (
+                    <div className="table_row" key={index} style={{backgroundColor: index % 2 === 0 ? '#f2f2f2' : 'white'}}>
+                        <label className="first_column_schedule" style={{top: (index + 1) * 9}}>
+                            {format(value.departureDate, "dd.MM.yy")} ({this.getWeekDay(value.acceptanceDate)})
+                            <label className="first_column_schedule" style={{top: (index + 1) * 19, fontSize: 12}}>
+                                Приём до {format(value.acceptanceDate, "dd.MM")}
+                            </label>
+                        </label>
+                        <label className="second_column_schedule" style={{top: (index + 1) * 17}}>{value.departureCities
+                            .map(departureCity => departureCity.cityName)
+                            .join(", ")}</label>
+                        <label className="third_column_schedule" style={{top: (index + 1) * 17}}>{value.title}</label>
+                        <label className="fourth_column_schedule" style={{top: (index + 1) * 12}}>
+                            <button className="sign_up_schedule_button" onClick={() => this.setPopupTrue(index)}>Записаться</button>
+                        </label>
+                        <Popup isVisible={me.state.isPopupVisible[index]} setVisibleFalse={() => me.setPopupFalse(index)}
+                               content="schedule_form" supply={this.state.supplies[index]}/>
+                    </div>
+                ))}
 
             </div>
         )

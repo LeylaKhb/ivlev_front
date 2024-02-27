@@ -32,6 +32,49 @@
     position: relative;
 }
 
+.table_row, .table_header {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    position: relative;
+    border-bottom: 1px solid #cbcbcb;
+    height: 50px;
+
+}
+.first_column_schedule, .second_column_schedule, .third_column_schedule, .fourth_column_schedule {
+    position: absolute;
+    top: 19px;
+    left: 2%;
+}
+.second_column_schedule {
+    left: 20%;
+}
+.third_column_schedule {
+    left: 45%
+}
+.fourth_column_schedule {
+    left: 88%;
+}
+
+.table_header {
+    font-size: 14px;
+    color: #575F6E;
+}
+.table_row {
+    font-size: 16px;
+    color: #242731;
+    font-family: 'Mediator', Arial, sans-serif;
+}
+.sign_up_schedule_button {
+    color: #b752c9;
+    border: 1px solid #b752c9;
+    border-radius: 6px;
+    background-color: white;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 25px;
+}
+
 @media screen and (max-width: 550px) {
     .arrow_calculator_curved {
         display: none;

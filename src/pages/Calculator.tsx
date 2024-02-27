@@ -119,8 +119,8 @@ const Calculator: React.FC = () => {
             <div className="first_info_title" style={{marginTop: 120}}>
                 Калькулятор заказов
             </div>
-            <div style={{visibility: price > 0 ? "visible" : "hidden"}}>Цена доставки: {price} рублей</div>
-            <div style={{visibility: price < 0 ? "visible" : "hidden"}}>Данные введены некорректно</div>
+            <div style={{visibility: price > 0 ? "visible" : "hidden", fontSize: 19}}>Цена доставки: {price} рублей</div>
+            <div style={{visibility: price < 0 ? "visible" : "hidden", fontSize: 19}}>Данные введены некорректно</div>
             <label className="calculator_label">Город отправки: </label>
             <CalculatorDropdown  handleSelectClick={handleDepartureCity} items={departureCities}
                                  selectTitle={departureCities[departureCityIndex]}/>
@@ -145,10 +145,10 @@ const Calculator: React.FC = () => {
             <label className="calculator_label">Коробки (в см): </label>
             <div className="boxes_div">
                 <div className="boxes_labels">
-                    <label>Ширина:</label>
-                    <label>Длина:</label>
-                    <label>Высота:</label>
-                    <label>Количество:</label>
+                    <label style={{position: "absolute", top: -10}}>Ширина:</label>
+                    <label style={{position: "absolute", top: -10, left: '31%'}}>Длина:</label>
+                    <label style={{position: "absolute", top: -10, left: '59%'}}>Высота:</label>
+                    <label style={{position: "absolute", top: -10, left: '87%'}}>Количество:</label>
                 </div>
                 {inputs.map((input, index) =>
                     <div className="inputs_div" key={index}>
@@ -156,7 +156,6 @@ const Calculator: React.FC = () => {
                         <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handleSize(e, index, "height")} placeholder={input.height.toString()}/>
                         <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handleSize(e, index, "width")} placeholder={input.width.toString()}/>
                         <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handleSize(e, index, "amount")} placeholder={input.amount.toString()}/>
-
                     </div>
             )}
             </div>

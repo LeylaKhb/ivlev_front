@@ -1,11 +1,10 @@
-import {Supply} from "./Supply";
 
 export class DepartureCity {
-    supply: Supply;
-    city: string;
+    cityName: string;
 
-    constructor(supply: Supply, city: string) {
-        this.supply = supply;
-        this.city = city;
+    constructor(city: string) {
+        this.cityName = city;
     }
+
+
 }

@@ -9,7 +9,8 @@ export class Supply {
     departureCities: DepartureCity[];
 
 
-    constructor(departureDate: Date, acceptanceDate: Date, title: string, warehouses: DestinationWarehouse[], departureCities: DepartureCity[]) {
+    constructor(departureDate: Date, acceptanceDate: Date, title: string, warehouses: DestinationWarehouse[],
+                departureCities: DepartureCity[]) {
         this.departureDate = departureDate;
         this.acceptanceDate = acceptanceDate;
         this.title = title;

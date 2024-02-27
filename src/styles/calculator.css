@@ -6,7 +6,7 @@
     margin-top: 30px;
     width: 40%;
     text-align: left;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 16px;
     font-family: 'Montserrat',Arial,sans-serif;
 }
@@ -27,6 +27,7 @@
     justify-content: space-between;
     padding-left: 2%;
     margin-top: 10px;
+    position: relative;
 }
 .sizes_input {
     height: 40px;
@@ -63,4 +64,13 @@
     font-size: 17px;
     margin-bottom: 50px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 700px) {
+    .select_calculator {
+        width: 90%;
+    }
+    .boxes_div {
+        width: 80%;
+    }
 }
