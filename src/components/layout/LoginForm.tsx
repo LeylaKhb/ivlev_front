@@ -107,7 +107,6 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
         }
         setNameValid(true);
         setNameText(inputValue);
-
     }
 
     return (

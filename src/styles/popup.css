@@ -113,7 +113,7 @@
 }
 .popup_span_tel {
     position: absolute;
-    transform: translateY(-55px);
+    transform: translateY(-54px);
 }
 
 @media screen and (max-width: 650px) {

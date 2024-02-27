@@ -55,7 +55,6 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                     me.setState({supplies: data})
                 })
         });
-        console.log(this.state.supplies);
     }
 
     getWeekDay(acceptanceDate: Date) {
@@ -68,7 +67,7 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         let me = this;
 
         return (
-            <div className="page_content" style={{ flexFlow: "column", height: '100vh'}}>
+            <div className="page_content" style={{ flexFlow: "column"}}>
                 <HelmetProvider>
                     <Helmet
                         title="Расписание поставок"

@@ -33,8 +33,8 @@
 }
 
 .table_row, .table_header {
-    display: flex;
-    justify-content: space-between;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
     width: 80%;
     position: relative;
     border-bottom: 1px solid #cbcbcb;
@@ -45,6 +45,7 @@
     position: absolute;
     top: 19px;
     left: 2%;
+    height: 50px;
 }
 .second_column_schedule {
     left: 20%;
@@ -63,7 +64,7 @@
 .table_row {
     font-size: 16px;
     color: #242731;
-    font-family: 'Mediator', Arial, sans-serif;
+    /*font-family: 'Mediator', Arial, sans-serif;*/
 }
 .sign_up_schedule_button {
     color: #b752c9;
@@ -73,6 +74,7 @@
     padding-right: 10px;
     padding-left: 10px;
     height: 25px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 550px) {

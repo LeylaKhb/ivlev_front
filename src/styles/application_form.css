@@ -36,7 +36,8 @@
     padding: 15px 15px 15px 30px;
 }
 .span_tel {
-    transform: translate(-242px, 16px);
+    position: absolute;
+    transform: translate(10px, -49px);
 }
 
 .application_form {
@@ -71,7 +72,7 @@
         margin-left: 10px;
     }
     .span_tel {
-        transform: translate(-196px, 16px);
+        transform: translate(20px, -49px);
     }
 }
 @media screen and (max-width: 650px) {
@@ -98,6 +99,6 @@
         margin-top: 0;
     }
     .span_tel {
-        transform: translate(-85px, -38px);
+        transform: translate(10px, -38px);
     }
 }

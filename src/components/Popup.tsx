@@ -76,7 +76,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
                     </div>
                 }
                 {this.props.content === "schedule_form" &&
-                    <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
+                    <div className="popup_window popup_schedule" style={{opacity: this.props.isVisible ? 1 : 0,
                         transform: "translateY(-50%)"}}>
                         {this.props.supply !== undefined &&
                             <ScheduleForm supply={this.props.supply}/>

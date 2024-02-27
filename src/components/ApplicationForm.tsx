@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "../styles/application_form.css"
 import {AnswerRequest} from "../models/AnswerRequest";
+import PhoneForm from "./PhoneForm";
 
 
 interface ApplicationFormProps {
@@ -15,28 +16,6 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
     const [telInput, setTelInput] = useState("");
     const [nameInput, setNameInput] = useState("");
     const [success, setSuccess] = useState(false);
-    function handleTelInput(e: React.ChangeEvent<HTMLInputElement>) {
-        setTelError("");
-
-        let inputValue = e.target.value;
-        let lastChar = inputValue.charAt(inputValue.length - 1);
-        if (isNaN(Number(lastChar)) || (lastChar === ' ') || (inputValue.length === 16)) {
-            e.target.value = inputValue.slice(0, -1);
-            if (inputValue.endsWith(") "))
-                e.target.value = inputValue.slice(0, -2);
-            return;
-        }
-
-        setTelInput(telInput + lastChar);
-        if (inputValue.length === 1)
-            e.target.value = '(' + inputValue;
-        if (inputValue.length === 5)
-            e.target.value = inputValue.slice(0,4) + ") " + lastChar;
-        if (inputValue.length === 10)
-            e.target.value = inputValue.slice(0, -1) + "-" + lastChar;
-        if (inputValue.length === 13)
-            e.target.value = inputValue.slice(0, -1) + "-" + lastChar;
-    }
     function handleNameInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
         let lastChar = inputValue.charAt(inputValue.length - 1);
@@ -46,6 +25,11 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
         setNameError("")
         setNameInput(e.target.value);
 
+    }
+
+    function setTelInputToParent(lastChar: string) {
+        setTelInput(telInput + lastChar);
+        setTelError("");
     }
 
     function checkForm(event: React.FormEvent<HTMLFormElement>) {
@@ -109,12 +93,8 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
                            onInput={handleNameInput} />
                     <div className="form_error">{nameError}</div>
                 </div>
-                <div>
-                    <input type="text" className="popup_tel_input" placeholder="(999) 999-99-99"
-                           onInput={handleTelInput} />
-                    <div className="form_error">{telError}</div>
-                    <span className="popup_span_tel">+7</span>
-                </div>
+                <PhoneForm  error={telError} setTelInputToParent={setTelInputToParent} spanClass="popup_span_tel"
+                            inputClass="popup_tel_input"/>
                 <button type="submit" className="popup_form_button">Отправить
                     <div className="popup_button_glare">
                     </div>
@@ -131,12 +111,9 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
                            onInput={handleNameInput}/>
                     <div className="form_error">{nameError}</div>
                 </div>
-                <div>
-                    <input type="text" className="tel_input" placeholder="(999) 999-99-99"
-                           onInput={handleTelInput}/>
-                    <div className="form_error">{telError}</div>
-                </div>
-                <span className="span_tel">+7</span>
+                <PhoneForm  error={telError} setTelInputToParent={setTelInputToParent} inputClass="tel_input"
+                            spanClass="span_tel"/>
+                {/*<span className="span_tel">+7</span>*/}
                 <button type="submit" className="submit_button">Отправить</button>
             </form>
         )
