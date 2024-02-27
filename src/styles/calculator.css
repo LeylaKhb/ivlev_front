@@ -10,8 +10,12 @@
     font-size: 16px;
     font-family: 'Montserrat',Arial,sans-serif;
 }
-.boxes_div {
+.page_content .boxes_div {
     width: 45%;
+}
+.schedule_form .boxes_div {
+    width: 90%;
+    margin-top: 40px;
 }
 .inputs_div {
     width: 100%;
@@ -44,7 +48,8 @@
     height: 30px;
     width: 30px;
     text-align: center;
-    /*margin-right: auto;*/
+    margin-right: auto;
+    margin-left: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,7 +75,7 @@
     .select_calculator {
         width: 90%;
     }
-    .boxes_div {
+    .page_content .boxes_div {
         width: 80%;
     }
 }
