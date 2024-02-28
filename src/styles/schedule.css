@@ -38,20 +38,25 @@
     width: 80%;
     position: relative;
     border-bottom: 1px solid #cbcbcb;
-    height: 50px;
+    height: 60px;
 
 }
 .first_column_schedule, .second_column_schedule, .third_column_schedule, .fourth_column_schedule {
     position: absolute;
-    top: 19px;
+    bottom: 19px;
     left: 2%;
-    height: 50px;
+    /*height: 60px;*/
+
 }
 .second_column_schedule {
     left: 20%;
+    word-wrap: break-word;
+    width: 20%;
 }
 .third_column_schedule {
-    left: 45%
+    left: 48%;
+    width: 40%;
+    word-wrap: break-word;
 }
 .fourth_column_schedule {
     left: 88%;
@@ -75,6 +80,13 @@
     padding-left: 10px;
     height: 25px;
     cursor: pointer;
+    margin-right: 2px;
+}
+
+@media screen and (max-width: 850px) {
+    .second_column_schedule {
+        left: 27%;
+    }
 }
 
 @media screen and (max-width: 550px) {

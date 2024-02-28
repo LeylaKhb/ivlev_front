@@ -6,6 +6,7 @@ import {Helmet, HelmetProvider} from "react-helmet-async";
 import {Supply} from "../models/Supply";
 import { format } from 'date-fns';
 import Popup from "../components/Popup";
+import moment from "moment";
 
 
 
@@ -59,7 +60,6 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
 
     getWeekDay(acceptanceDate: Date) {
         let days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-
         return days[new Date(acceptanceDate).getDay()];
     }
 
@@ -86,18 +86,25 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
 
                 {me.state.supplies.map((value, index) => (
                     <div className="table_row" key={index} style={{backgroundColor: index % 2 === 0 ? '#f2f2f2' : 'white'}}>
-                        <label className="first_column_schedule" style={{top: (index + 1) * 9}}>
-                            {format(value.departureDate, "dd.MM.yy")} ({this.getWeekDay(value.acceptanceDate)})
-                            <label className="first_column_schedule" style={{top: (index + 1) * 19, fontSize: 12}}>
-                                Приём до {format(value.acceptanceDate, "dd.MM")}
-                            </label>
-                        </label>
-                        <label className="second_column_schedule" style={{top: (index + 1) * 17}}>{value.departureCities
+                        {value.departureDate.toString() === '1970-01-01' &&
+                            <label className="first_column_schedule" style={{bottom: 20}}>
+                                Вт, Ср, Пт, Сб
+                            </label>}
+                        {value.departureDate.toString() !== '1970-01-01' &&
+                                <><label className="first_column_schedule" style={{bottom: 30}}>
+                                    {format(value.departureDate, "dd.MM.yy")} ({this.getWeekDay(value.acceptanceDate)})
+                                </label><label className="first_column_schedule" style={{bottom: 17, fontSize: 12}}>
+                                    Приём до {format(value.acceptanceDate, "dd.MM")}
+                                </label></>
+                        }
+                        <label className="second_column_schedule" style={{bottom: 17}}>{value.departureCities
                             .map(departureCity => departureCity.cityName)
                             .join(", ")}</label>
-                        <label className="third_column_schedule" style={{top: (index + 1) * 17}}>{value.title}</label>
-                        <label className="fourth_column_schedule" style={{top: (index + 1) * 12}}>
-                            <button className="sign_up_schedule_button" onClick={() => this.setPopupTrue(index)}>Записаться</button>
+                        <label className="third_column_schedule" style={{bottom: 17}}>{value.title}</label>
+                        <label className="fourth_column_schedule" style={{bottom: 17}}>
+                            <button className="sign_up_schedule_button" onClick={() => this.setPopupTrue(index)}
+                            style={{display: moment().isBefore(moment(value.acceptanceDate)
+                                    .add(22, 'hours'), 'hour') ? "initial" : "none"}}>Записаться</button>
                         </label>
                         <Popup isVisible={me.state.isPopupVisible[index]} setVisibleFalse={() => me.setPopupFalse(index)}
                                content="schedule_form" supply={this.state.supplies[index]}/>

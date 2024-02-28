@@ -1,8 +1,11 @@
 export class DestinationWarehouse {
     warehouseName: string;
+    store: string;
+    sendCity: string
 
-
-    constructor(warehouse: string) {
-        this.warehouseName = warehouse;
+    constructor(warehouseName: string, store: string, sendCity: string) {
+        this.warehouseName = warehouseName;
+        this.store = store;
+        this.sendCity = sendCity;
     }
 }
