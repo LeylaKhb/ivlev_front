@@ -56,13 +56,16 @@ const Calculator: React.FC = () => {
     function countPrice() {
         let volume = 0;
         let wrong = false;
+        let amount = 0;
         inputs.map(input => {
             let current = input["length"] * input["width"] * input["height"] * input["amount"];
             if (current === 0) {
                 setPrice(-1);
-                wrong = true
+                wrong = true;
             }
             volume += current;
+            amount += input["amount"];
+
         });
         if (wrong) return;
         volume /= 1000000;
@@ -79,7 +82,7 @@ const Calculator: React.FC = () => {
 
             },
             body: JSON.stringify(new PriceRequest(departureCities[departureCityIndex], stores[storeIndex],
-                citySend, volume)
+                citySend, volume, false, false, amount)
             ),
         }).then(function(resp){
             resp.json()

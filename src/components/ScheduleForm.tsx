@@ -6,6 +6,9 @@ import BoxSizes from "./BoxSizes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import {PriceRequest} from "../models/PriceRequest";
+import {Orders} from "../models/Orders";
+import {Box} from "../models/Box";
 
 
 
@@ -24,7 +27,9 @@ interface ScheduleFormState {
     selectedDepartureCity: string;
     willTaken: boolean;
     ozonNumber: string;
-    startDate: null | Date
+    departureDate: null | Date;
+    inputsValid: boolean;
+    comment: string
 }
 
 type inputOptions = {
@@ -54,7 +59,9 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             selectedDepartureCity: this.props.supply.departureCities[0].cityName,
             willTaken: false,
             ozonNumber: "",
-            startDate: null
+            departureDate: null,
+            inputsValid: true,
+            comment: ""
         }
 
         this.setTelInputToParent = this.setTelInputToParent.bind(this);
@@ -66,6 +73,11 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         this.changeInputWillTaken = this.changeInputWillTaken.bind(this);
         this.handleOzonNumber = this.handleOzonNumber.bind(this);
         this.isWeekday = this.isWeekday.bind(this);
+        this.handleForm = this.handleForm.bind(this);
+        this.checkPhone = this.checkPhone.bind(this);
+        this.checkName = this.checkName.bind(this);
+        this.sendOrder = this.sendOrder.bind(this);
+        this.handleComment = this.handleComment.bind(this);
     }
 
     isWeekday(date: Date) {
@@ -89,7 +101,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
     }
 
     handleInputs(inputsValues: inputOptions[]){
-        this.setState({inputs: inputsValues})
+        this.setState({inputs: inputsValues, inputsValid: true})
     }
 
     changeInputSupplyType(e: React.ChangeEvent<HTMLInputElement>) {
@@ -112,21 +124,132 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
     handleOzonNumber(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({ozonNumber: e.target.value})
     }
+    checkPhone() {
+        let me = this;
+        if (me.state.telInput.length !== 10) {
+            me.setState({telError: "Номер введён некорректно"});
+            return false;
+        }
+        return true;
+    }
+
+    checkName() {
+        let me = this;
+        if (me.state.nameText.length === 0) {
+            me.setState({nameValid: false});
+            return false;
+        }
+        return true;
+    }
+
+    handleComment(e: React.ChangeEvent<HTMLTextAreaElement>) {
+        this.setState({comment: e.target.value});
+    }
+
+    sendOrder(price: string, volume: number) {
+        let me = this;
+        const state = me.state;
+
+        let departureDate = state.departureDate === null ? me.props.supply.departureDate : state.departureDate;
+        let selectedWarehouse = me.props.supply.warehouses[me.state.selectedStoreIndex];
+        let boxes: Box[] = [];
+
+        state.inputs.map(input => {
+            boxes.push(new Box(input["length"], input["width"], input["height"], input["amount"]));
+        })
+
+        let body = JSON.stringify({
+            order: new Orders(state.nameText, departureDate, "8" + state.telInput, selectedWarehouse.sendCity,
+                state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
+                price, state.willTaken, state.comment, state.ozonNumber),
+            boxes: boxes
+        })
+        console.log(body)
+        fetch('http://localhost:8080/new_order', {
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
+
+            },
+            body: body
+        }).then(function (resp) {
+            resp.json()
+                .then(function (data) {
+                })
+        })
+    }
+    handleForm(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        let me = this;
+
+        let phone = this.checkPhone();
+        let name = this.checkName();
+
+        let volume = 0;
+        let wrong = false;
+        let amount = 0;
+        me.state.inputs.map(input => {
+            let current = input["length"] * input["width"] * input["height"] * input["amount"];
+            if (current === 0) {
+                wrong = true;
+                me.setState({inputsValid: false})
+
+            }
+            volume += current;
+            amount += input["amount"];
+        });
+
+        if (!phone || !name) return;
+        console.log(wrong)
+        if (wrong) return;
+        volume /= 1000000;
+        const supply = me.props.supply;
+        let price = "0";
+
+        console.log(price);
+
+        fetch('http://localhost:8080/api/calculator', {
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify(new PriceRequest(me.state.selectedDepartureCity, supply.warehouses[me.state.selectedStoreIndex].store,
+                supply.warehouses[me.state.selectedStoreIndex].sendCity, volume, me.state.willTaken,
+                me.state.dataSupplyType.selectedRadioInput === 'Монопаллет', amount)
+            ),
+        }).then(function (resp) {
+            resp.json()
+                .then(function (data) {
+                    me.sendOrder(data["content"], volume);
+                })
+        })
+
+    }
 
     render() {
         let me = this;
         return (
             <div className="schedule_form">
-                <form>
+                <form onSubmit={this.handleForm}>
                 <div className="modal_window_title">Заполните все необходимые поля</div>
                 <input type="text" className="registration_input" onInput={this.handleNameInput} style={{marginTop: 10}}
                        name="name"/>
                 <div className="login_form_label" style={{transform: me.state.nameText !== "" ?
                         'translate(-20px, -55px) scale(0.8)' : "none", top: 105, left: 64}}>Юридическое лицо</div>
-                <div className="login_form_error" style={{display: me.state.nameValid ? "none" : "initial",
-                    bottom: 318}}>Поле не может быть пустым</div>
+                <div className="form_error" style={{visibility: me.state.nameValid ? "hidden" : "visible",
+                    top: 135, height: 15}}>Поле не может быть пустым</div>
                 <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError} spanClass="popup_span_tel"
                            inputClass="popup_tel_input" />
+                    <div className="schedule_form_title" >Размеры и количество коробок</div>
+
+                    <div className="form_error" style={{visibility: me.state.inputsValid ? "hidden" : "visible",
+                    top: 155}}>Коробки заполнены не корректно</div>
                 <BoxSizes inputs={me.state.inputs} handleInputs={this.handleInputs}/>
 
                 <div className="schedule_form_title">Тип поставки</div>
@@ -166,7 +289,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 <div className="schedule_form_title">Склад</div>
                 <div style={{marginLeft: 13}}>
                     {me.props.supply.warehouses.map((value, index) => (
-                        <label className="price_radio_label">
+                        <label className="price_radio_label" key={index}>
                             <input type="radio"
                                    name="store"
                                    value={index}
@@ -183,14 +306,14 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                     <div>
                         <div className="schedule_form_title">Номер заказа (Ozon)</div>
                         <input type="text" onInput={me.handleOzonNumber} style={{marginTop: 15, marginLeft: 13,
-                            height: 25, width: 300}}/>
+                            height: 25, width: 300}} required={true}/>
                     </div>
                 }
 
                 <div className="schedule_form_title">Город отправки</div>
                 <div style={{marginLeft: 13}}>
-                    {me.props.supply.departureCities.map((value) => (
-                        <label className="price_radio_label">
+                    {me.props.supply.departureCities.map((value, index) => (
+                        <label className="price_radio_label" key={index}>
                             <input type="radio"
                                    name="departure city"
                                    value={value.cityName}
@@ -205,17 +328,18 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 {me.props.supply.departureDate.toString() === '1970-01-01' &&
                     <>
                         <div className="schedule_form_title">Дата отправки</div>
-                        <DatePicker selected={me.state.startDate}
-                                    onChange={(date) => me.setState({startDate: date})}
+                        <DatePicker selected={me.state.departureDate}
+                                    onChange={(date) => me.setState({departureDate: date})}
                                     filterDate={me.isWeekday}
                                     minDate={moment().add(1, 'day').toDate()}
                                     dateFormat={"dd.MM.YYYY"}
+                                    required={true}
                                     placeholderText="Выберите дату..."/>
                     </>
                 }
 
 
-                        <div className="schedule_form_title">Забрать со склада</div>
+                <div className="schedule_form_title">Забрать со склада</div>
                 <div style={{marginLeft: 13}}>
                     <label className="price_radio_label">
                         <input type="radio"
@@ -240,9 +364,10 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 </div>
 
                 <div className="schedule_form_title">Доп. комментарий</div>
-                <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"/>
+                <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
+                onInput={this.handleComment}/>
 
-                <button className="schedule_form_button" >Отправить</button>
+                <button type="submit" className="schedule_form_button">Отправить</button>
                 </form>
 
             </div>
