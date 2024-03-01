@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import PersonalAccount from "./pages/PersonalAccount";
 import Schedule from "./pages/Schedule";
 import Calculator from "./pages/Calculator";
+import CurrentOrders from "./pages/CurrentOrders";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/personal_account" element={<PersonalAccount />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/calculator" element={<Calculator />} />
+            <Route path="/current_orders" element={<CurrentOrders />} />
           </Routes>
         </Layout>
       </BrowserRouter>

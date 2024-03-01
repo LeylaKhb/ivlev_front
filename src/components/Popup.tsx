@@ -7,6 +7,9 @@ import {Person} from "../models/Person";
 import ChangePasswordForm from "./ChangePasswordForm";
 import ScheduleForm from "./ScheduleForm";
 import {Supply} from "../models/Supply";
+import {Link} from "react-router-dom";
+import {Orders} from "../models/Orders";
+import OrderInfo from "./OrderInfo";
 
 interface PopupProps {
     isVisible: boolean,
@@ -15,6 +18,7 @@ interface PopupProps {
     content: string;
     person?: Person;
     supply?: Supply;
+    order?: Orders;
 }
 interface PopupState {
     key: number;
@@ -80,6 +84,26 @@ class Popup extends React.Component<PopupProps, PopupState> {
                         transform: "translateY(-50%)"}}>
                         {this.props.supply !== undefined &&
                             <ScheduleForm supply={this.props.supply}/>
+                        }
+                    </div>
+                }
+                {this.props.content === "schedule_form_error" &&
+                    <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
+                        transform: "translateY(-50%)", alignItems: 'center', justifyContent: 'center', display: "flex",
+                        flexFlow: 'column'}}>
+                        <div className="schedule_login_text">
+                            Пожалуйста войдите в личный кабинет
+                        </div>
+                        <Link to="/login">
+                            <button className="login_schedule">Войти</button>
+                        </Link>
+                    </div>
+                }
+                {this.props.content === "order" &&
+                    <div className="popup_window popup_order" style={{opacity: this.props.isVisible ? 1 : 0,
+                        transform: "translateY(-50%)"}}>
+                        {this.props.order !== undefined &&
+                            <OrderInfo order={this.props.order}/>
                         }
                     </div>
                 }

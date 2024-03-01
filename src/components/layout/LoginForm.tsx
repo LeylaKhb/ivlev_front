@@ -83,7 +83,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
                 .then(function (data) {
                 if (data["header"] !== "error") {
                     localStorage.setItem("jwt", data["content"]);
-                    navigate("/");
+                    navigate("/personal_account");
                 } else {
                     setEmailError(data["content"]);
                 }
@@ -121,7 +121,8 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
             <label className="login_form_label" style={{transform: emailText !== "" ? 'translate(-20px, -20px) scale(0.8)' : "none"}}>Email</label>
             <div className="login_form_error" style={{display: emailError === "" ? "none" : "initial",
                 bottom: 247}}>{emailError}</div>
-            <PasswordForm handleInput={handlePasswordInput} error={passwordError} top={295} passwordText={passwordText} label="Пароль"/>
+            <PasswordForm handleInput={handlePasswordInput} error={passwordError}
+                          top={location === "registration" ? 295 : 195} passwordText={passwordText} label="Пароль"/>
             <button type="submit" className="registration_form_button">{buttonText}</button>
 
         </form>

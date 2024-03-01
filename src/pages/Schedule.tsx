@@ -100,14 +100,20 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                         <label className="second_column_schedule" style={{bottom: 17}}>{value.departureCities
                             .map(departureCity => departureCity.cityName)
                             .join(", ")}</label>
-                        <label className="third_column_schedule" style={{bottom: 17}}>{value.title}</label>
+                        <label className="third_column_schedule" style={{bottom: 17}} >{value.title}</label>
                         <label className="fourth_column_schedule" style={{bottom: 17}}>
                             <button className="sign_up_schedule_button" onClick={() => this.setPopupTrue(index)}
-                            style={{display: moment().isBefore(moment(value.acceptanceDate)
+                            style={{display: moment().add(1, "days").isBefore(moment(value.acceptanceDate)
                                     .add(22, 'hours'), 'hour') ? "initial" : "none"}}>Записаться</button>
                         </label>
-                        <Popup isVisible={me.state.isPopupVisible[index]} setVisibleFalse={() => me.setPopupFalse(index)}
+                        {localStorage.getItem("jwt") !== null &&
+                            <Popup isVisible={me.state.isPopupVisible[index]} setVisibleFalse={() => me.setPopupFalse(index)}
                                content="schedule_form" supply={this.state.supplies[index]}/>
+                        }
+                        {localStorage.getItem("jwt") === null &&
+                            <Popup isVisible={me.state.isPopupVisible[index]} setVisibleFalse={() => me.setPopupFalse(index)}
+                                   content="schedule_form_error"/>
+                        }
                     </div>
                 ))}
 

@@ -1,0 +1,40 @@
+.order_description {
+    text-decoration: underline;
+    color: #1f5bff;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-left: 4%;
+}
+
+.popup_order {
+    height: 650px;
+    animation: window-popup-order 0.5s ease-in-out;
+}
+@keyframes window-popup-order {
+    from {
+        transform: translateY(-29em) scale(0.5);
+    }
+    to {
+        transform: translateY(-325px) scale(1);
+    }
+}
+
+.order_form {
+    margin-top: 15px;
+    font-size: 16px;
+}
+.change_order {
+    border: none;
+    color: white;
+    background-color: black;
+    font-size: 16px;
+    border-radius: 6px;
+    height: 35px;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}

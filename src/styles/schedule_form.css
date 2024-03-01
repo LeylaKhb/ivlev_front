@@ -44,7 +44,9 @@
     border: 1px solid #000;
     padding: 10px;
 }
-
+.schedule_form .modal_window_title {
+    font-size: 17px;
+}
 .react-datepicker__input-container input {
     display: block;
     width: 300px;

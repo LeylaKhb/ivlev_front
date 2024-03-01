@@ -8,6 +8,9 @@
 input, button {
     outline: none;
 }
+button {
+    cursor: pointer;
+}
 
 @media (prefers-reduced-motion: no-preference) {
     :root {

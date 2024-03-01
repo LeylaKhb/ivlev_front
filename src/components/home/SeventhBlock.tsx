@@ -46,7 +46,6 @@ const SeventhBlock: React.FC = () => {
     }
 
     function onKeyPressed(e: KeyboardEvent) {
-        console.log(e.key)
         if (e.key === "Escape") {
             setSwiperOpen(false);
             document.body.style.overflow = "scroll";

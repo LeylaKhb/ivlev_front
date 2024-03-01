@@ -37,7 +37,6 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
 
         if (telInput.length !== 10) {
             setTelError("Номер введён некорректно");
-            console.log(telInput);
             if (nameInput.length === 0) {
                 setNameError("Введите имя");
                 return;

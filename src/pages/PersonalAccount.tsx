@@ -68,6 +68,22 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
         document.body.style.overflow = "hidden";
     }
 
+    handleLogout() {
+        fetch('http://localhost:8080/logout', {
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
+
+            }
+        }).then(function () {
+           localStorage.removeItem("jwt");
+           window.location.assign('http://localhost:3000/');
+        })
+    }
+
     render() {
         let me = this;
         const backgroundImage = {
@@ -97,7 +113,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                     </div>
                     <div style={{display: 'flex', flexFlow: 'column'}} >
                         <button className="personal_change_info" onClick={me.setFirstPopupTrue}>Изменить данные</button>
-                        <button className="personal_logout_button">Выйти из аккаунта</button>
+                        <button className="personal_logout_button" onClick={me.handleLogout}>Выйти из аккаунта</button>
                     </div>
                 </div>
 
