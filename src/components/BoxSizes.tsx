@@ -40,10 +40,10 @@ const BoxSizes: React.FC<BoxSizesProps>= ({inputs,handleInputs}) => {
             </div>
             {inputs.map((input, index) =>
                 <div className="inputs_div" key={index}>
-                    <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "length")} placeholder="0"/>
-                    <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "height")} placeholder="0"/>
-                    <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "width")} placeholder="0"/>
-                    <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "amount")} placeholder="0"/>
+                    <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "length")} defaultValue={input["length"]}/>
+                    <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "height")} defaultValue={input["height"]}/>
+                    <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "width")} defaultValue={input["width"]}/>
+                    <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "amount")} defaultValue={input["amount"]}/>
                 </div>
             )}
             <div className="plus_box" onClick={handlePlusClick}>+</div>

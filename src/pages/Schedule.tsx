@@ -50,7 +50,6 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                 'Accept': 'application/json',
             }
         }).then(function(resp) {
-            // console.log(resp);
             resp.json()
                 .then(function (data) {
                     me.setState({supplies: data})

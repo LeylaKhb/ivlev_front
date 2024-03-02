@@ -7,7 +7,7 @@
 }
 
 .popup_order {
-    height: 650px;
+    height: 700px;
     animation: window-popup-order 0.5s ease-in-out;
 }
 @keyframes window-popup-order {
@@ -15,7 +15,7 @@
         transform: translateY(-29em) scale(0.5);
     }
     to {
-        transform: translateY(-325px) scale(1);
+        transform: translateY(-350px) scale(1);
     }
 }
 

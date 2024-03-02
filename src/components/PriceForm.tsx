@@ -204,7 +204,6 @@ const PriceForm: React.FC = () => {
 
     function handlePriceSlideBack() {
         setSlide(slide - 1);
-        console.log(slide)
         setProgressWidth(((slide - 2) * 20) + '%')
     }
 

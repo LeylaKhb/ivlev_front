@@ -3,11 +3,12 @@ import {Orders} from "../models/Orders";
 
 interface OrderInfoProps {
     order: Orders;
+    openSecondPopup: any
 }
 
-const OrderInfo: React.FC<OrderInfoProps> = ({order}) => {
+const OrderInfo: React.FC<OrderInfoProps> = ({order, openSecondPopup}) => {
     return (
-        <div style={{marginTop: 20}}>
+        <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column'}}>
             <div className="order_form">
                 <strong>Дата заказа: </strong> {order.orderDate === undefined ? "" : order.orderDate.toString()}
             </div>
@@ -35,8 +36,8 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order}) => {
                 <strong>Тип отправки: </strong> {order.supplyType}
             </div>
             <div className="order_form">
-                <strong>Коробки: </strong> {order.boxes?.map((box) => (
-                <div style={{marginBottom: 3}}>{box.length}/{box.width}/{box.height} - {box.amount}</div>
+                <strong>Коробки: </strong> {order.boxes?.map((box, index) => (
+                <div style={{marginBottom: 3}} key={index}>{box.length}/{box.width}/{box.height} - {box.amount}</div>
             ))}
             </div>
             <div className="order_form">
@@ -56,7 +57,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order}) => {
             </div>
 
             {order.changeable &&
-                <button className="change_order">Изменить</button> }
+                <button className="change_order" onClick={openSecondPopup}>Изменить</button> }
         </div>
     )
 }

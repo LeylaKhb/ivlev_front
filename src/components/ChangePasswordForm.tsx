@@ -35,8 +35,6 @@ const ChangePasswordForm: React.FC = () => {
     }
 
     function handleChangeClick() {
-        console.log(firstPasswordText);
-        console.log(secondPasswordText);
         if (!checkPassword()) {
             setSecondPasswordVError("Пароль должен быть от 6 символов и содержать буквы латинского алфавита и цифры");
             return;

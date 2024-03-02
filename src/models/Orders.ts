@@ -13,13 +13,14 @@ export class Orders {
     willTaken: boolean;
     comment: string;
     numberOzon: string;
+    supplyTitle: string;
     boxes?: Box[];
     orderDate?: Date;
     status?: string;
     changeable?: boolean;
 
 
-    constructor(entity: string, departureDate: Date, phoneNumber: string, sendCity: string, departureCity: string, store: string, supplyType: string, volume: number, price: string, willTaken: boolean, comment: string, numberOzon: string, boxes?: Box[], orderDate?: Date, status?: string, changeable? : boolean) {
+    constructor(entity: string, departureDate: Date, phoneNumber: string, sendCity: string, departureCity: string, store: string, supplyType: string, volume: number, price: string, willTaken: boolean, comment: string, numberOzon: string, supplyTitle: string, boxes?: Box[], orderDate?: Date, status?: string, changeable? : boolean) {
         this.entity = entity;
         this.departureDate = departureDate;
         this.phoneNumber = phoneNumber;
@@ -32,6 +33,7 @@ export class Orders {
         this.willTaken = willTaken;
         this.comment = comment;
         this.numberOzon = numberOzon;
+        this.supplyTitle = supplyTitle;
         this.boxes = boxes;
         this.orderDate = orderDate;
         this.status = status;

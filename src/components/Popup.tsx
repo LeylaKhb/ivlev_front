@@ -22,12 +22,38 @@ interface PopupProps {
 }
 interface PopupState {
     key: number;
+    supply: Supply | null;
 }
 class Popup extends React.Component<PopupProps, PopupState> {
     constructor(props: PopupProps) {
         super(props);
-        this.state = {key: 1};
+        this.state = {
+            key: 1,
+            supply: null
+        };
     }
+    componentDidMount() {
+        let me = this;
+        if (me.props.order !== undefined && this.props.supply === undefined) {
+            fetch('http://localhost:8080/api/get_supply', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
+                },
+                body: JSON.stringify({
+                    "departureDate": me.props.order.departureDate,
+                    "title": me.props.order.supplyTitle
+                })
+            }).then(function(resp) {
+                resp.json()
+                    .then(function (data) {
+                        me.setState({supply: data});
+                })
+            });
+        }
+    }
+
     handleClose(e: React.MouseEvent) {
         const target = e.target as Element;
         const classList = target.classList;
@@ -37,9 +63,6 @@ class Popup extends React.Component<PopupProps, PopupState> {
         }
     }
 
-    close() {
-        this.props.setVisibleFalse();
-    }
     render() {
         return (
             <div className="consultation_popup" style={{display: this.props.isVisible ? "initial" : "none",
@@ -85,6 +108,9 @@ class Popup extends React.Component<PopupProps, PopupState> {
                         {this.props.supply !== undefined &&
                             <ScheduleForm supply={this.props.supply}/>
                         }
+                        {this.props.order !== undefined && this.state.supply !== null &&
+                            <ScheduleForm supply={this.state.supply} order={this.props.order}/>
+                        }
                     </div>
                 }
                 {this.props.content === "schedule_form_error" &&
@@ -103,7 +129,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
                     <div className="popup_window popup_order" style={{opacity: this.props.isVisible ? 1 : 0,
                         transform: "translateY(-50%)"}}>
                         {this.props.order !== undefined &&
-                            <OrderInfo order={this.props.order}/>
+                            <OrderInfo order={this.props.order} openSecondPopup={this.props.openSecondPopup}/>
                         }
                     </div>
                 }

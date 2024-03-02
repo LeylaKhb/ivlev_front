@@ -14,6 +14,7 @@ import {Box} from "../models/Box";
 
 interface ScheduleFormProps {
     supply: Supply;
+    order?: Orders;
 }
 
 interface ScheduleFormState {
@@ -43,25 +44,58 @@ type typeOptions = {
 class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState> {
     constructor(props: ScheduleFormProps) {
         super(props);
-        this.state = {
-            telInput: "",
-            telError: "",
-            nameValid: true,
-            nameText: "",
-            inputs: [{length: 0, width: 0, height: 0, amount: 0}],
-            dataSupplyType: {
-                value1: 'Короб',
-                value2: 'Монопаллет',
-                value3: 'Транзит',
-                selectedRadioInput: 'Короб'
-            },
-            selectedStoreIndex: 0,
-            selectedDepartureCity: this.props.supply.departureCities[0].cityName,
-            willTaken: false,
-            ozonNumber: "",
-            departureDate: null,
-            inputsValid: true,
-            comment: ""
+        if (props.order !== undefined) {
+            let inputsVal;
+            if (props.order.boxes !== undefined) {
+                inputsVal = props.order.boxes.map((box) => (
+                    {length: 0, width: 0, height: 0, amount: 0}
+                ))
+            } else {
+                inputsVal = [{length: 0, width: 0, height: 0, amount: 0}]
+            }
+            let selectedIndex = props.supply.warehouses.map(w => w.sendCity)
+                .indexOf(props.order.sendCity);
+            this.state = {
+                telInput: props.order.phoneNumber,
+                telError: "",
+                nameValid: true,
+                nameText: props.order.entity,
+                inputs: inputsVal,
+                dataSupplyType: {
+                    value1: 'Короб',
+                    value2: 'Монопаллет',
+                    value3: 'Транзит',
+                    selectedRadioInput: props.order.supplyType
+                },
+                selectedStoreIndex: selectedIndex,
+                selectedDepartureCity: props.order.departureCity,
+                willTaken: props.order.willTaken,
+                ozonNumber: props.order.numberOzon,
+                departureDate: props.order.departureDate,
+                inputsValid: true,
+                comment: props.order.comment
+            }
+        } else {
+            this.state = {
+                telInput: "",
+                telError: "",
+                nameValid: true,
+                nameText: "",
+                inputs: [{length: 0, width: 0, height: 0, amount: 0}],
+                dataSupplyType: {
+                    value1: 'Короб',
+                    value2: 'Монопаллет',
+                    value3: 'Транзит',
+                    selectedRadioInput: 'Короб'
+                },
+                selectedStoreIndex: 0,
+                selectedDepartureCity: this.props.supply.departureCities[0].cityName,
+                willTaken: false,
+                ozonNumber: "",
+                departureDate: null,
+                inputsValid: true,
+                comment: ""
+            }
         }
 
         this.setTelInputToParent = this.setTelInputToParent.bind(this);
@@ -157,14 +191,12 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         state.inputs.map(input => {
             boxes.push(new Box(input["length"], input["width"], input["height"], input["amount"]));
         })
-
         let body = JSON.stringify({
             order: new Orders(state.nameText, departureDate, "8" + state.telInput, selectedWarehouse.sendCity,
                 state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
-                price, state.willTaken, state.comment, state.ozonNumber),
+                price, state.willTaken, state.comment, state.ozonNumber, me.props.supply.title),
             boxes: boxes
         })
-        console.log(body)
         fetch('http://localhost:8080/new_order', {
             method: 'POST',
             credentials: "same-origin",
@@ -194,20 +226,16 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             if (current === 0) {
                 wrong = true;
                 me.setState({inputsValid: false})
-
             }
             volume += current;
             amount += input["amount"];
         });
 
         if (!phone || !name) return;
-        console.log(wrong)
         if (wrong) return;
         volume /= 1000000;
         const supply = me.props.supply;
         let price = "0";
-
-        console.log(price);
 
         fetch('http://localhost:8080/api/calculator', {
             method: 'POST',
@@ -236,137 +264,137 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         return (
             <div className="schedule_form">
                 <form onSubmit={this.handleForm}>
-                <div className="modal_window_title">Заполните все необходимые поля</div>
-                <input type="text" className="registration_input" onInput={this.handleNameInput} style={{marginTop: 10}}
-                       name="name"/>
-                <div className="login_form_label" style={{transform: me.state.nameText !== "" ?
-                        'translate(-20px, -55px) scale(0.8)' : "none", top: 105, left: 64}}>Юридическое лицо</div>
-                <div className="form_error" style={{visibility: me.state.nameValid ? "hidden" : "visible",
-                    top: 135, height: 15}}>Поле не может быть пустым</div>
-                <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError} spanClass="popup_span_tel"
-                           inputClass="popup_tel_input" />
-                <div className="schedule_form_title" >Размеры и количество коробок</div>
+                    <div className="modal_window_title">Заполните все необходимые поля</div>
+                    <input type="text" className="registration_input" onInput={this.handleNameInput} style={{marginTop: 10}}
+                           name="name" defaultValue={this.state.nameText}/>
+                    <div className="login_form_label" style={{transform: me.state.nameText !== "" ?
+                            'translate(-20px, -55px) scale(0.8)' : "none", top: 105, left: 64}}>Юридическое лицо</div>
+                    <div className="form_error" style={{visibility: me.state.nameValid ? "hidden" : "visible",
+                        top: 135, height: 15}}>Поле не может быть пустым</div>
+                    <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError} spanClass="popup_span_tel"
+                               inputClass="popup_tel_input"  defaultValue={this.state.telInput}/>
+                    <div className="schedule_form_title" >Размеры и количество коробок</div>
 
-                <div className="form_error" style={{visibility: me.state.inputsValid ? "hidden" : "visible",
-                top: 155}}>Коробки заполнены не корректно</div>
-                <BoxSizes inputs={me.state.inputs} handleInputs={this.handleInputs}/>
+                    <div className="form_error" style={{visibility: me.state.inputsValid ? "hidden" : "visible",
+                    top: 155}}>Коробки заполнены не корректно</div>
+                    <BoxSizes inputs={me.state.inputs} handleInputs={this.handleInputs}/>
 
-                <div className="schedule_form_title">Тип поставки</div>
-                <div style={{marginLeft: 13}}>
-                    <label className="price_radio_label">
-                        <input type="radio"
-                               name="supply type"
-                               value={me.state.dataSupplyType.value1}
-                               onChange={this.changeInputSupplyType}
-                               checked={me.state.dataSupplyType.selectedRadioInput === me.state.dataSupplyType.value1}
-                               className="price_radio"/>
-                        <div className="price_radio_indicator"></div>
-                        {me.state.dataSupplyType.value1}
-                    </label>
-                    <label className="price_radio_label">
-                        <input type="radio"
-                               name="supply type"
-                               value={me.state.dataSupplyType.value2}
-                               onChange={this.changeInputSupplyType}
-                               checked={me.state.dataSupplyType.selectedRadioInput === me.state.dataSupplyType.value2}
-                               className="price_radio"/>
-                        <div className="price_radio_indicator"></div>
-                        {me.state.dataSupplyType.value2}
-                    </label>
-                    <label className="price_radio_label">
-                        <input type="radio"
-                               name="supply type"
-                               value={me.state.dataSupplyType.value3}
-                               onChange={this.changeInputSupplyType}
-                               checked={me.state.dataSupplyType.selectedRadioInput === me.state.dataSupplyType.value3}
-                               className="price_radio"/>
-                        <div className="price_radio_indicator" style={{borderColor:'#000000'}}></div>
-                        {me.state.dataSupplyType.value3}
-                    </label>
-                </div>
-
-                <div className="schedule_form_title">Склад</div>
-                <div style={{marginLeft: 13}}>
-                    {me.props.supply.warehouses.map((value, index) => (
-                        <label className="price_radio_label" key={index}>
+                    <div className="schedule_form_title">Тип поставки</div>
+                    <div style={{marginLeft: 13}}>
+                        <label className="price_radio_label">
                             <input type="radio"
-                                   name="store"
-                                   value={index}
-                                   onChange={() => me.changeInputStore(index)}
-                                   checked={me.state.selectedStoreIndex === index}
+                                   name="supply type"
+                                   value={me.state.dataSupplyType.value1}
+                                   onChange={this.changeInputSupplyType}
+                                   checked={me.state.dataSupplyType.selectedRadioInput === me.state.dataSupplyType.value1}
                                    className="price_radio"/>
                             <div className="price_radio_indicator"></div>
-                            {me.props.supply.warehouses[index].warehouseName}
+                            {me.state.dataSupplyType.value1}
                         </label>
-                    ))}
-                </div>
-
-                {me.props.supply.warehouses[me.state.selectedStoreIndex].store === 'Ozon' &&
-                    <div>
-                        <div className="schedule_form_title">Номер заказа (Ozon)</div>
-                        <input type="text" onInput={me.handleOzonNumber} style={{marginTop: 15, marginLeft: 13,
-                            height: 25, width: 300}} required={true}/>
+                        <label className="price_radio_label">
+                            <input type="radio"
+                                   name="supply type"
+                                   value={me.state.dataSupplyType.value2}
+                                   onChange={this.changeInputSupplyType}
+                                   checked={me.state.dataSupplyType.selectedRadioInput === me.state.dataSupplyType.value2}
+                                   className="price_radio"/>
+                            <div className="price_radio_indicator"></div>
+                            {me.state.dataSupplyType.value2}
+                        </label>
+                        <label className="price_radio_label">
+                            <input type="radio"
+                                   name="supply type"
+                                   value={me.state.dataSupplyType.value3}
+                                   onChange={this.changeInputSupplyType}
+                                   checked={me.state.dataSupplyType.selectedRadioInput === me.state.dataSupplyType.value3}
+                                   className="price_radio"/>
+                            <div className="price_radio_indicator" style={{borderColor:'#000000'}}></div>
+                            {me.state.dataSupplyType.value3}
+                        </label>
                     </div>
-                }
 
-                <div className="schedule_form_title">Город отправки</div>
-                <div style={{marginLeft: 13}}>
-                    {me.props.supply.departureCities.map((value, index) => (
-                        <label className="price_radio_label" key={index}>
+                    <div className="schedule_form_title">Склад</div>
+                    <div style={{marginLeft: 13}}>
+                        {me.props.supply.warehouses.map((value, index) => (
+                            <label className="price_radio_label" key={index}>
+                                <input type="radio"
+                                       name="store"
+                                       value={index}
+                                       onChange={() => me.changeInputStore(index)}
+                                       checked={me.state.selectedStoreIndex === index}
+                                       className="price_radio"/>
+                                <div className="price_radio_indicator"></div>
+                                {me.props.supply.warehouses[index].warehouseName}
+                            </label>
+                        ))}
+                    </div>
+
+                    {me.props.supply.warehouses[me.state.selectedStoreIndex].store === 'Ozon' &&
+                        <div>
+                            <div className="schedule_form_title">Номер заказа (Ozon)</div>
+                            <input type="text" onInput={me.handleOzonNumber} style={{marginTop: 15, marginLeft: 13,
+                                height: 25, width: 300}} required={true} defaultValue={me.state.ozonNumber}/>
+                        </div>
+                    }
+
+                    <div className="schedule_form_title">Город отправки</div>
+                    <div style={{marginLeft: 13}}>
+                        {me.props.supply.departureCities.map((value, index) => (
+                            <label className="price_radio_label" key={index}>
+                                <input type="radio"
+                                       name="departure city"
+                                       value={value.cityName}
+                                       onChange={me.changeInputDepartureCity}
+                                       checked={me.state.selectedDepartureCity === value.cityName}
+                                       className="price_radio"/>
+                                <div className="price_radio_indicator"></div>
+                                {value.cityName}
+                            </label>
+                        ))}
+                    </div>
+                    {me.props.supply.departureDate.toString() === '1970-01-01' &&
+                        <>
+                            <div className="schedule_form_title">Дата отправки</div>
+                            <DatePicker selected={me.state.departureDate}
+                                        onChange={(date) => me.setState({departureDate: date})}
+                                        filterDate={me.isWeekday}
+                                        minDate={moment().add(1, 'day').toDate()}
+                                        dateFormat={"dd.MM.YYYY"}
+                                        required={true}
+                                        placeholderText="Выберите дату..."/>
+                        </>
+                    }
+
+
+                    <div className="schedule_form_title">Забрать со склада</div>
+                    <div style={{marginLeft: 13}}>
+                        <label className="price_radio_label">
                             <input type="radio"
-                                   name="departure city"
-                                   value={value.cityName}
-                                   onChange={me.changeInputDepartureCity}
-                                   checked={me.state.selectedDepartureCity === value.cityName}
+                                   name="take"
+                                   value={"Да"}
+                                   onChange={me.changeInputWillTaken}
+                                   checked={me.state.willTaken}
                                    className="price_radio"/>
                             <div className="price_radio_indicator"></div>
-                            {value.cityName}
+                            Да
                         </label>
-                    ))}
-                </div>
-                {me.props.supply.departureDate.toString() === '1970-01-01' &&
-                    <>
-                        <div className="schedule_form_title">Дата отправки</div>
-                        <DatePicker selected={me.state.departureDate}
-                                    onChange={(date) => me.setState({departureDate: date})}
-                                    filterDate={me.isWeekday}
-                                    minDate={moment().add(1, 'day').toDate()}
-                                    dateFormat={"dd.MM.YYYY"}
-                                    required={true}
-                                    placeholderText="Выберите дату..."/>
-                    </>
-                }
+                        <label className="price_radio_label">
+                            <input type="radio"
+                                   name="take"
+                                   value={"Нет"}
+                                   onChange={me.changeInputWillTaken}
+                                   checked={!me.state.willTaken}
+                                   className="price_radio"/>
+                            <div className="price_radio_indicator"></div>
+                            Нет
+                        </label>
+                    </div>
 
+                    <div className="schedule_form_title">Доп. комментарий</div>
+                    <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
+                    onInput={this.handleComment} defaultValue={me.state.comment}/>
 
-                <div className="schedule_form_title">Забрать со склада</div>
-                <div style={{marginLeft: 13}}>
-                    <label className="price_radio_label">
-                        <input type="radio"
-                               name="take"
-                               value={"Да"}
-                               onChange={me.changeInputWillTaken}
-                               checked={me.state.willTaken}
-                               className="price_radio"/>
-                        <div className="price_radio_indicator"></div>
-                        Да
-                    </label>
-                    <label className="price_radio_label">
-                        <input type="radio"
-                               name="take"
-                               value={"Нет"}
-                               onChange={me.changeInputWillTaken}
-                               checked={!me.state.willTaken}
-                               className="price_radio"/>
-                        <div className="price_radio_indicator"></div>
-                        Нет
-                    </label>
-                </div>
-
-                <div className="schedule_form_title">Доп. комментарий</div>
-                <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
-                onInput={this.handleComment}/>
-
-                <button type="submit" className="schedule_form_button">Отправить</button>
+                    <button type="submit" className="schedule_form_button">Отправить</button>
                 </form>
 
             </div>

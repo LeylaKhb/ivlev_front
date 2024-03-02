@@ -2,13 +2,17 @@ import React from "react";
 import {Orders} from "../models/Orders";
 import Popup from "../components/Popup";
 import "../styles/order.css";
+import {Person} from "../models/Person";
+import {Supply} from "../models/Supply";
 
 interface CurrentOrdersProps {
 }
 
 interface CurrentOrdersState {
     orders: Orders[];
-    isPopupVisible: boolean[]
+    isFirstPopupVisible: boolean[];
+    isSecondPopupVisible: boolean[];
+    supply: Supply | null;
 }
 
 class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersState> {
@@ -16,10 +20,15 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
         super(props);
         this.state = {
             orders: [],
-            isPopupVisible: []
+            isFirstPopupVisible: [],
+            isSecondPopupVisible: [],
+            supply: null
+
         }
-        this.setPopupFalse = this.setPopupFalse.bind(this);
-        this.setPopupTrue = this.setPopupTrue.bind(this);
+        this.setFirstPopupFalse = this.setFirstPopupFalse.bind(this);
+        this.setFirstPopupTrue = this.setFirstPopupTrue.bind(this);
+        this.setSecondPopupFalse = this.setSecondPopupFalse.bind(this);
+        this.setSecondPopupTrue = this.setSecondPopupTrue.bind(this);
 
     }
     componentDidMount() {
@@ -37,22 +46,34 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
                     me.setState({
                         orders: data
                     });
-                    console.log(data);
                 }
         )})
-        console.log(me.state.orders);
     }
 
-    setPopupTrue(index: number) {
-        let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
+    setFirstPopupTrue(index: number) {
+        let copy = Object.assign([] as boolean[], this.state.isFirstPopupVisible);
         copy[index] = true;
-        this.setState({isPopupVisible: copy});
+        this.setState({isFirstPopupVisible: copy});
         document.body.style.overflow = "hidden";
     }
-    setPopupFalse(index: number) {
-        let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
+    setFirstPopupFalse(index: number) {
+        let copy = Object.assign([] as boolean[], this.state.isFirstPopupVisible);
         copy[index] = false;
-        this.setState({isPopupVisible: copy});
+        this.setState({isFirstPopupVisible: copy});
+        document.body.style.overflow = "scroll";
+    }
+    setSecondPopupTrue(index: number) {
+        let copy = Object.assign([] as boolean[], this.state.isSecondPopupVisible);
+        copy[index] = true;
+        let secondCopy = Object.assign([] as boolean[], this.state.isFirstPopupVisible);
+        secondCopy[index] = false;
+        this.setState({isSecondPopupVisible: copy, isFirstPopupVisible: secondCopy});
+        document.body.style.overflow = "hidden";
+    }
+    setSecondPopupFalse(index: number) {
+        let copy = Object.assign([] as boolean[], this.state.isSecondPopupVisible);
+        copy[index] = false;
+        this.setState({isSecondPopupVisible: copy});
         document.body.style.overflow = "scroll";
     }
 
@@ -61,13 +82,16 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
         return (
             <div style={{height: '90vh', paddingTop: 120}}>
                 {me.state.orders.map((order, index) => (
-                    <>
-                        <div className="order_description" onClick={() => this.setPopupTrue(index)}>
+                    <div key={index}>
+                        <div className="order_description" onClick={() => this.setFirstPopupTrue(index)}>
                             Заказ от {order.orderDate === undefined ? "" : order.orderDate.toString()} в {order.sendCity} ({order.store})
                         </div>
-                        <Popup content="order" isVisible={me.state.isPopupVisible[index]} setVisibleFalse={() => me.setPopupFalse(index)}
-                        order={order}/>
-                    </>
+                        <Popup content="order" isVisible={me.state.isFirstPopupVisible[index]}
+                               setVisibleFalse={() => me.setFirstPopupFalse(index)} order={order}
+                               openSecondPopup={() => this.setSecondPopupTrue(index)}/>
+                        <Popup content="schedule_form" isVisible={me.state.isSecondPopupVisible[index]}
+                               setVisibleFalse={() => me.setSecondPopupFalse(index)} order={order} />
+                    </div>
                 ))}
             </div>
         );

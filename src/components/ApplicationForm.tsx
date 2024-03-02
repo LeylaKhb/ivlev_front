@@ -93,7 +93,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
                     <div className="form_error">{nameError}</div>
                 </div>
                 <PhoneForm  error={telError} setTelInputToParent={setTelInputToParent} spanClass="popup_span_tel"
-                            inputClass="popup_tel_input"/>
+                            inputClass="popup_tel_input" defaultValue={""}/>
                 <button type="submit" className="popup_form_button">Отправить
                     <div className="popup_button_glare">
                     </div>
@@ -111,8 +111,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
                     <div className="form_error">{nameError}</div>
                 </div>
                 <PhoneForm  error={telError} setTelInputToParent={setTelInputToParent} inputClass="tel_input"
-                            spanClass="span_tel"/>
-                {/*<span className="span_tel">+7</span>*/}
+                            spanClass="span_tel" defaultValue={""}/>
                 <button type="submit" className="submit_button">Отправить</button>
             </form>
         )
