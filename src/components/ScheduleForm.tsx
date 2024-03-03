@@ -48,13 +48,15 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             let inputsVal;
             if (props.order.boxes !== undefined) {
                 inputsVal = props.order.boxes.map((box) => (
-                    {length: 0, width: 0, height: 0, amount: 0}
+                    {length: box.length, width: box.width, height: box.height, amount: box.amount}
                 ))
             } else {
                 inputsVal = [{length: 0, width: 0, height: 0, amount: 0}]
             }
             let selectedIndex = props.supply.warehouses.map(w => w.sendCity)
                 .indexOf(props.order.sendCity);
+            if (selectedIndex === -1) selectedIndex = props.supply.warehouses.map(w => w.store)
+                .indexOf(props.order.store);
             this.state = {
                 telInput: props.order.phoneNumber,
                 telError: "",
