@@ -53,10 +53,13 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             } else {
                 inputsVal = [{length: 0, width: 0, height: 0, amount: 0}]
             }
-            let selectedIndex = props.supply.warehouses.map(w => w.sendCity)
-                .indexOf(props.order.sendCity);
-            if (selectedIndex === -1) selectedIndex = props.supply.warehouses.map(w => w.store)
-                .indexOf(props.order.store);
+            let selectedIndex = 0;
+            for (let w of props.supply.warehouses) {
+                if (w.store === props.order.store && w.sendCity === props.order.sendCity) {
+                    break;
+                }
+                selectedIndex++;
+            }
             this.state = {
                 telInput: props.order.phoneNumber,
                 telError: "",
@@ -237,7 +240,6 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         if (wrong) return;
         volume /= 1000000;
         const supply = me.props.supply;
-        let price = "0";
 
         fetch('http://localhost:8080/api/calculator', {
             method: 'POST',

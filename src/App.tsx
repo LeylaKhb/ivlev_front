@@ -10,6 +10,7 @@ import Schedule from "./pages/Schedule";
 import Calculator from "./pages/Calculator";
 import CurrentOrders from "./pages/CurrentOrders";
 import AllOrders from "./pages/AllOrders";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/calculator" element={<Calculator />} />
             <Route path="/current_orders" element={<CurrentOrders />} />
             <Route path="/orders_history" element={<AllOrders />} />
+            <Route path="/admin_page" element={<AdminPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>
