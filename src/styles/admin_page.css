@@ -28,3 +28,11 @@
     height: 30px;
     margin-left: 13px;
 }
+
+.admin_table tr th {
+    text-align: left;
+}
+
+.admin_table tr td {
+    padding-top: 10px;
+}

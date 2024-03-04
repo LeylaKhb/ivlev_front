@@ -61,7 +61,8 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 selectedIndex++;
             }
             this.state = {
-                telInput: props.order.phoneNumber,
+                telInput: "(" + props.order.phoneNumber.slice(1, 4) + ") " + props.order.phoneNumber.slice(4, 7) + "-"
+                    + props.order.phoneNumber.slice(7, 9) + "-" + props.order.phoneNumber.slice(9, 11),
                 telError: "",
                 nameValid: true,
                 nameText: props.order.entity,
@@ -124,8 +125,8 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         return day !== 0 && day !== 1 && day !== 4;
     };
 
-    setTelInputToParent(lastChar: string) {
-        this.setState({telInput: this.state.telInput + lastChar,
+    setTelInputToParent(value: string) {
+        this.setState({telInput: value,
                             telError: ""})
 
     }
@@ -165,7 +166,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
     }
     checkPhone() {
         let me = this;
-        if (me.state.telInput.length !== 10) {
+        if (me.state.telInput.length !== 15) {
             me.setState({telError: "Номер введён некорректно"});
             return false;
         }
@@ -195,11 +196,16 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
         state.inputs.map(input => {
             boxes.push(new Box(input["length"], input["width"], input["height"], input["amount"]));
-        })
+        });
+
+        let phoneNumber = "8" + state.telInput.replaceAll("(", "").replaceAll(") ", "").replaceAll("-", "");
+        departureDate = new Date(departureDate);
         let body = JSON.stringify({
-            order: new Orders(state.nameText, departureDate, "8" + state.telInput, selectedWarehouse.sendCity,
+            order: new Orders(state.nameText, new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
+                phoneNumber, selectedWarehouse.sendCity,
                 state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
-                price, state.willTaken, state.comment, state.ozonNumber, me.props.supply.title),
+                price, state.willTaken, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,
+                me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable),
             boxes: boxes
         })
         fetch('http://localhost:8080/new_order', {
@@ -241,6 +247,8 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         volume /= 1000000;
         const supply = me.props.supply;
 
+        let pallet = me.state.dataSupplyType.selectedRadioInput === 'Монопаллет';
+
         fetch('http://localhost:8080/api/calculator', {
             method: 'POST',
             credentials: "same-origin",
@@ -250,8 +258,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
             },
             body: JSON.stringify(new PriceRequest(me.state.selectedDepartureCity, supply.warehouses[me.state.selectedStoreIndex].store,
-                supply.warehouses[me.state.selectedStoreIndex].sendCity, volume, me.state.willTaken,
-                me.state.dataSupplyType.selectedRadioInput === 'Монопаллет', amount)
+                supply.warehouses[me.state.selectedStoreIndex].sendCity, volume, me.state.willTaken, pallet, amount)
             ),
         }).then(function (resp) {
             resp.json()

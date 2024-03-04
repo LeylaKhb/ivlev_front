@@ -27,8 +27,8 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
 
     }
 
-    function setTelInputToParent(lastChar: string) {
-        setTelInput(telInput + lastChar);
+    function setTelInputToParent(value: string) {
+        setTelInput(value);
         setTelError("");
     }
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 
 interface PriceFormProps {
     setTelInputToParent: any
@@ -11,13 +11,6 @@ interface PriceFormProps {
 const PhoneForm: React.FC<PriceFormProps> = ({setTelInputToParent, error, spanClass, inputClass,
                                                  defaultValue}) => {
 
-    const [formattedDefaultValue, setFormattedDefaultValue] = useState("");
-    useEffect(() => {
-        if (defaultValue === "") return;
-        setFormattedDefaultValue("(" + defaultValue.slice(1, 4) + ") " + defaultValue.slice(4, 7) + "-"
-            + defaultValue.slice(7, 9) + "-" + defaultValue.slice(9, 11))
-    }, [defaultValue])
-
     function handleTelInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
         let lastChar = inputValue.charAt(inputValue.length - 1);
@@ -28,7 +21,6 @@ const PhoneForm: React.FC<PriceFormProps> = ({setTelInputToParent, error, spanCl
             return;
         }
 
-        setTelInputToParent(lastChar);
         if (inputValue.length === 1)
             e.target.value = '(' + inputValue;
         if (inputValue.length === 5)
@@ -37,12 +29,13 @@ const PhoneForm: React.FC<PriceFormProps> = ({setTelInputToParent, error, spanCl
             e.target.value = inputValue.slice(0, -1) + "-" + lastChar;
         if (inputValue.length === 13)
             e.target.value = inputValue.slice(0, -1) + "-" + lastChar;
+        setTelInputToParent(e.target.value);
     }
     return (
         <div>
             <div>
                 <input type="text" className={inputClass} placeholder="(999) 999-99-99"
-                       onInput={handleTelInput} defaultValue={formattedDefaultValue}/>
+                       onInput={handleTelInput} defaultValue={defaultValue}/>
                 <div className="form_error">{error}</div>
                 <span className={spanClass}>+7</span>
             </div>

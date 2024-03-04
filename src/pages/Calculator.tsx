@@ -7,9 +7,9 @@ import BoxSizes from "../components/BoxSizes";
 import SendCityAndStore from "../components/SendCityAndStore";
 
 const Calculator: React.FC = () => {
-    const [departureCity, setDepartureCity] = useState("");
-    const [store, setStore] = useState("");
-    const [sendCity, setSendCity] = useState("");
+    const [departureCity, setDepartureCity] = useState("Самара");
+    const [store, setStore] = useState("Wildberries");
+    const [sendCity, setSendCity] = useState("Казань");
 
     type inputOptions = {
         [key: string]: number
@@ -17,7 +17,7 @@ const Calculator: React.FC = () => {
     const [inputs, setInputs] =
         useState<Array<inputOptions>>([{length: 0, width: 0, height: 0, amount: 0}]);
 
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState("");
 
 
     function handleDepartureCity(city: string) {
@@ -41,7 +41,7 @@ const Calculator: React.FC = () => {
         inputs.map(input => {
             let current = input["length"] * input["width"] * input["height"] * input["amount"];
             if (current === 0) {
-                setPrice(-1);
+                setPrice("-");
                 wrong = true;
             }
             volume += current;
@@ -50,7 +50,6 @@ const Calculator: React.FC = () => {
         });
         if (wrong) return;
         volume /= 1000000;
-
         fetch('http://localhost:8080/api/calculator', {
             method: 'POST',
             credentials: "same-origin",
@@ -65,7 +64,7 @@ const Calculator: React.FC = () => {
         }).then(function(resp){
             resp.json()
                 .then(function (data) {
-                    if (data["header"] === "price") setPrice(data["content"]);
+                    if (data["header"] === "answer") setPrice(data["content"].split("/")[0]);
                 })
         }).catch(function(error) {
             console.log('There has been a problem with your fetch operation: ' + error.message);
@@ -83,8 +82,8 @@ const Calculator: React.FC = () => {
             <div className="first_info_title" style={{marginTop: 120, marginBottom: 10}}>
                 Калькулятор заказов
             </div>
-            <div style={{visibility: price > 0 ? "visible" : "hidden", fontSize: 19}}>Цена доставки: {price} рублей</div>
-            <div style={{visibility: price < 0 ? "visible" : "hidden", fontSize: 19}}>Данные введены некорректно</div>
+            <div style={{visibility: price !== "-" ? "visible" : "hidden", fontSize: 19}}>Цена доставки: {price} рублей</div>
+            <div style={{visibility: price === "-" ? "visible" : "hidden", fontSize: 19}}>Данные введены некорректно</div>
             <SendCityAndStore  handleSendCity={handleSendCity} handleDepartureCity={handleDepartureCity}
                                 handleStore={handleStore} location="calculator" />
             
