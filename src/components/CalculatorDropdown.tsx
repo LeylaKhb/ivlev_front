@@ -17,28 +17,26 @@ const CalculatorDropdown: React.FC<CalculatorDropdownProps> = ({items, handleSel
     
     return (
         <div className="select_calculator">
-            <form>
-                <div className="__select" data-state={open}>
-                    <div className="__select__title"
-                         onClick={handleSelectTitle}>
-                        {selectTitle}
-                    </div>
-                    <div className="__select__content">
-                        {items.map((value, index) => (
-                            <div key={index}>
-                                <input id="singleSelect" className="__select__input" type="radio"
-                                       name="singleSelect"/>
-                                <label htmlFor="singleSelect" className="__select__label"
-                                       onClick={() => {setOpen(""); handleSelectClick(index)}}>{items[index]}</label>
-                                <input id="singleSelect" className="__select__input" type="radio"
-                                       name="singleSelect" checked readOnly/>
-                                <label htmlFor="singleSelect" className="__select__label"
-                                       onClick={() => {setOpen(""); handleSelectClick(index)}}>{items[index]}</label>
-                            </div>
-                        ))}
-                    </div>
+            <div className="__select" data-state={open}>
+                <div className="__select__title"
+                     onClick={handleSelectTitle}>
+                    {selectTitle}
                 </div>
-            </form>
+                <div className="__select__content">
+                    {items.map((value, index) => (
+                        <div key={index}>
+                            <input id="singleSelect" className="__select__input" type="radio"
+                                   name="singleSelect"/>
+                            <label htmlFor="singleSelect" className="__select__label"
+                                   onClick={() => {setOpen(""); handleSelectClick(index)}}>{items[index]}</label>
+                            <input id="singleSelect" className="__select__input" type="radio"
+                                   name="singleSelect" checked readOnly/>
+                            <label htmlFor="singleSelect" className="__select__label"
+                                   onClick={() => {setOpen(""); handleSelectClick(index)}}>{items[index]}</label>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     )
 }

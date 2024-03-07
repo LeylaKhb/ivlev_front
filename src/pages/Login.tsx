@@ -20,7 +20,7 @@ const Login: React.FC = () => {
                     <Link to="/registration" className="login_link">
                         Зарегистрироваться
                     </Link>
-                    <Link to="#" className="login_link">
+                    <Link to="/recover_password" className="login_link">
                         Востановить пароль
                     </Link>
                 </div>

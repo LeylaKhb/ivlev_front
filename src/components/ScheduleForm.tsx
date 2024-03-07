@@ -284,8 +284,8 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                         top: 135, height: 15}}>Поле не может быть пустым</div>
                     <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError} spanClass="popup_span_tel"
                                inputClass="popup_tel_input"  defaultValue={this.state.telInput}/>
-                    <div className="schedule_form_title" >Размеры и количество коробок</div>
 
+                    <div className="schedule_form_title" >Размеры и количество коробок/паллет</div>
                     <div className="form_error" style={{visibility: me.state.inputsValid ? "hidden" : "visible",
                     top: 155}}>Коробки заполнены не корректно</div>
                     <BoxSizes inputs={me.state.inputs} handleInputs={this.handleInputs}/>

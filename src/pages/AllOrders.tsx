@@ -2,6 +2,8 @@ import React from "react";
 import {Orders} from "../models/Orders";
 import Popup from "../components/Popup";
 import "../styles/order.css";
+import {Helmet} from "react-helmet";
+import {HelmetProvider} from "react-helmet-async";
 
 interface AllOrdersProps {
 }
@@ -59,10 +61,16 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
         let me = this;
         return (
             <div style={{height: '90vh', paddingTop: 120}}>
+                <HelmetProvider>
+                    <Helmet
+                        title="Все заказы"
+                    />
+                </HelmetProvider>
                 {me.state.orders.map((order, index) => (
                     <div key={index}>
                         <div className="order_description" onClick={() => this.setPopupTrue(index)}>
-                            Заказ от {order.orderDate === undefined ? "" : order.orderDate.toString()} в {order.sendCity} ({order.store})
+                            Заказ в {order.sendCity} ({order.store}), {order.departureDate === undefined ?
+                            "" : order.departureDate.toString()}, {order.price}
                         </div>
                         <Popup content="order" isVisible={me.state.isPopupVisible[index]}
                                setVisibleFalse={() => me.setPopupFalse(index)} order={order}/>

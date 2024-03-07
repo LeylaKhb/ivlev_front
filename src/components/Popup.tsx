@@ -10,6 +10,7 @@ import {Supply} from "../models/Supply";
 import {Link} from "react-router-dom";
 import {Orders} from "../models/Orders";
 import OrderInfo from "./OrderInfo";
+import AdminFormChange from "./AdminFormChange";
 
 interface PopupProps {
     isVisible: boolean,
@@ -19,6 +20,7 @@ interface PopupProps {
     person?: Person;
     supply?: Supply;
     order?: Orders;
+    orders?: Orders[] | undefined
 }
 interface PopupState {
     key: number;
@@ -130,6 +132,14 @@ class Popup extends React.Component<PopupProps, PopupState> {
                         transform: "translateY(-50%)"}}>
                         {this.props.order !== undefined &&
                             <OrderInfo order={this.props.order} openSecondPopup={this.props.openSecondPopup}/>
+                        }
+                    </div>
+                }
+                {this.props.content === "admin" &&
+                    <div className="popup_window popup_order" style={{opacity: this.props.isVisible ? 1 : 0,
+                        transform: "translateY(-50%)"}}>
+                        {this.props.orders !== undefined &&
+                            <AdminFormChange orders={this.props.orders} close={this.props.setVisibleFalse} />
                         }
                     </div>
                 }

@@ -4,6 +4,8 @@ import SendCityAndStore from "../components/SendCityAndStore";
 import DatePicker from "react-datepicker";
 import {AdminRequest} from "../models/AdminRequest";
 import {Orders} from "../models/Orders";
+import Popup from "../components/Popup";
+import { ExportCSV } from "../components/ExportCSV";
 
 
 const AdminPage: React.FC = () => {
@@ -11,21 +13,34 @@ const AdminPage: React.FC = () => {
     const [store, setStore] = useState("Wildberries");
     const [sendCity, setSendCity] = useState("Казань");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [entity, setEntity] = useState("");
     const [startDepartureDate, setStartDepartureDate] = useState<null | Date>(null)
     const [endDepartureDate, setEndDepartureDate] = useState<null | Date>(null)
     const [startOrderDate, setStartOrderDate] = useState<null | Date>(null)
     const [endOrderDate, setEndOrderDate] = useState<null | Date>(null);
     const [status, setStatus] = useState("");
     const [sortBy, setSortBy] = useState("");
-    const [orders, setOrders] = useState<Array<Orders> | null>(null);
+    const [orders, setOrders] = useState<Array<Orders>>([]);
+    const [ordersIndexes, setOrdersIndexes] = useState<Array<number>>([]);
 
 
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+    function setPopupTrue() {
+        setIsPopupVisible(true);
+        document.body.style.overflow = "hidden";
+    }
+    function setPopupFalse() {
+        setIsPopupVisible(false);
+        document.body.style.overflow = "scroll";
+        fetchAdmin();
+    }
 
     function handleDepartureCity(city: string) {
         setDepartureCity(city);
     }
     function handleStore(store: string) {
         setStore(store);
+        if (store === "") setSendCity("");
     }
     function handleSendCity(city: string) {
         setSendCity(city);
@@ -34,24 +49,31 @@ const AdminPage: React.FC = () => {
     function handlePhone(e: React.ChangeEvent<HTMLInputElement>) {
         setPhoneNumber(e.target.value);
     }
+    function handleEntity(e: React.ChangeEvent<HTMLInputElement>) {
+        setEntity(e.target.value);
+    }
 
-    function handleForm(event: React.FormEvent) {
-        event.preventDefault();
-
+    function fetchAdmin() {
+        let body = JSON.stringify(new AdminRequest(departureCity, store, sendCity, phoneNumber, entity, startDepartureDate,
+            endDepartureDate, startOrderDate, endOrderDate, status, sortBy));
         fetch('http://localhost:8080/api/admin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
-            body: JSON.stringify(new AdminRequest(departureCity, store, sendCity, phoneNumber, startDepartureDate,
-                endDepartureDate, startOrderDate, endOrderDate, status, sortBy))
+            body: body
         }).then(function (resp) {
             resp.json()
                 .then(function (data) {
                     setOrders(data);
-            })
+                })
         });
+    }
+
+    function handleForm(event: React.FormEvent) {
+        event.preventDefault();
+        fetchAdmin();
     }
 
     function changeStatus(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -62,14 +84,41 @@ const AdminPage: React.FC = () => {
         setSortBy(e.target.value);
     }
 
+    function handleCheckbox(index: number, e: React.ChangeEvent<HTMLInputElement>): void {
+        if (e.target.checked) {
+            let copy = Object.assign([], ordersIndexes);
+            copy.push(index)
+            setOrdersIndexes(copy);
+        } else {
+            let copy = Object.assign([], ordersIndexes);
+            copy.splice(copy.indexOf(index), 1);
+            setOrdersIndexes(copy);
+        }
+    }
+
+    function setAllIndexes() {
+        let allIndexes: number[] = [];
+        orders.forEach((o, index) => allIndexes.push(index))
+        setOrdersIndexes(allIndexes);
+    }
+
+    function setNoneIndexes() {
+        setOrdersIndexes([]);
+    }
+
     return (
         <div className="page_content" style={{ flexFlow: 'column'}}>
+            <Popup isVisible={isPopupVisible} setVisibleFalse={setPopupFalse} content="admin"
+                   orders={ordersIndexes.map(ind => orders[ind])}/>
             <form className="admin_form" onSubmit={handleForm}>
                 <SendCityAndStore  handleSendCity={handleSendCity} handleDepartureCity={handleDepartureCity}
                                    handleStore={handleStore} location="admin"/>
 
                 <div className="admin_title">Номер телефона</div>
                 <input type="text" onInput={handlePhone}/>
+
+                <div className="admin_title">Имя</div>
+                <input type="text" onInput={handleEntity}/>
 
                 <div className="admin_title">От даты доставки</div>
                 <DatePicker selected={startDepartureDate}
@@ -112,45 +161,57 @@ const AdminPage: React.FC = () => {
                     <option value="status">Статус</option>
                 </select>
 
-                <button type="submit" className="change_password_button" style={{marginBottom: 100}}>Найти заказы</button>
+                <button type="submit" className="change_password_button" style={{marginBottom: 50}}>Найти заказы</button>
             </form>
+            <div>
+                <button  className="registration_button" onClick={setAllIndexes}>Выбрать все заказы</button>
+                <button  className="registration_button" onClick={setNoneIndexes}>Снять выделение</button>
+            </div>
 
-            <button >Изменить выбранные заказы</button>
-
+            <button  className="login_button" onClick={setPopupTrue} style={{marginTop: 20}}>Изменить выбранные заказы</button>
+            <ExportCSV csvData={orders} fileName="orders" />
             <div style={{width: '100%'}} className="admin_table">
                 <table style={{width: '100%'}} className="admin_table">
-                    <tr>
-                        <th style={{width: '5%'}}>Галочка</th>
-                        <th style={{width: '10%'}}>Дата<br /> заказа</th>
-                        <th style={{width: '10%'}}>Дата<br/> поставки</th>
-                        <th style={{width: '10%'}}>Город <br />отправки</th>
-                        <th style={{width: '10%'}}>Город назначения</th>
-                        <th style={{width: '10%'}}>Склад</th>
-                        <th style={{width: '10%'}}>Номер телефона</th>
-                        <th style={{width: '10%'}}>Имя</th>
-                        <th style={{width: '10%'}}>Тип поставки</th>
-                        <th style={{width: '5%'}}>Объем</th>
-                        <th style={{width: '5%'}}>Цена</th>
-                        <th style={{width: '10%'}}>Статус</th>
-                        <th style={{width: '5%'}}>Изменяемый</th>
-                    </tr>
-                    {orders?.map((order) => (
-
-                        <tr style={{ width: '100%'}}>
-                            <td>f</td>
-                            <td style={{width: '10%'}}>{order.orderDate !== undefined ? order.orderDate.toString() : ""}</td>
-                            <td style={{width: '10%'}}>{order.departureDate !== undefined ? order.departureDate.toString() : ""}</td>
-                            <td style={{width: '10%'}}>{order.departureCity}</td>
-                            <td style={{width: '10%'}}>{order.sendCity}</td>
-                            <td style={{width: '10%'}}>{order.store}</td>
-                            <td style={{width: '10%'}}>{order.phoneNumber}</td>
-                            <td style={{width: '10%'}}>{order.entity}</td>
-                            <td style={{width: '10%'}}>{order.supplyType}</td>
-                            <td style={{width: '5%'}}>{order.volume}</td>
-                            <td style={{width: '5%'}}>{order.price}</td>
-                            <td style={{width: '10%'}}>{order.status}</td>
-                            <td style={{width: '5%'}}>{order.changeable ? "Да" : "Нет"}</td>
+                    <thead>
+                        <tr>
+                            <th style={{width: '3%'}}>Галочка</th>
+                            <th style={{width: '10%'}}>Дата<br /> заказа</th>
+                            <th style={{width: '10%'}}>Дата<br/> поставки</th>
+                            <th style={{width: '10%'}}>Город <br />отправки</th>
+                            <th style={{width: '10%'}}>Город назначения</th>
+                            <th style={{width: '10%'}}>Склад</th>
+                            <th style={{width: '10%'}}>Номер телефона</th>
+                            <th style={{width: '10%'}}>Имя</th>
+                            <th style={{width: '10%'}}>Тип поставки</th>
+                            <th style={{width: '5%'}}>Объем</th>
+                            <th style={{width: '5%'}}>Цена</th>
+                            <th style={{width: '10%'}}>Статус</th>
+                            <th style={{width: '5%'}}>Изменяемый</th>
                         </tr>
+                    </thead>
+                    {orders?.map((order, index) => (
+                        <tbody key={index}>
+                            <tr style={{ width: '100%'}}>
+                                <td style={{width: '3%'}}>
+                                    <input
+                                    type="checkbox"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckbox(index, e)}
+                                    checked={ordersIndexes.includes(index)}/>
+                                </td>
+                                <td style={{width: '10%'}}>{order.orderDate !== undefined ? order.orderDate.toString() : ""}</td>
+                                <td style={{width: '10%'}}>{order.departureDate !== undefined ? order.departureDate.toString() : ""}</td>
+                                <td style={{width: '10%'}}>{order.departureCity}</td>
+                                <td style={{width: '10%'}}>{order.sendCity}</td>
+                                <td style={{width: '10%'}}>{order.store}</td>
+                                <td style={{width: '10%'}}>{order.phoneNumber}</td>
+                                <td style={{width: '10%'}}>{order.entity}</td>
+                                <td style={{width: '10%'}}>{order.supplyType}</td>
+                                <td style={{width: '5%'}}>{order.volume}</td>
+                                <td style={{width: '5%'}}>{order.price}</td>
+                                <td style={{width: '10%'}}>{order.status}</td>
+                                <td style={{width: '5%'}}>{order.changeable ? "Да" : "Нет"}</td>
+                            </tr>
+                        </tbody>
                     ))}
                 </table>
             </div>

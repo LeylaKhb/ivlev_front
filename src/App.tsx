@@ -11,6 +11,7 @@ import Calculator from "./pages/Calculator";
 import CurrentOrders from "./pages/CurrentOrders";
 import AllOrders from "./pages/AllOrders";
 import AdminPage from "./pages/AdminPage";
+import RecoverPassword from "./pages/RecoverPassword";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={localStorage.getItem("jwt") === null ?
                 <Login /> : <PersonalAccount />} />
+            <Route path="/recover_password" element={<RecoverPassword />} />
             <Route path="/personal_account" element={<PersonalAccount />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/calculator" element={<Calculator />} />

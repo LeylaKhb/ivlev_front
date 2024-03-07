@@ -11,7 +11,6 @@ interface PasswordFormProps {
 const PasswordForm: React.FC<PasswordFormProps> = ({handleInput, error, top, passwordText, label}) => {
     const [passwordHidden, setPasswordHidden] = useState(true);
 
-
     return (
         <div style={{width: '100%'}}>
             <input type={passwordHidden ? "password" : "text"} className="registration_input"
@@ -19,7 +18,7 @@ const PasswordForm: React.FC<PasswordFormProps> = ({handleInput, error, top, pas
             <div className="login_form_label" style={{transform: passwordText !== "" ? 'translate(-20px, -20px) scale(0.8)' : "none",
                 top: top}}>{label}</div>
             <div className="login_form_error" style={{display: error === "" ? "none" : "initial",
-                top: top + 22}}>{error}</div>
+                top: top + 28}}>{error}</div>
             <svg className="password_eye_hidden" focusable="false"
                  style={{display: passwordHidden ? "initial" : "none", top: top + 3}} onClick={() => {setPasswordHidden(false)}}
                  aria-hidden="true" viewBox="0 0 24 24" data-testid="VisibilityOffOutlinedIcon">

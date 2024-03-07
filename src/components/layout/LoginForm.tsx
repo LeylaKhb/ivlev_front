@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Person} from "../../models/Person";
 import {useNavigate} from "react-router-dom";
 import PasswordForm from "../PasswordForm";
+import EmailForm from "../EmailForm";
 
 
 
@@ -19,7 +20,6 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     let [passwordText, setPasswordText] = useState("");
     let [nameText, setNameText] = useState("");
     const navigate = useNavigate();
-
 
 
     function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -117,10 +117,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
                     'translate(-20px, -20px) scale(0.8)' : "none", bottom:  340}}>Имя</div>}
             {location === "registration" &&  <div className="login_form_error" style={{display: nameValid ? "none" : "initial",
                 bottom: 318}}>Поле не может быть пустым</div>}
-            <input type="text" className="registration_input" onInput={handleEmailInput} name="email" />
-            <label className="login_form_label" style={{transform: emailText !== "" ? 'translate(-20px, -20px) scale(0.8)' : "none"}}>Email</label>
-            <div className="login_form_error" style={{display: emailError === "" ? "none" : "initial",
-                bottom: 247}}>{emailError}</div>
+            <EmailForm handleInput={handleEmailInput} error={emailError} top={location === "registration" ? 225 : 125} emailText={emailText} />
             <PasswordForm handleInput={handlePasswordInput} error={passwordError}
                           top={location === "registration" ? 295 : 195} passwordText={passwordText} label="Пароль"/>
             <button type="submit" className="registration_form_button">{buttonText}</button>
