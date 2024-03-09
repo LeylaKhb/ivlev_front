@@ -9,7 +9,6 @@ const RecoverPassword: React.FC = () => {
     const [emailError, setEmailError] = useState("");
     const [emailText, setEmailText] = useState("");
 
-
     function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
         setEmailError("");

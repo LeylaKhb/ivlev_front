@@ -12,6 +12,8 @@ import CurrentOrders from "./pages/CurrentOrders";
 import AllOrders from "./pages/AllOrders";
 import AdminPage from "./pages/AdminPage";
 import RecoverPassword from "./pages/RecoverPassword";
+import { HashRouter } from 'react-router-dom'
+
 
 function App() {
   return (
