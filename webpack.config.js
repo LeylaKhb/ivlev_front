@@ -4,7 +4,7 @@ module.exports = {
     mode: "development",
     entry: "./src/App.tsx", // входная точка - исходный файл
     output:{
-        path: resolve(__dirname, "./public/dist"),     // путь к каталогу выходных файлов - папка public
+        path: resolve(__dirname, "./public/html"),     // путь к каталогу выходных файлов - папка public
         publicPath: "/public/",
         filename: "bundle.js"       // название создаваемого файла
     },
