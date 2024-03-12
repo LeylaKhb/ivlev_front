@@ -69,6 +69,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
     }
 
     handleLogout() {
+        console.log("here")
         fetch('http://localhost:8080/logout', {
             method: 'POST',
             credentials: "same-origin",
