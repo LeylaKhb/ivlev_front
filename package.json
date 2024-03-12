@@ -39,7 +39,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "webpack serve --mode=development",
-    "build": "webpack"
+    "build": "tsc && vite build"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +64,8 @@
     "react-hot-loader": "^4.13.1",
     "webpack": "5.90.3",
     "webpack-cli": "4.10.0",
-    "webpack-dev-server": "4.11.0"
+    "webpack-dev-server": "4.11.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^4.4.2"
   }
 }
