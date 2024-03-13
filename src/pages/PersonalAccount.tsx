@@ -33,7 +33,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
     componentDidMount() {
         let me = this;
 
-        fetch('http://localhost:8080/personal_account', {
+        fetch('http://178.21.8.74:8080/personal_account', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -70,7 +70,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
 
     handleLogout() {
         console.log("here")
-        fetch('http://localhost:8080/logout', {
+        fetch('http://178.21.8.74:8080/logout', {
             method: 'POST',
             credentials: "same-origin",
             headers: {

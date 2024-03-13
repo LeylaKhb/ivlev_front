@@ -28,7 +28,7 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
     componentDidMount() {
         let me = this;
 
-        fetch('http://localhost:8080/orders_history', {
+        fetch('http://178.21.8.74:8080/orders_history', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

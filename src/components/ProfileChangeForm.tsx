@@ -31,7 +31,7 @@ const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person, openSecond
             return;
         }
 
-        fetch('http://localhost:8080/change_person', {
+        fetch('http://178.21.8.74:8080/change_person', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

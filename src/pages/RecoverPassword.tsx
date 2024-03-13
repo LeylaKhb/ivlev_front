@@ -20,7 +20,7 @@ const RecoverPassword: React.FC = () => {
             setEmailError("Неправильная электронная почта");
             return;
         }
-        fetch("http://localhost:8080/api/recover_password", {
+        fetch("http://178.21.8.74:8080/api/recover_password", {
             method: 'POST',
             credentials: "same-origin",
             headers: {

@@ -26,7 +26,7 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
                 changeable: changeable
             });
 
-        fetch('http://localhost:8080/api/admin_change', {
+        fetch('http://178.21.8.74:8080/api/admin_change', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

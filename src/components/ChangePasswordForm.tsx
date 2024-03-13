@@ -43,7 +43,7 @@ const ChangePasswordForm: React.FC = () => {
             setSecondPasswordVError("Пароли не могут совпадать");
             return;
         }
-        fetch('http://localhost:8080/change_password', {
+        fetch('http://178.21.8.74:8080/change_password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'text/plain',
