@@ -81,7 +81,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
             }
         }).then(function () {
            localStorage.removeItem("jwt");
-           window.location.assign('http://localhost:3000/');
+           window.location.assign('http://95.163.229.71/');
         })
     }
 
