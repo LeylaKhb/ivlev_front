@@ -2,7 +2,6 @@ import React from "react";
 import {Orders} from "../models/Orders";
 import Popup from "../components/Popup";
 import "../styles/order.css";
-import {Person} from "../models/Person";
 import {Supply} from "../models/Supply";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
@@ -36,7 +35,7 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
     componentDidMount() {
         let me = this;
 
-        fetch('http://178.21.8.74:8080/current_orders', {
+        fetch('http://localhost:8080/current_orders', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

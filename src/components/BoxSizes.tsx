@@ -29,6 +29,11 @@ const BoxSizes: React.FC<BoxSizesProps>= ({inputs,handleInputs}) => {
         copy.push({length: 0, width: 0, height: 0, amount: 0})
         handleInputs(copy);
     }
+    function handleMinusClick(index: number) {
+        let copy = Object.assign([], inputs);
+        copy.splice(index, 1);
+        handleInputs(copy);
+    }
 
     return (
         <div className="boxes_div">
@@ -48,6 +53,7 @@ const BoxSizes: React.FC<BoxSizesProps>= ({inputs,handleInputs}) => {
                            defaultValue={input["width"] === 0 ? "" : input["width"]} placeholder={"0"}/>
                     <input className="sizes_input" onInput={(e: React.ChangeEvent<HTMLInputElement>) => handle(e, index, "amount")}
                            defaultValue={input["amount"] === 0 ? "" : input["amount"]} placeholder={"0"}/>
+                    {index !== 0 && <div className="minus_box" onClick={() => handleMinusClick(index)}>-</div>}
                 </div>
             )}
             <div className="plus_box" onClick={handlePlusClick}>+</div>

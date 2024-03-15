@@ -26,8 +26,6 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({handleMenuLinks}) => {
                     <a className="menu_li_link" href="/schedule">Расписание поставок</a></li>
                 <li className="menu_li">
                     <a className="menu_li_link" href="https://t.me/+nVp-YvKEbJJjOTRi">Чат в Telegram</a></li>
-                <li className="menu_li">
-                    <a className="menu_li_link" href="/">Наши партнеры</a></li>
                 {localStorage.getItem("jwt") === null &&
                     <>
                         <li className="menu_li">
@@ -39,7 +37,7 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({handleMenuLinks}) => {
                     </>
                 }
 
-                {localStorage.getItem("jwt") === null &&
+                {localStorage.getItem("jwt") !== null &&
                     <li className="menu_li">
                         <a className="menu_li_link" href="/personal_account">Личный кабинет</a>
                     </li>

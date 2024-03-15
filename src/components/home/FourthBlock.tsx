@@ -33,7 +33,7 @@ const FourthBlock: React.FC = () => {
                             <img className="fourth_img"  src={fourth_2} alt="wi-fi" />
                             <div className="fourth_column_info">
                                 <div className="fourth_column_title">Маркировка</div>
-                                <div className="fourth_column_desc">Создаем этикетки с необходимой информацией проверяем
+                                <div className="fourth_column_desc">Создаем этикетки с необходимой информацией, проверяем
                                 читаемость этикеток сканером и правильно размещаем их на товаре в одном или нескольких
                                 экземплярах.</div>
                             </div>

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Person} from "../../models/Person";
 import {useNavigate} from "react-router-dom";
 import PasswordForm from "../PasswordForm";
-import EmailForm from "../EmailForm";
+import Form from "../Form";
 
 
 
@@ -69,7 +69,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
 
         let person = new Person(nameText, emailText, passwordText);
 
-        let url = location === "registration" ? 'http://178.21.8.74:8080/registration' : 'http://178.21.8.74:8080/login';
+        let url = location === "registration" ? 'http://localhost:8080/registration' : 'http://localhost:8080/login';
         fetch(url, {
             method: 'POST',
             credentials: "same-origin",
@@ -111,15 +111,12 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
 
     return (
         <form action="" method="POST" className="registration_form" onSubmit={handleSubmit}>
-            {location === "registration" && <input type="text" className="registration_input" onInput={handleNameInput}
-                                                   name="name"/>}
-            {location === "registration" && <div className="login_form_label" style={{transform: nameText !== "" ?
-                    'translate(-20px, -20px) scale(0.8)' : "none", bottom:  340}}>Имя</div>}
-            {location === "registration" &&  <div className="login_form_error" style={{display: nameValid ? "none" : "initial",
-                bottom: 318}}>Поле не может быть пустым</div>}
-            <EmailForm handleInput={handleEmailInput} error={emailError} top={location === "registration" ? 225 : 125} emailText={emailText} />
+            {location === "registration" &&
+                <Form handleInput={handleNameInput} error={nameValid ? "" : "Поле не может быть пустым"}
+                                                    text={nameText} label="Имя" name="name"/>}
+            <Form handleInput={handleEmailInput} error={emailError} text={emailText} label="Email" name="email"/>
             <PasswordForm handleInput={handlePasswordInput} error={passwordError}
-                          top={location === "registration" ? 295 : 195} passwordText={passwordText} label="Пароль"/>
+                          passwordText={passwordText} label="Пароль"/>
             <button type="submit" className="registration_form_button">{buttonText}</button>
 
         </form>

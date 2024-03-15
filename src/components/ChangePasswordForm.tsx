@@ -43,7 +43,7 @@ const ChangePasswordForm: React.FC = () => {
             setSecondPasswordVError("Пароли не могут совпадать");
             return;
         }
-        fetch('http://178.21.8.74:8080/change_password', {
+        fetch('http://localhost:8080/change_password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'text/plain',
@@ -76,9 +76,9 @@ const ChangePasswordForm: React.FC = () => {
             <br />
             <br />
 
-            <PasswordForm handleInput={handleFirstPasswordInput} error={firstPasswordError} top={130}
+            <PasswordForm handleInput={handleFirstPasswordInput} error={firstPasswordError}
                           passwordText={firstPasswordText} label="Текущий пароль"/>
-            <PasswordForm handleInput={handleSecondPasswordInput} error={secondPasswordError} top={200}
+            <PasswordForm handleInput={handleSecondPasswordInput} error={secondPasswordError}
                           passwordText={secondPasswordText} label="Новый пароль"/>
             <button type="submit" className="registration_form_button" onClick={handleChangeClick}>Изменить пароль</button>
             <label style={{display: success ? 'initial' : 'none', color: 'green', marginTop: 25, fontSize: 17}}>Пароль успешно изменён</label>

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
-import EmailForm from "../components/EmailForm";
+import Form from "../components/Form";
 import {Person} from "../models/Person";
 
 const RecoverPassword: React.FC = () => {
@@ -20,7 +20,7 @@ const RecoverPassword: React.FC = () => {
             setEmailError("Неправильная электронная почта");
             return;
         }
-        fetch("http://178.21.8.74:8080/api/recover_password", {
+        fetch("http://localhost:8080/api/recover_password", {
             method: 'POST',
             credentials: "same-origin",
             headers: {
@@ -55,7 +55,8 @@ const RecoverPassword: React.FC = () => {
                 <div className="modal_window_title">Восстановление пароля</div>
                 <div style={{textAlign: 'center', marginTop: 20}}>Введите email, который вы использовали при регистрации</div>
                 <form className="registration_form" onSubmit={handleSubmit}>
-                    <EmailForm handleInput={handleEmailInput} error={emailError} top={178} emailText={emailText} />
+                    <Form handleInput={handleEmailInput} error={emailError} text={emailText}
+                          label="email" name="email"/>
                     <button type="submit" className="registration_form_button" style={{marginBottom: 0}}>Восстановить</button>
                 </form>
                 <div className="login_links" style={{ width: '50%'}}>

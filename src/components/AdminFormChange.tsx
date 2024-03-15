@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Orders} from "../models/Orders";
-import {AdminRequest} from "../models/AdminRequest";
 
 interface AdminFormChangeProps {
     orders: Orders[],
@@ -26,7 +25,7 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
                 changeable: changeable
             });
 
-        fetch('http://178.21.8.74:8080/api/admin_change', {
+        fetch('http://localhost:8080/api/admin_change', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

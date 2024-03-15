@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Person} from "../models/Person";
 import "../styles/profile_change_form.css";
+import Form from "./Form";
 
 interface ProfileChangeFormProps {
     person: Person;
@@ -21,17 +22,30 @@ const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person, openSecond
         setNameText(person.name)
     }, [person.email, person.name])
 
-    function handleChanges() {
+    function checkEmail() {
         if(!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+$/.test(emailText))) {
             setEmailError("Неправильная электронная почта");
-            if (!(/^[a-zA-ZА-Яа-я-]+$/.test(nameText))) {
-                setNameValid(false);
-                return;
-            }
+            return false;
+        }
+        return true;
+    }
+
+    function checkName() {
+        if (!(/^[a-zA-ZА-Яа-я-]+$/.test(nameText))) {
+            setNameValid(false);
+            return false;
+        }
+        return true;
+    }
+
+    function handleChanges() {
+        let email = checkEmail();
+        let name = checkName();
+        if (!name || !email) {
             return;
         }
 
-        fetch('http://178.21.8.74:8080/change_person', {
+        fetch('http://localhost:8080/change_person', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,19 +98,10 @@ const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person, openSecond
                     {/*    </label>*/}
                     {/*</div>*/}
                 </div>
-
-                <input type="text" className="registration_input" onInput={handleNameInput} name="name"
-                       defaultValue={person.name}/>
-                <div className="login_form_label" style={{transform: nameText !== "" ?
-                        'translate(-20px, -20px) scale(0.8)' : "none", bottom:  370, left: 85}}>Имя</div>
-                <div className="login_form_error" style={{display: nameValid ? "none" : "initial",
-                    bottom: 348}}>Поле не может быть пустым</div>
-                <input type="text" className="registration_input" onInput={handleEmailInput} name="email"
-                       defaultValue={person.email}/>
-                <label className="login_form_label" style={{transform: emailText !== "" ?
-                        'translate(-20px, -20px) scale(0.8)' : "none", bottom: 299, left: 85}}>Email</label>
-                <div className="login_form_error" style={{display: emailError === "" ? "none" : "initial",
-                    bottom: 277}}>{emailError}</div>
+                <Form handleInput={handleNameInput} error={nameValid ? "" : "Поле не может быть пустым"} text={nameText}
+                      label="Имя" name="name" defaultValue={person.name}/>
+                <Form handleInput={handleEmailInput} error={emailError} text={emailText} label="Email" name="email"
+                defaultValue={person.email}/>
 
 
                 <div className="change_password_div">
