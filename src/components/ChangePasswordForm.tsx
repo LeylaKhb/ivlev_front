@@ -31,7 +31,6 @@ const ChangePasswordForm: React.FC = () => {
         return containsLetters.test(secondPasswordText) &&
             containsDigits.test(secondPasswordText) &&
             minimum6Chars.test(secondPasswordText);
-
     }
 
     function handleChangeClick() {
@@ -46,7 +45,7 @@ const ChangePasswordForm: React.FC = () => {
         fetch('http://localhost:8080/change_password', {
             method: 'POST',
             headers: {
-                'Content-Type': 'text/plain',
+                'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
             },
