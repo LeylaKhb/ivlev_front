@@ -51,7 +51,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
             req = new AnswerRequest(nameInput, "8" + telInput)
         }
 
-        fetch('http://localhost:8080/api/answer_request', {
+        fetch('http://178.21.8.74:8080/api/answer_request', {
             // mode: 'no-cors',
             method: 'POST',
             credentials: "same-origin",

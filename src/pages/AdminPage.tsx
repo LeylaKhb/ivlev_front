@@ -56,7 +56,7 @@ const AdminPage: React.FC = () => {
     function fetchAdmin() {
         let body = JSON.stringify(new AdminRequest(departureCity, store, sendCity, phoneNumber, entity, startDepartureDate,
             endDepartureDate, startOrderDate, endOrderDate, status, sortBy));
-        fetch('http://localhost:8080/api/admin', {
+        fetch('http://178.21.8.74:8080/api/admin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

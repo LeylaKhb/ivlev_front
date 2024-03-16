@@ -208,7 +208,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable),
             boxes: boxes
         })
-        fetch('http://localhost:8080/new_order', {
+        fetch('http://178.21.8.74:8080/new_order', {
             method: 'POST',
             credentials: "same-origin",
             headers: {
@@ -249,7 +249,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
         let pallet = me.state.dataSupplyType.selectedRadioInput === 'Монопаллет';
 
-        fetch('http://localhost:8080/api/calculator', {
+        fetch('http://178.21.8.74:8080/api/calculator', {
             method: 'POST',
             credentials: "same-origin",
             headers: {
