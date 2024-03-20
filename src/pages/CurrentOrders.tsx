@@ -35,7 +35,7 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
     componentDidMount() {
         let me = this;
 
-        fetch('http://178.21.8.74:8080/current_orders', {
+        fetch('http://178.21.8.74/current_orders', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

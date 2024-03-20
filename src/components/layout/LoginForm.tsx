@@ -69,7 +69,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
 
         let person = new Person(nameText, emailText, passwordText);
 
-        let url = location === "registration" ? 'http://178.21.8.74:8080/registration' : 'http://178.21.8.74:8080/login';
+        let url = location === "registration" ? 'http://178.21.8.74/registration' : 'http://178.21.8.74/login';
         fetch(url, {
             method: 'POST',
             credentials: "same-origin",

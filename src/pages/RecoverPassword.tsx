@@ -44,7 +44,7 @@ const RecoverPassword: React.FC = () => {
             setEmailError("Неправильная электронная почта");
             return;
         }
-        fetch("http://178.21.8.74:8080/recover_password", {
+        fetch("http://178.21.8.74/recover_password", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -90,7 +90,7 @@ const RecoverPassword: React.FC = () => {
             setPasswordError("Пароль должен быть от 6 символов и содержать буквы латинского алфавита и цифры");
             return;
         }
-        fetch('http://178.21.8.74:8080/new_password', {
+        fetch('http://178.21.8.74/new_password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
