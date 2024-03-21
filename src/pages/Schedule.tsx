@@ -91,16 +91,16 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                                 Вт, Ср, Пт, Сб
                             </label>}
                         {value.departureDate.toString() !== '1970-01-01' &&
-                                <><label className="first_column_schedule" style={{bottom: 30}}>
+                                <><label className="first_column_schedule">
                                     {format(value.departureDate, "dd.MM.yy")} ({this.getWeekDay(value.acceptanceDate)})
-                                </label><label className="first_column_schedule" style={{bottom: 17, fontSize: 12}}>
+                                </label><label className="first_column_schedule" style={{top: 45, fontSize: 12}}>
                                     Приём до {format(value.acceptanceDate, "dd.MM")}
                                 </label></>
                         }
                         <label className="second_column_schedule" style={{bottom: 17}}>{value.departureCities
                             .map(departureCity => departureCity.cityName)
                             .join(", ")}</label>
-                        <label className="third_column_schedule" style={{bottom: 17}} >{value.title}</label>
+                        <label className="third_column_schedule"  >{value.title}</label>
                         <label className="fourth_column_schedule" style={{bottom: 17}}>
                             <button className="sign_up_schedule_button" onClick={() => this.setPopupTrue(index)}
                             style={{display: moment().add(1, "days").isBefore(moment(value.acceptanceDate)

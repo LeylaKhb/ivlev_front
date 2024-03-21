@@ -20,7 +20,7 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
     const [cityOzonIndex, setCityOzonIndex] = useState(0);
 
     const [cityMarketIndex, setCityMarketIndex] = useState(0);
-    const citiesMarket = ["Софьино", "Самара"]
+    const citiesMarket = ["Софьино", "Преображенка"]
 
     const [cityWildberriesIndex, setCityWildberriesIndex] = useState(0);
     const citiesWildberries = ["Казань", "Невинномысск", "Краснодар", "Чехов 1", "Чехов 2", "Подольск", "Тула",
@@ -53,6 +53,19 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
     function handleStoreIndex(index: number) {
         setStoreIndex(index);
         handleStore(stores[index]);
+        switch (index) {
+            case 0: {
+                handleSendCity(citiesWildberries[0]);
+                break;
+            }
+            case 1: {
+                handleSendCity(citiesOzon[0]);
+                break
+            }
+            case 2: {
+                handleSendCity(citiesMarket[0]);
+            }
+        }
     }
     return (
         <div className="page_content" style={{flexFlow: 'column'}}>

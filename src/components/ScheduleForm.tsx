@@ -9,6 +9,7 @@ import moment from "moment";
 import {PriceRequest} from "../models/PriceRequest";
 import {Orders} from "../models/Orders";
 import {Box} from "../models/Box";
+import Form from "./Form";
 
 
 
@@ -276,12 +277,8 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             <div className="schedule_form">
                 <form onSubmit={this.handleForm}>
                     <div className="modal_window_title">Заполните все необходимые поля</div>
-                    <input type="text" className="registration_input" onInput={this.handleNameInput} style={{marginTop: 10}}
-                           name="name" defaultValue={this.state.nameText}/>
-                    <div className="login_form_label" style={{transform: me.state.nameText !== "" ?
-                            'translate(-20px, -55px) scale(0.8)' : "none", top: 105, left: 64}}>Юридическое лицо</div>
-                    <div className="form_error" style={{visibility: me.state.nameValid ? "hidden" : "visible",
-                        top: 135, height: 15}}>Поле не может быть пустым</div>
+                    <Form handleInput={this.handleNameInput} error={me.state.nameValid ? "" : "Поле не может быть пустым"}
+                          text={this.state.nameText} label="Юридическое лицо" name={""} />
                     <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError} spanClass="popup_span_tel"
                                inputClass="popup_tel_input"  defaultValue={this.state.telInput}/>
 

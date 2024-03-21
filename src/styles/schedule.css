@@ -43,11 +43,15 @@
 }
 .first_column_schedule, .second_column_schedule, .third_column_schedule, .fourth_column_schedule {
     position: absolute;
-    bottom: 19px;
-    left: 2%;
+    top:50%;
+    left:2%;
+    transform: translateY(-50%);
     text-align: center;
     /*height: 60px;*/
+}
 
+.third_column_schedule {
+    text-align: left;
 }
 .second_column_schedule {
     left: 20%;
@@ -138,7 +142,7 @@
         height: 25px;
     }
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 470px) {
     .table_row, .table_header {
         width: 90%;
     }
