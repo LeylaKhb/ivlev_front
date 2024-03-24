@@ -278,7 +278,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 <form onSubmit={this.handleForm}>
                     <div className="modal_window_title">Заполните все необходимые поля</div>
                     <Form handleInput={this.handleNameInput} error={me.state.nameValid ? "" : "Поле не может быть пустым"}
-                          text={this.state.nameText} label="Юридическое лицо" name={""} />
+                          text={this.state.nameText} label="Юридическое лицо" name={""} defaultValue={this.props.order?.entity}/>
                     <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError} spanClass="popup_span_tel"
                                inputClass="popup_tel_input"  defaultValue={this.state.telInput}/>
 

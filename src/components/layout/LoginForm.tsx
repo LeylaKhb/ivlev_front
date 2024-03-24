@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Person} from "../../models/Person";
-import {useNavigate} from "react-router-dom";
 import PasswordForm from "../PasswordForm";
 import Form from "../Form";
 
@@ -19,7 +18,6 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     let [emailText, setEmailText] = useState("");
     let [passwordText, setPasswordText] = useState("");
     let [nameText, setNameText] = useState("");
-    const navigate = useNavigate();
 
 
     function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -83,7 +81,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
                 .then(function (data) {
                 if (data["header"] !== "error") {
                     localStorage.setItem("jwt", data["content"]);
-                    navigate("/personal_account");
+                    window.location.assign('http://95.163.229.71/personal_account');
                 } else {
                     setEmailError(data["content"]);
                 }

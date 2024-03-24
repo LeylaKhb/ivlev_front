@@ -73,6 +73,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
         fetch('http://178.21.8.74/logout', {
             method: 'POST',
             credentials: "same-origin",
+            mode: 'no-cors',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
 import Form from "../components/Form";
@@ -19,7 +19,6 @@ const RecoverPassword: React.FC = () => {
     const [step, setStep] = useState(1);
     const [serverPassword, setServerPassword] = useState("");
 
-    const navigate = useNavigate();
 
 
     function handleEmailInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -98,7 +97,7 @@ const RecoverPassword: React.FC = () => {
             },
             body: JSON.stringify(new Person("", emailText, passwordText))
         }).then(function () {
-            navigate("/login");
+            window.location.assign('http://95.163.229.71/login');
         })
     }
 
