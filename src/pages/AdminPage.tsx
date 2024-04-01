@@ -56,7 +56,7 @@ const AdminPage: React.FC = () => {
     function fetchAdmin() {
         let body = JSON.stringify(new AdminRequest(departureCity, store, sendCity, phoneNumber, entity, startDepartureDate,
             endDepartureDate, startOrderDate, endOrderDate, status, sortBy));
-        fetch('http://178.21.8.74/api/admin', {
+        fetch('http://localhost:8080/api/admin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -173,44 +173,44 @@ const AdminPage: React.FC = () => {
             <div style={{width: '100%'}} className="admin_table">
                 <table style={{width: '100%'}} className="admin_table">
                     <thead>
-                        <tr>
-                            <th style={{width: '3%'}}>Галочка</th>
-                            <th style={{width: '10%'}}>Дата<br /> заказа</th>
-                            <th style={{width: '10%'}}>Дата<br/> поставки</th>
-                            <th style={{width: '10%'}}>Город <br />отправки</th>
-                            <th style={{width: '10%'}}>Город назначения</th>
-                            <th style={{width: '10%'}}>Склад</th>
-                            <th style={{width: '10%'}}>Номер телефона</th>
-                            <th style={{width: '10%'}}>Имя</th>
-                            <th style={{width: '10%'}}>Тип поставки</th>
-                            <th style={{width: '5%'}}>Объем</th>
-                            <th style={{width: '5%'}}>Цена</th>
-                            <th style={{width: '10%'}}>Статус</th>
-                            <th style={{width: '5%'}}>Изменяемый</th>
-                        </tr>
+                    <tr>
+                        <th style={{width: '3%'}}>Галочка</th>
+                        <th style={{width: '10%'}}>Дата<br /> заказа</th>
+                        <th style={{width: '10%'}}>Дата<br/> поставки</th>
+                        <th style={{width: '10%'}}>Город <br />отправки</th>
+                        <th style={{width: '10%'}}>Город назначения</th>
+                        <th style={{width: '10%'}}>Склад</th>
+                        <th style={{width: '10%'}}>Номер телефона</th>
+                        <th style={{width: '10%'}}>Имя</th>
+                        <th style={{width: '10%'}}>Тип поставки</th>
+                        <th style={{width: '5%'}}>Объем</th>
+                        <th style={{width: '5%'}}>Цена</th>
+                        <th style={{width: '10%'}}>Статус</th>
+                        <th style={{width: '5%'}}>Изменяемый</th>
+                    </tr>
                     </thead>
                     {orders?.map((order, index) => (
                         <tbody key={index}>
-                            <tr style={{ width: '100%'}}>
-                                <td style={{width: '3%'}}>
-                                    <input
+                        <tr style={{ width: '100%'}}>
+                            <td style={{width: '3%'}}>
+                                <input
                                     type="checkbox"
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCheckbox(index, e)}
                                     checked={ordersIndexes.includes(index)}/>
-                                </td>
-                                <td style={{width: '10%'}}>{order.orderDate !== undefined ? order.orderDate.toString() : ""}</td>
-                                <td style={{width: '10%'}}>{order.departureDate !== undefined ? order.departureDate.toString() : ""}</td>
-                                <td style={{width: '10%'}}>{order.departureCity}</td>
-                                <td style={{width: '10%'}}>{order.sendCity}</td>
-                                <td style={{width: '10%'}}>{order.store}</td>
-                                <td style={{width: '10%'}}>{order.phoneNumber}</td>
-                                <td style={{width: '10%'}}>{order.entity}</td>
-                                <td style={{width: '10%'}}>{order.supplyType}</td>
-                                <td style={{width: '5%'}}>{order.volume}</td>
-                                <td style={{width: '5%'}}>{order.price}</td>
-                                <td style={{width: '10%'}}>{order.status}</td>
-                                <td style={{width: '5%'}}>{order.changeable ? "Да" : "Нет"}</td>
-                            </tr>
+                            </td>
+                            <td style={{width: '10%'}}>{order.orderDate !== undefined ? order.orderDate.toString() : ""}</td>
+                            <td style={{width: '10%'}}>{order.departureDate !== undefined ? order.departureDate.toString() : ""}</td>
+                            <td style={{width: '10%'}}>{order.departureCity}</td>
+                            <td style={{width: '10%'}}>{order.sendCity}</td>
+                            <td style={{width: '10%'}}>{order.store}</td>
+                            <td style={{width: '10%'}}>{order.phoneNumber}</td>
+                            <td style={{width: '10%'}}>{order.entity}</td>
+                            <td style={{width: '10%'}}>{order.supplyType}</td>
+                            <td style={{width: '5%'}}>{order.volume}</td>
+                            <td style={{width: '5%'}}>{order.price}</td>
+                            <td style={{width: '10%'}}>{order.status}</td>
+                            <td style={{width: '5%'}}>{order.changeable ? "Да" : "Нет"}</td>
+                        </tr>
                         </tbody>
                     ))}
                 </table>

@@ -360,7 +360,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                             </label>
                         ))}
                     </div>
-                    {me.props.supply.departureDate.toString() === '1970-01-01' &&
+                    {me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01' &&
                         <>
                             <div className="schedule_form_title">Дата отправки</div>
                             <DatePicker selected={me.state.departureDate}
