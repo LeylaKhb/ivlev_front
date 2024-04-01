@@ -27,12 +27,16 @@ function App() {
             <Route path="/login" element={localStorage.getItem("jwt") === null ?
                 <Login /> : <PersonalAccount />} />
             <Route path="/recover_password" element={<RecoverPassword />} />
-            <Route path="/personal_account" element={<PersonalAccount />} />
+            <Route path="/personal_account" element={localStorage.getItem("jwt") === null ?
+                <Login /> : <PersonalAccount />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/calculator" element={<Calculator />} />
-            <Route path="/current_orders" element={<CurrentOrders />} />
-            <Route path="/orders_history" element={<AllOrders />} />
-            <Route path="/admin_page" element={<AdminPage />} />
+            <Route path="/current_orders" element={localStorage.getItem("jwt") === null ?
+                <Login /> : <CurrentOrders />} />
+            <Route path="/orders_history" element={localStorage.getItem("jwt") === null ?
+                <Login /> : <AllOrders />} />
+            {localStorage.getItem("admin") === "true" &&
+                <Route path="/admin_page" element={<AdminPage />} />}
           </Routes>
         </Layout>
       </BrowserRouter>
