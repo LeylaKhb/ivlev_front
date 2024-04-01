@@ -45,6 +45,7 @@ const RecoverPassword: React.FC = () => {
         }
         fetch("http://178.21.8.74/recover_password", {
             method: 'POST',
+            credentials: "same-origin",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

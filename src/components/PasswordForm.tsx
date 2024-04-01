@@ -11,7 +11,7 @@ const PasswordForm: React.FC<PasswordFormProps> = ({handleInput, error, password
     const [passwordHidden, setPasswordHidden] = useState(true);
 
     return (
-        <div style={{width: '100%'}}>
+        <div style={{width: '100%', position: 'relative'}}>
             <input type={passwordHidden ? "password" : "text"} className="registration_input"
                    onInput={handleInput} name="password"/>
             <div className="login_form_label" style={{transform: passwordText !== "" ?
