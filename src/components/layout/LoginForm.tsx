@@ -79,7 +79,11 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
                 .then(function (data) {
                 if (data["header"] !== "error") {
                     localStorage.setItem("jwt", data["content"]);
-                    if (data["content"].includes('*')) localStorage.setItem("admin", "true");
+                    if (data["content"].includes('*')) {
+                        let parts = data["content"].split("*")
+                        localStorage.setItem("admin", parts[1]);
+                        localStorage.setItem("jwt", parts[0]);
+                    }
                     window.location.assign('http://95.163.229.71/personal_account');
                 } else {
                     setEmailError(data["content"]);
