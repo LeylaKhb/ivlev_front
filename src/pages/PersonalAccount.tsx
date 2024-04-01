@@ -82,7 +82,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
             }
         }).then(function () {
            localStorage.removeItem("jwt");
-           window.location.assign('http://95.163.229.71/');
+           window.location.assign('https://ivlev-ff.ru/');
         })
     }
 

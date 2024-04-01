@@ -84,7 +84,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
                         localStorage.setItem("admin", parts[1]);
                         localStorage.setItem("jwt", parts[0]);
                     }
-                    window.location.assign('http://95.163.229.71/personal_account');
+                    window.location.assign('https://ivlev-ff.ru/personal_account');
                 } else {
                     setEmailError(data["content"]);
                 }

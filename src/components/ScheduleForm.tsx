@@ -225,7 +225,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             },
             body: body
         }).then(function () {
-            window.location.assign('http://95.163.229.71/current_orders');
+            window.location.assign('https://ivlev-ff.ru/current_orders');
         })
     }
     handleForm(event: React.FormEvent<HTMLFormElement>) {
