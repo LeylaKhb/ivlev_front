@@ -110,7 +110,8 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                         <img src={me.state.person.photo} alt="user profile"/>
                         <div className="personal_info_div">
                             <div className="personal_info">{me.state.person.name}</div>
-                            <div className="personal_info" style={{ color: 'gray', fontSize: 14}}>{me.state.person.email}</div>
+                            <div className="personal_info" style={{ color: 'gray', fontSize: 14,
+                            wordBreak: 'break-all'}}>{me.state.person.email}</div>
                         </div>
                     </div>
                     <div style={{display: 'flex', flexFlow: 'column'}} >

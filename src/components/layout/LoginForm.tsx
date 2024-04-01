@@ -44,12 +44,10 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
 
     function checkPassword() {
         const containsLetters = /^.*[a-zA-Z]+.*$/
-        const containsDigits = /^.*[0-9]+.*$/
         const minimum6Chars = /^.{6,}$/
         if (!(containsLetters.test(passwordText) &&
-            containsDigits.test(passwordText) &&
             minimum6Chars.test(passwordText))) {
-            setPasswordError("Пароль должен быть от 6 символов и содержать буквы латинского алфавита и цифры");
+            setPasswordError("Пароль должен быть от 6 символов и содержать буквы латинского алфавита");
             return false;
         }
         return true;

@@ -77,17 +77,15 @@ const RecoverPassword: React.FC = () => {
 
     function checkPassword() {
         const containsLetters = /^.*[a-zA-Z]+.*$/
-        const containsDigits = /^.*[0-9]+.*$/
         const minimum6Chars = /^.{6,}$/
         return containsLetters.test(passwordText) &&
-            containsDigits.test(passwordText) &&
             minimum6Chars.test(passwordText);
     }
 
     function handleNewPasswordSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         if (!checkPassword()) {
-            setPasswordError("Пароль должен быть от 6 символов и содержать буквы латинского алфавита и цифры");
+            setPasswordError("Пароль должен быть от 6 символов и содержать буквы латинского алфавита");
             return;
         }
         fetch('http://178.21.8.74/new_password', {
