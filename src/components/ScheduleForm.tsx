@@ -126,6 +126,11 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         return day !== 0 && day !== 1 && day !== 4;
     };
 
+    isWeekdayWithoutSunday(date: Date) {
+        const day = date.getDay();
+        return day !== 0;
+    };
+
     setTelInputToParent(value: string) {
         this.setState({telInput: value,
                             telError: ""})
@@ -360,12 +365,24 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                             </label>
                         ))}
                     </div>
-                    {me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01' &&
+                    {me.props.supply.departureDate.toString() === '1970-01-01' &&
                         <>
                             <div className="schedule_form_title">Дата отправки</div>
                             <DatePicker selected={me.state.departureDate}
                                         onChange={(date) => me.setState({departureDate: date})}
                                         filterDate={me.isWeekday}
+                                        minDate={moment().add(1, 'day').toDate()}
+                                        dateFormat={"dd.MM.YYYY"}
+                                        required={true}
+                                        placeholderText="Выберите дату..."/>
+                        </>
+                    }
+                    {me.props.supply.departureDate.toString() === '1980-01-01' &&
+                        <>
+                            <div className="schedule_form_title">Дата отправки</div>
+                            <DatePicker selected={me.state.departureDate}
+                                        onChange={(date) => me.setState({departureDate: date})}
+                                        filterDate={me.isWeekdayWithoutSunday}
                                         minDate={moment().add(1, 'day').toDate()}
                                         dateFormat={"dd.MM.YYYY"}
                                         required={true}

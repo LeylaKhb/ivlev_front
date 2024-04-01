@@ -92,7 +92,8 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                             </label>}
                         {value.departureDate.toString() === '1980-01-01' &&
                             <label className="first_column_schedule" style={{bottom: 20}}>
-                                Пн, Вт, Ср, Чт, Пт, Сб
+                                Пн, Вт, Ср, Чт,
+                                <br /> Пт, Сб
                             </label>}
                         {value.departureDate.toString() !== '1970-01-01' && value.departureDate.toString() !== '1980-01-01' &&
                                 <><label className="first_column_schedule">
