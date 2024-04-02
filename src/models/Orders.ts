@@ -19,6 +19,7 @@ export class Orders {
     status?: string;
     changeable?: boolean;
     id?: number;
+    boxesString?: string
 
 
     constructor(entity: string, departureDate: Date, phoneNumber: string, sendCity: string, departureCity: string, store: string, supplyType: string, volume: number, price: string, willTaken: boolean, comment: string, numberOzon: string, supplyTitle: string, id?: number, orderDate?: Date, status?: string, changeable?: boolean,  boxes?: Box[]) {

@@ -168,9 +168,9 @@ const AdminPage: React.FC = () => {
                 <div className="admin_title">Сортировать по: </div>
                 <select value={sortBy} onChange={changeSortBy} className="select_admin">
                     <option value="">Без сортировки</option>
-                    <option value="send_city">Город отправки</option>
+                    <option value="departure_city">Город отправки</option>
                     <option value="store">Склад</option>
-                    <option value="departure_city">Город назначения</option>
+                    <option value="send_city">Город назначения</option>
                     <option value="phone_number">Номер телефона</option>
                     <option value="departure_date">Дата доставки</option>
                     <option value="order_date">Дата заказа</option>

@@ -69,7 +69,6 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
     }
 
     handleLogout() {
-        console.log("here")
         fetch('https://kodrfb.ru/logout', {
             method: 'POST',
             credentials: "same-origin",

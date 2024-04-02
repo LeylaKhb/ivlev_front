@@ -11,4 +11,6 @@ export class Box {
         this.height = height;
         this.amount = amount;
     }
+
+
 }
