@@ -54,6 +54,10 @@ const AdminPage: React.FC = () => {
     }
 
     function fetchAdmin() {
+        startDepartureDate?.setDate(startDepartureDate?.getDate() + 1)
+        endDepartureDate?.setDate(endDepartureDate?.getDate() + 1)
+        startOrderDate?.setDate(startOrderDate?.getDate() + 1)
+        endOrderDate?.setDate(endOrderDate?.getDate() + 1)
         let body = JSON.stringify(new AdminRequest(departureCity, store, sendCity, phoneNumber, entity, startDepartureDate,
             endDepartureDate, startOrderDate, endOrderDate, status, sortBy));
         fetch('https://kodrfb.ru/api/admin', {
