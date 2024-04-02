@@ -34,7 +34,7 @@ const NinthBlock: React.FC = () => {
                             <div className="question_block" onClick={handleFirstAnswer}>
                                 <div className="question">Увеличиваются ли сроки поставки при работе через нас?</div>
                                 <div className="question_cross" style={{transform: firstAnswer ? 'rotate(45deg)' : 'none'}}>
-                                    <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><g stroke="none" strokeWidth="1px" fill="none" fillRule="evenodd" strokeLinecap="square"><g transform="translate(1.000000, 1.000000)" stroke="#222222"><path d="M0,11 L22,11"></path><path d="M11,0 L11,22"></path></g></g></svg>
+                                    <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg" ><g stroke="none" strokeWidth="1px" fill="none" fillRule="evenodd" strokeLinecap="square"><g transform="translate(1.000000, 1.000000)" stroke="#222222"><path d="M0,11 L22,11"></path><path d="M11,0 L11,22"></path></g></g></svg>
                                 </div>
                             </div>
                             <div className="answer" style={{maxHeight: firstAnswer ? 90 : 0}}>
@@ -46,7 +46,7 @@ const NinthBlock: React.FC = () => {
                             <div className="question_block big_question" onClick={handleSecondAnswer}>
                                 <div className="question">Каков уровень надежности упаковки товаров при использовании Вашего сервиса?</div>
                                 <div className="question_cross" style={{transform: secondAnswer ? 'rotate(45deg)' : 'none'}}>
-                                    <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><g stroke="none" strokeWidth="1px" fill="none" fillRule="evenodd" strokeLinecap="square"><g transform="translate(1.000000, 1.000000)" stroke="#222222"><path d="M0,11 L22,11"></path><path d="M11,0 L11,22"></path></g></g></svg>
+                                    <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg" ><g stroke="none" strokeWidth="1px" fill="none" fillRule="evenodd" strokeLinecap="square"><g transform="translate(1.000000, 1.000000)" stroke="#222222"><path d="M0,11 L22,11"></path><path d="M11,0 L11,22"></path></g></g></svg>
                                 </div>
                             </div>
                             <div className="answer" style={{maxHeight: secondAnswer ? 173 : 0}} ><br/>Для того, чтобы гарантировать безопасность хрупких товаров в
@@ -60,7 +60,7 @@ const NinthBlock: React.FC = () => {
                             <div className="question_block big_question" onClick={handleThirdAnswer}>
                                 <div className="question">Возможно ли, что вы перепутаете похожие товары при сборе заказа?</div>
                                 <div className="question_cross" style={{transform: thirdAnswer ? 'rotate(45deg)' : 'none'}}>
-                                    <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><g stroke="none" strokeWidth="1px" fill="none" fillRule="evenodd" strokeLinecap="square"><g transform="translate(1.000000, 1.000000)" stroke="#222222"><path d="M0,11 L22,11"></path><path d="M11,0 L11,22"></path></g></g></svg>
+                                    <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg" ><g stroke="none" strokeWidth="1px" fill="none" fillRule="evenodd" strokeLinecap="square"><g transform="translate(1.000000, 1.000000)" stroke="#222222"><path d="M0,11 L22,11"></path><path d="M11,0 L11,22"></path></g></g></svg>
                                 </div>
                             </div>
                             <div className="answer" style={{maxHeight: thirdAnswer ? 200 : 0}} ><br/>Мы гарантируем точность и правильность сборки Вашего заказа
@@ -74,7 +74,7 @@ const NinthBlock: React.FC = () => {
                             <div className="question_block" onClick={handleFourthAnswer}>
                                 <div className="question" >Будет ли водитель ожидать принятия груза?</div>
                                 <div className="question_cross" style={{transform: fourthAnswer ? 'rotate(45deg)' : 'none'}}>
-                                    <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><g stroke="none" strokeWidth="1px" fill="none" fillRule="evenodd" strokeLinecap="square"><g transform="translate(1.000000, 1.000000)" stroke="#222222"><path d="M0,11 L22,11"></path><path d="M11,0 L11,22"></path></g></g></svg>
+                                    <svg role="presentation" focusable="false" width="24px" height="24px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg" ><g stroke="none" strokeWidth="1px" fill="none" fillRule="evenodd" strokeLinecap="square"><g transform="translate(1.000000, 1.000000)" stroke="#222222"><path d="M0,11 L22,11"></path><path d="M11,0 L11,22"></path></g></g></svg>
                                 </div>
                             </div>
                             <div className="answer"  style={{maxHeight: fourthAnswer ? 173 : 0}} >Наш водитель не только дождется приема груза, но также готов

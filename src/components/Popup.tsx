@@ -37,7 +37,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
     componentDidMount() {
         let me = this;
         if (me.props.order !== undefined && this.props.supply === undefined) {
-            fetch('http://178.21.8.74/api/get_supply', {
+            fetch('https://kodrfb.ru/api/get_supply', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -145,7 +145,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
                 }
                 <div className="popup_cross" onClick={this.props.setVisibleFalse}>
                     <svg role="presentation" className="t-popup__close-icon" width="23px" height="23px"
-                         viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                         viewBox="0 0 23 23" version="1.1" xmlns="https://www.w3.org/2000/svg">
                         <g stroke="none" strokeWidth="1" fill="#f81c87" fillRule="evenodd">
                             <rect
                                 transform="translate(11.313708, 11.313708) rotate(-45.000000) translate(-11.313708, -11.313708) "

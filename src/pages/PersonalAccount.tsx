@@ -33,7 +33,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
     componentDidMount() {
         let me = this;
 
-        fetch('http://178.21.8.74/personal_account', {
+        fetch('https://kodrfb.ru/personal_account', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -70,7 +70,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
 
     handleLogout() {
         console.log("here")
-        fetch('http://178.21.8.74/logout', {
+        fetch('https://kodrfb.ru/logout', {
             method: 'POST',
             credentials: "same-origin",
             mode: 'no-cors',

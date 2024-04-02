@@ -50,7 +50,7 @@ const Calculator: React.FC = () => {
         });
         if (wrong) return;
         volume /= 1000000;
-        fetch('http://178.21.8.74/api/calculator', {
+        fetch('https://kodrfb.ru/api/calculator', {
             method: 'POST',
             credentials: "same-origin",
             headers: {

@@ -10,13 +10,13 @@ const SocialNetworkButton: React.FC = () => {
             <label className="social_network_button" onClick={() => {setOpen(!open)}}
                  style={{backgroundColor: open ? "white" : '#f81c87'}}>
                 <svg role="presentation" className="svg_chat" style={{visibility: open ? "hidden" : "visible"}} width="35" height="32" viewBox="0 0 35 32"
-                     xmlns="http://www.w3.org/2000/svg">
+                     xmlns="https://www.w3.org/2000/svg">
                     <path
                         d="M11.2667 12.6981H23.3667M11.2667 16.4717H23.3667M4.8104 23.5777C2.4311 21.1909 1 18.1215 1 14.7736C1 7.16679 8.38723 1 17.5 1C26.6128 1 34 7.16679 34 14.7736C34 22.3804 26.6128 28.5472 17.5 28.5472C15.6278 28.5472 13.8286 28.2868 12.1511 27.8072L12 27.7925L5.03333 31V23.8219L4.8104 23.5777Z"
                         stroke="#ffffff" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round"
                         strokeLinejoin="round" fill="none"></path>
                 </svg>
-                <svg role="presentation" className="svg_cross" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                <svg role="presentation" className="svg_cross" xmlns="https://www.w3.org/2000/svg" width="16" height="16"
                      style={{visibility: open ? "visible" : "hidden"}} viewBox="0 0 23 23">
                     <g fillRule="evenodd">
                         <path d="M10.314 -3.686H12.314V26.314H10.314z" transform="rotate(-45 11.314 11.314)"></path>
@@ -42,7 +42,7 @@ const SocialNetworkButton: React.FC = () => {
             <a href="tel:+79608293555" className="tel_link"
                style={{transform: open ? 'translate(0,-495%)' : "none",
                    visibility: open ? 'visible' : "hidden" }}>
-                <svg role="presentation" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg role="presentation" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="https://www.w3.org/2000/svg">
                     <path d="M25 0C11.2 0 0 11.2 0 25C0 38.8 11.2 50 25 50C38.8 50 50 38.8 50 25C50 11.2 38.84 0 25 0Z" fill="#004D73"></path>
                     <path d="M38.66 34.1001L32.44 27.7801C32.3435 27.6746 32.226 27.5904 32.0952 27.5327C31.9643
                     27.4751 31.8229 27.4453 31.68 27.4453C31.537 27.4453 31.3956 27.4751 31.2647 27.5327C31.1339

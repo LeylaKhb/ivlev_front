@@ -45,7 +45,7 @@ const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person, openSecond
             return;
         }
 
-        fetch('http://178.21.8.74/change_person', {
+        fetch('https://kodrfb.ru/change_person', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -56,7 +56,7 @@ const AdminPage: React.FC = () => {
     function fetchAdmin() {
         let body = JSON.stringify(new AdminRequest(departureCity, store, sendCity, phoneNumber, entity, startDepartureDate,
             endDepartureDate, startOrderDate, endOrderDate, status, sortBy));
-        fetch('http://178.21.8.74/api/admin', {
+        fetch('https://kodrfb.ru/api/admin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

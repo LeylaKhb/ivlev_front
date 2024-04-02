@@ -43,7 +43,7 @@ const RecoverPassword: React.FC = () => {
             setEmailError("Неправильная электронная почта");
             return;
         }
-        fetch("http://178.21.8.74/recover_password", {
+        fetch("https://kodrfb.ru/recover_password", {
             method: 'POST',
             credentials: "same-origin",
             headers: {
@@ -88,7 +88,7 @@ const RecoverPassword: React.FC = () => {
             setPasswordError("Пароль должен быть от 6 символов и содержать буквы латинского алфавита");
             return;
         }
-        fetch('http://178.21.8.74/new_password', {
+        fetch('https://kodrfb.ru/new_password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

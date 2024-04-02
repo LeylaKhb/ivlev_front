@@ -25,7 +25,7 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
                 changeable: changeable
             });
 
-        fetch('http://178.21.8.74/api/admin_change', {
+        fetch('https://kodrfb.ru/api/admin_change', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
