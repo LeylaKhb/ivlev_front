@@ -35,7 +35,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     }
 
     function checkName() {
-        if (!(/^[a-zA-ZА-Яа-я-]+$/.test(nameText))) {
+        if (nameText.length === 0) {
             setNameValid(false);
             return false;
         }

@@ -31,7 +31,7 @@ const ProfileChangeForm: React.FC<ProfileChangeFormProps> = ({person, openSecond
     }
 
     function checkName() {
-        if (!(/^[a-zA-ZА-Яа-я-]+$/.test(nameText))) {
+        if (nameText.length === 0) {
             setNameValid(false);
             return false;
         }
