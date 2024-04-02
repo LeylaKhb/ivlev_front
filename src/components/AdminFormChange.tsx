@@ -7,7 +7,7 @@ interface AdminFormChangeProps {
 }
 
 const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
-    const [status, setStatus] = useState("not_paid");
+    const [status, setStatus] = useState("Не оплачен");
     const [changeable, setChangeable] = useState("yes");
     function changeStatus(e: React.ChangeEvent<HTMLSelectElement>) {
         setStatus(e.target.value);
