@@ -122,22 +122,34 @@ const AdminPage: React.FC = () => {
 
                 <div className="admin_title">От даты доставки</div>
                 <DatePicker selected={startDepartureDate}
-                            onChange={(date) => setStartDepartureDate(date)}
+                            onChange={(date: Date) => {
+                                date.setDate(date.getDate() + 1)
+                                setStartDepartureDate(date)}
+                            }
                             dateFormat={"dd.MM.YYYY"}/>
 
                 <div className="admin_title">До даты доставки</div>
                 <DatePicker selected={endDepartureDate}
-                            onChange={(date) => setEndDepartureDate(date)}
+                            onChange={(date: Date) => {
+                                date.setDate(date.getDate() + 1)
+                                setEndDepartureDate(date)}
+                            }
                             dateFormat={"dd.MM.YYYY"}/>
 
                 <div className="admin_title">От даты заказа</div>
                 <DatePicker selected={startOrderDate}
-                            onChange={(date) => setStartOrderDate(date)}
+                            onChange={(date: Date) => {
+                                date.setDate(date.getDate() + 1)
+                                setStartOrderDate(date)}
+                            }
                             dateFormat={"dd.MM.YYYY"}/>
 
                 <div className="admin_title">До даты заказа</div>
                 <DatePicker selected={endOrderDate}
-                            onChange={(date) => setEndOrderDate(date)}
+                            onChange={(date: Date) => {
+                                date.setDate(date.getDate() + 1)
+                                setEndOrderDate(date)}
+                            }
                             dateFormat={"dd.MM.YYYY"}/>
 
                 <div className="admin_title">Статус</div>

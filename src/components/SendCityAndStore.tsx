@@ -16,7 +16,7 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
     const stores = ["Wildberries", "Ozon", "Яндекс Маркет"]
 
     const citiesOzon = ["Адыгейск", "Ростов-на-Дону", "Чапаевск", "Казань", "Софьино", "Пушкино 1",
-        "Пушкино 2", "Хоругвино", "Санкт-Петербург", "Новосибирск", "Екатеринбург"];
+        "Пушкино 2", "Хоругвино", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Преображенка"];
     const [cityOzonIndex, setCityOzonIndex] = useState(0);
 
     const [cityMarketIndex, setCityMarketIndex] = useState(0);
@@ -24,7 +24,8 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
 
     const [cityWildberriesIndex, setCityWildberriesIndex] = useState(0);
     const citiesWildberries = ["Казань", "Невинномысск", "Краснодар", "Чехов 1", "Чехов 2", "Подольск", "Тула",
-        "Коледино", "Электросталь", "Екат (перпективный)", "Екат (индустриальный)", "Новосибирск", "СПб (Уткина заводь)"];
+        "Коледино", "Электросталь", "Екат (перпективный)", "Екат (индустриальный)", "Новосибирск", "СПб (Уткина заводь)",
+        "Новосемейкино", "Преображенка"];
 
     if (location === "admin") {
         departureCities.push("");

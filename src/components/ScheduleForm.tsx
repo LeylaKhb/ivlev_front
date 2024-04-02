@@ -139,7 +139,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
     handleNameInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
         let lastChar = inputValue.charAt(inputValue.length - 1);
-        if(!(/^[a-zA-Zа-яА-Я-]+$/.test(lastChar))) {
+        if(!(/^[a-zA-Zа-яА-Я- ]+$/.test(lastChar))) {
             e.target.value = inputValue.slice(0, -1);
         }
         this.setState({nameText: inputValue,
