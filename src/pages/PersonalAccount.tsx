@@ -69,20 +69,8 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
     }
 
     handleLogout() {
-        fetch('https://kodrfb.ru/logout', {
-            method: 'POST',
-            credentials: "same-origin",
-            mode: 'no-cors',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
-
-            }
-        }).then(function () {
-           localStorage.removeItem("jwt");
-           window.location.assign('https://ivlev-ff.ru/');
-        })
+        localStorage.removeItem("jwt");
+        window.location.assign('https://ivlev-ff.ru/');
     }
 
     render() {
