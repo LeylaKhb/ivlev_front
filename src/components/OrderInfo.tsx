@@ -7,6 +7,22 @@ interface OrderInfoProps {
 }
 
 const OrderInfo: React.FC<OrderInfoProps> = ({order, openSecondPopup}) => {
+    function deleteOrder() {
+        fetch("https://kodrfb.ru/delete_order", {
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
+
+            },
+            body: JSON.stringify(order)
+        }).then(function () {
+            window.location.assign('https://ivlev-ff.ru/current_orders');
+        })
+    }
+
     return (
         <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column'}}>
             <div className="order_form">
@@ -57,7 +73,11 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, openSecondPopup}) => {
             </div>
 
             {order.changeable &&
-                <button className="change_order" onClick={openSecondPopup}>Изменить</button> }
+                <>
+                    <button className="change_order" onClick={openSecondPopup}>Изменить</button>
+                    <button className="change_order" onClick={deleteOrder} style={{marginTop: 10}}>Удалить</button>
+                </>
+            }
         </div>
     )
 }

@@ -57,9 +57,9 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         });
     }
 
-    getWeekDay(acceptanceDate: Date) {
+    getWeekDay(departureDate: Date) {
         let days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-        return days[new Date(acceptanceDate).getDay()];
+        return days[new Date(departureDate).getDay()];
     }
 
     render() {
@@ -96,7 +96,7 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                             </label>}
                         {value.departureDate.toString() !== '1970-01-01' && value.departureDate.toString() !== '1980-01-01' &&
                                 <><label className="first_column_schedule">
-                                    {format(value.departureDate, "dd.MM.yy")} ({this.getWeekDay(value.acceptanceDate)})
+                                    {format(value.departureDate, "dd.MM.yy")} ({this.getWeekDay(value.departureDate)})
                                 </label><label className="first_column_schedule" style={{top: 45, fontSize: 12}}>
                                     Приём до {format(value.acceptanceDate, "dd.MM")}
                                 </label></>
