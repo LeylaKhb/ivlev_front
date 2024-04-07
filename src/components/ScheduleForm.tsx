@@ -425,12 +425,10 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                     <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
                     onInput={this.handleComment} defaultValue={me.state.comment}/>
 
-
+                    <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
+                    required={true}/>
                     <label htmlFor={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
-                           className="custom-checkbox">
-                        <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
-                               required={true}/>
-                    </label>
+                           className="custom-checkbox"></label>
                     <span style={{marginLeft: 9}}>Я согласен с&nbsp;
                         <Link to="/regulations" target="_blank">
                             <span>условиями и положениями </span>
