@@ -13,6 +13,7 @@ import AllOrders from "./pages/AllOrders";
 import AdminPage from "./pages/AdminPage";
 import RecoverPassword from "./pages/RecoverPassword";
 import { HashRouter } from 'react-router-dom'
+import Regulations from "./Regulations";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                 <Login /> : <CurrentOrders />} />
             <Route path="/orders_history" element={localStorage.getItem("jwt") === null ?
                 <Login /> : <AllOrders />} />
+            <Route path="/regulations" element={<Regulations /> }/>
             {localStorage.getItem("admin") === "true" &&
                 <Route path="/admin_page" element={<AdminPage />} />}
           </Routes>

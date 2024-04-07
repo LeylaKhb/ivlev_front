@@ -10,6 +10,7 @@ import {PriceRequest} from "../models/PriceRequest";
 import {Orders} from "../models/Orders";
 import {Box} from "../models/Box";
 import Form from "./Form";
+import {Link} from "react-router-dom";
 
 
 
@@ -213,7 +214,12 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 price, state.willTaken, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,
                 me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable),
             boxes: boxes
-        })
+        });
+        if (!moment().add(1, "days").isBefore(moment(this.props.supply.acceptanceDate)
+            .add(22, 'hours'), 'hour')) {
+            this.setState({telError: 'Нельзя отправить заявку после 22:00'})
+            return;
+        }
         fetch('https://kodrfb.ru/new_order', {
             method: 'POST',
             credentials: "same-origin",
@@ -418,6 +424,18 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                     <div className="schedule_form_title">Доп. комментарий</div>
                     <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
                     onInput={this.handleComment} defaultValue={me.state.comment}/>
+
+
+                    <label htmlFor={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
+                           className="custom-checkbox">
+                        <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
+                               required={true}/>
+                    </label>
+                    <span style={{marginLeft: 9}}>Я согласен с&nbsp;
+                        <Link to="/regulations" target="_blank">
+                            <span>условиями и положениями </span>
+                        </Link>
+                    </span>
 
                     <button type="submit" className="schedule_form_button">Отправить</button>
                 </form>

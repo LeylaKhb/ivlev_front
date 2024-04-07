@@ -1,0 +1,13 @@
+.regulations {
+    margin-top: 100px;
+    margin-bottom: 40px;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    flex-flow: column;
+    line-height: 1.5;
+}
+
+.regulations ol li {
+    margin-bottom: 10px;
+}
