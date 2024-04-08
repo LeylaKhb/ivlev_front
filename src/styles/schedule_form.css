@@ -52,7 +52,7 @@
     margin-left: 13px;
 }
 
-input[type="checkbox"] {
+.regulations input[type="checkbox"] {
     position: absolute;
     z-index: -1;
     opacity: 0;
