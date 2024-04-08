@@ -14,6 +14,8 @@ import AdminPage from "./pages/AdminPage";
 import RecoverPassword from "./pages/RecoverPassword";
 import { HashRouter } from 'react-router-dom'
 import Regulations from "./Regulations";
+import {Helmet} from "react-helmet";
+import {HelmetProvider} from "react-helmet-async";
 
 
 function App() {
@@ -37,6 +39,13 @@ function App() {
             <Route path="/orders_history" element={localStorage.getItem("jwt") === null ?
                 <Login /> : <AllOrders />} />
             <Route path="/regulations" element={<Regulations /> }/>
+            <Route path="/partners" element={<div>
+              <HelmetProvider>
+                <Helmet
+                    title="Партнеры"
+                />
+              </HelmetProvider>
+            </div> }/>
             {localStorage.getItem("admin") === "true" &&
                 <Route path="/admin_page" element={<AdminPage />} />}
           </Routes>

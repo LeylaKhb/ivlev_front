@@ -6,6 +6,8 @@ import {AdminRequest} from "../models/AdminRequest";
 import {Orders} from "../models/Orders";
 import Popup from "../components/Popup";
 import { ExportCSV } from "../components/ExportCSV";
+import {Helmet} from "react-helmet";
+import {HelmetProvider} from "react-helmet-async";
 
 
 const AdminPage: React.FC = () => {
@@ -116,6 +118,11 @@ const AdminPage: React.FC = () => {
 
     return (
         <div className="page_content" style={{ flexFlow: 'column'}}>
+            <HelmetProvider>
+                <Helmet
+                    title="Админка"
+                />
+            </HelmetProvider>
             <Popup isVisible={isPopupVisible} setVisibleFalse={setPopupFalse} content="admin"
                    orders={ordersIndexes.map(ind => orders[ind])}/>
             <form className="admin_form" onSubmit={handleForm}>
