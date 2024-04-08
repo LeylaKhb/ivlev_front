@@ -52,7 +52,7 @@
     margin-left: 13px;
 }
 
-.regulations input[type="checkbox"] {
+.schedule_form input[type="checkbox"] {
     position: absolute;
     z-index: -1;
     opacity: 0;
