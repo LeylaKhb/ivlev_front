@@ -9,6 +9,7 @@
 .popup_order {
     height: 700px;
     animation: window-popup-order 0.5s ease-in-out;
+    overflow: scroll;
 }
 @keyframes window-popup-order {
     from {
