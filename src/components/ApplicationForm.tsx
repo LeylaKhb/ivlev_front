@@ -32,17 +32,29 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
         setTelError("");
     }
 
+    function checkPhone() {
+        if (telInput.length !== 15) {
+            setTelError("Номер введён некорректно");
+            return false;
+        }
+        return true;
+    }
+
+     function checkName() {
+        if (nameInput.length === 0) {
+            setNameError("Введите имя");
+            return false;
+        }
+        return true;
+    }
+
     function checkForm(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        if (telInput.length !== 10) {
-            setTelError("Номер введён некорректно");
-            if (nameInput.length === 0) {
-                setNameError("Введите имя");
-                return;
-            }
-            return;
-        }
+        let phone = checkPhone();
+        let name = checkName();
+        if (!phone || !name) return;
+
         let req;
         if (priceData) {
             req = new AnswerRequest(nameInput, telInput, priceData[0], priceData[1], priceData[2], priceData[3],
