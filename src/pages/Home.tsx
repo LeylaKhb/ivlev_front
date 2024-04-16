@@ -9,8 +9,8 @@ import SeventhBlock from "../components/home/SeventhBlock";
 import NinthBlock from "../components/home/NinthBlock";
 import EighthBlock from "../components/home/EighthBlock";
 import TenthBlock from "../components/home/TenthBlock";
-import SocialNetworkButton from "../components/SocialNetworkButton";
-import ScheduleButton from "../components/ScheduleButton";
+import SocialNetworkButton from "../components/home/SocialNetworkButton";
+import ScheduleButton from "../components/home/ScheduleButton";
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const Home: React.FC<{}> = () => {

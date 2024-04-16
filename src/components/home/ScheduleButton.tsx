@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/schedule_button.css"
+import "../../styles/home/schedule_button.css"
 import {Link} from "react-router-dom";
 
 const ScheduleButton:React.FC = () => {

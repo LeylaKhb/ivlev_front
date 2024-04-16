@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Person} from "../models/Person";
-import "../styles/profile_change_form.css";
-import Form from "./Form";
+import {Person} from "../../models/Person";
+import "../../styles/personal_page/profile_change_form.css";
+import Form from "../forms/Form";
 
 interface ProfileChangeFormProps {
     person: Person;

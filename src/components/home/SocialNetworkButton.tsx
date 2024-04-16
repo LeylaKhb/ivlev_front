@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import "../styles/social_network_button.css"
-import telegram from "../static/telegram.png";
-import viber from "../static/viber.png";
-import whatsapp from "../static/whatsapp.png";
+import "../../styles/home/social_network_button.css"
+import telegram from "../../static/telegram.png";
+import viber from "../../static/viber.png";
+import whatsapp from "../../static/whatsapp.png";
 const SocialNetworkButton: React.FC = () => {
     const [open, setOpen] = useState(false);
     return (

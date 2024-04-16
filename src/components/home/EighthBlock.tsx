@@ -1,7 +1,7 @@
 import React from "react";
 import background from "../../static/background_with_images.png";
-import ApplicationForm from "../ApplicationForm";
-import SocialNetwork from "../SocialNetwork";
+import ApplicationForm from "../forms/ApplicationForm";
+import SocialNetwork from "./SocialNetwork";
 
 const EighthBlock: React.FC = () => {
     const backgroundImage = {

@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/schedule.css";
+import "../styles/schedule/schedule.css";
 import FirstBlock from "../components/schedule/FirstBlock";
 import CalcuatorBlock from "../components/schedule/CalcuatorBlock";
 import {Helmet, HelmetProvider} from "react-helmet-async";

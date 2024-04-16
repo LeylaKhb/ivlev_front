@@ -13,7 +13,7 @@ import AllOrders from "./pages/AllOrders";
 import AdminPage from "./pages/AdminPage";
 import RecoverPassword from "./pages/RecoverPassword";
 import { HashRouter } from 'react-router-dom'
-import Regulations from "./Regulations";
+import Regulations from "./components/regulations/Regulations";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
 

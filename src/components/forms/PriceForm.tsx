@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../styles/price_form.css"
+import "../../styles/forms/price_form.css"
 import {Swiper,  SwiperSlide} from 'swiper/react';
 import {Navigation} from 'swiper/modules';
 import ApplicationForm from "./ApplicationForm";

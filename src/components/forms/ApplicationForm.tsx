@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import "../styles/application_form.css"
-import {AnswerRequest} from "../models/AnswerRequest";
+import "../../styles/forms/application_form.css"
+import {AnswerRequest} from "../../models/AnswerRequest";
 import PhoneForm from "./PhoneForm";
 
 

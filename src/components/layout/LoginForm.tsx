@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Person} from "../../models/Person";
-import PasswordForm from "../PasswordForm";
-import Form from "../Form";
+import PasswordForm from "../forms/PasswordForm";
+import Form from "../forms/Form";
 
 
 

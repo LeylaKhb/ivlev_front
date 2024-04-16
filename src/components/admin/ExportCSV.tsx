@@ -1,7 +1,7 @@
 import React from 'react'
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import {Orders} from "../models/Orders";
+import {Orders} from "../../models/Orders";
 
 interface ExportCSVProps {
     csvData: any[],

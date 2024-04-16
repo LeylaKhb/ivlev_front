@@ -1,8 +1,8 @@
 import React from "react";
-import telegram from "../static/telegram.png";
-import whatsapp from "../static/whatsapp.png";
-import viber from "../static/viber.png";
-import "../styles/social_network.css";
+import telegram from "../../static/telegram.png";
+import whatsapp from "../../static/whatsapp.png";
+import viber from "../../static/viber.png";
+import "../../styles/home/social_network.css";
 
 const SocialNetwork: React.FC = () => {
     return (

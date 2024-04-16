@@ -1,7 +1,7 @@
 import React from "react";
 import {Orders} from "../models/Orders";
 import Popup from "../components/Popup";
-import "../styles/order.css";
+import "../styles/personal_page/order.css";
 import {Supply} from "../models/Supply";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";

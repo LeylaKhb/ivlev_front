@@ -1,8 +1,8 @@
 import React from "react";
 import background from "../../static/background_with_images.png";
 import "../../styles/home/tenth_block.css";
-import ApplicationForm from "../ApplicationForm";
-import SocialNetwork from "../SocialNetwork";
+import ApplicationForm from "../forms/ApplicationForm";
+import SocialNetwork from "./SocialNetwork";
 
 const TenthBlock: React.FC = () => {
     const backgroundImage = {

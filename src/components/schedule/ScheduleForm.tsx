@@ -1,15 +1,15 @@
 import React from "react";
-import {Supply} from "../models/Supply";
-import "../styles/schedule_form.css"
-import PhoneForm from "./PhoneForm";
-import BoxSizes from "./BoxSizes";
+import {Supply} from "../../models/Supply";
+import "../../styles/schedule/schedule_form.css"
+import PhoneForm from "../forms/PhoneForm";
+import BoxSizes from "../forms/BoxSizes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
-import {PriceRequest} from "../models/PriceRequest";
-import {Orders} from "../models/Orders";
-import {Box} from "../models/Box";
-import Form from "./Form";
+import {PriceRequest} from "../../models/PriceRequest";
+import {Orders} from "../../models/Orders";
+import {Box} from "../../models/Box";
+import Form from "../forms/Form";
 import {Link} from "react-router-dom";
 
 
@@ -423,7 +423,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
                     <div className="schedule_form_title">Доп. комментарий</div>
                     <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
-                    onInput={this.handleComment} defaultValue={me.state.comment}/>
+                    onInput={this.handleComment} defaultValue={me.state.comment} required={me.state.willTaken}/>
 
                     <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
                     required={true}/>

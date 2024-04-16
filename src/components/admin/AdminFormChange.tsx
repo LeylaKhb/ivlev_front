@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Orders} from "../models/Orders";
+import {Orders} from "../../models/Orders";
 
 interface AdminFormChangeProps {
     orders: Orders[],

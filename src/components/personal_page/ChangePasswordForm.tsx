@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import PasswordForm from "./PasswordForm";
+import PasswordForm from "../forms/PasswordForm";
 
 const ChangePasswordForm: React.FC = () => {
     const [firstPasswordError, setFirstPasswordVError] = useState("");

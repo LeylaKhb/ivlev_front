@@ -1,6 +1,6 @@
 import React from "react";
 import {Person} from "../models/Person";
-import "../styles/personal_account.css";
+import "../styles/personal_page/personal_account.css";
 import {Link} from "react-router-dom";
 import background from "../static/background.png";
 import Popup from "../components/Popup";

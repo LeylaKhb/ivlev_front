@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
-import Form from "../components/Form";
+import Form from "../components/forms/Form";
 import {Person} from "../models/Person";
-import PasswordForm from "../components/PasswordForm";
+import PasswordForm from "../components/forms/PasswordForm";
 
 const RecoverPassword: React.FC = () => {
     const [emailError, setEmailError] = useState("");

@@ -1,16 +1,16 @@
 import React from "react";
 import "../styles/popup.css"
-import ApplicationForm from "./ApplicationForm";
-import PriceForm from "./PriceForm";
-import ProfileChangeForm from "./ProfileChangeForm";
+import ApplicationForm from "./forms/ApplicationForm";
+import PriceForm from "./forms/PriceForm";
+import ProfileChangeForm from "./personal_page/ProfileChangeForm";
 import {Person} from "../models/Person";
-import ChangePasswordForm from "./ChangePasswordForm";
-import ScheduleForm from "./ScheduleForm";
+import ChangePasswordForm from "./personal_page/ChangePasswordForm";
+import ScheduleForm from "./schedule/ScheduleForm";
 import {Supply} from "../models/Supply";
 import {Link} from "react-router-dom";
 import {Orders} from "../models/Orders";
-import OrderInfo from "./OrderInfo";
-import AdminFormChange from "./AdminFormChange";
+import OrderInfo from "./personal_page/OrderInfo";
+import AdminFormChange from "./admin/AdminFormChange";
 
 interface PopupProps {
     isVisible: boolean,

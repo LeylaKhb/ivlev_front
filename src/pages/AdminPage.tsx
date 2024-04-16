@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import "../styles/admin_page.css";
-import SendCityAndStore from "../components/SendCityAndStore";
+import "../styles/admin/admin_page.css";
+import SendCityAndStore from "../components/forms/SendCityAndStore";
 import DatePicker from "react-datepicker";
 import {AdminRequest} from "../models/AdminRequest";
 import {Orders} from "../models/Orders";
 import Popup from "../components/Popup";
-import { ExportCSV } from "../components/ExportCSV";
+import { ExportCSV } from "../components/admin/ExportCSV";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
 

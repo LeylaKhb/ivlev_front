@@ -1,11 +1,11 @@
 import React from "react";
-import "./styles/regulations.css"
+import "../../styles/regulations/regulations.css"
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
-import regulations_1 from "./static/regulations_1.png";
-import regulations_2 from "./static/regulations_2.png";
-import regulations_3 from "./static/regulations_3.png";
-import regulations_4 from "./static/regulations_4.png";
+import regulations_1 from "../../static/regulations_1.png";
+import regulations_2 from "../../static/regulations_2.png";
+import regulations_3 from "../../static/regulations_3.png";
+import regulations_4 from "../../static/regulations_4.png";
 
 
 const Regulations: React.FC = () => {

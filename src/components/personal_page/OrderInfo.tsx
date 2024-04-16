@@ -1,5 +1,5 @@
 import React from "react";
-import {Orders} from "../models/Orders";
+import {Orders} from "../../models/Orders";
 
 interface OrderInfoProps {
     order: Orders;

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import CalculatorDropdown from "./CalculatorDropdown";
+import CalculatorDropdown from "../calculator/CalculatorDropdown";
 
 interface SendCityAndStoreProps {
     handleSendCity: any;

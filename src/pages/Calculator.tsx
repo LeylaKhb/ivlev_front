@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "../styles/calculator.css";
-import "../styles/dropdown.scss";
+import "../styles/calculator/calculator.css";
+import "../styles/calculator/dropdown.scss";
 import {PriceRequest} from "../models/PriceRequest";
 import {Helmet, HelmetProvider} from "react-helmet-async";
-import BoxSizes from "../components/BoxSizes";
-import SendCityAndStore from "../components/SendCityAndStore";
+import BoxSizes from "../components/forms/BoxSizes";
+import SendCityAndStore from "../components/forms/SendCityAndStore";
 
 const Calculator: React.FC = () => {
     const [departureCity, setDepartureCity] = useState("Самара");
