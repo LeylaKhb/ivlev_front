@@ -25,20 +25,20 @@ class Chat extends React.Component<ChatProps, ChatState> {
 
     componentDidMount() {
         let me = this;
-        console.log("here")
 
-        fetch("http://localhost:8080/dialog", {
+        fetch("https://kodrfb.ru/dialog", {
             method: "GET",
             headers: {
+                'Authorization' : 'Bearer ' + localStorage.getItem("jwt"),
                 'Accept': 'application/json',
-                'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
-            },
+                'Access-Control-Allow-Origin': '*'
+            }
         }).then(function (resp) {
             resp.json()
                 .then(function (data) {
                     console.log(data)
                     me.setState({dialog: data})
-                    let socket = new SockJS("http://localhost:8080/ws");
+                    let socket = new SockJS("https://kodrfb.ru/ws");
                     let stompClient = Stomp.over(socket);
                     stompClient.connect({}, function () {
                         stompClient.subscribe("/chat/dialog/" + data.id + "/" + localStorage.getItem("jwt"), function (message: Message) {
