@@ -21,7 +21,7 @@ const DiscountAdminPage: React.FC = () => {
     }
     function handleForm(event: React.FormEvent) {
         event.preventDefault();
-        fetch('http://localhost:8080/api/admin_discount', {
+        fetch('https://kodrfb.ru/api/admin_discount', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
