@@ -265,6 +265,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             method: 'POST',
             credentials: "same-origin",
             headers: {
+                'Authorization': 'Bearer ' + localStorage.get("jwt"),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
 

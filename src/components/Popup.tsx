@@ -11,6 +11,7 @@ import {Link} from "react-router-dom";
 import {Orders} from "../models/Orders";
 import OrderInfo from "./personal_page/OrderInfo";
 import AdminFormChange from "./admin/AdminFormChange";
+import AdminDiscountChange from "./admin/AdminDiscountChange";
 
 interface PopupProps {
     isVisible: boolean,
@@ -143,7 +144,15 @@ class Popup extends React.Component<PopupProps, PopupState> {
                         }
                     </div>
                 }
-                <div className="popup_cross" onClick={this.props.setVisibleFalse}>
+                {this.props.content === "admin_discount" &&
+                  <div className="popup_window popup_order" style={{opacity: this.props.isVisible ? 1 : 0,
+                      transform: "translateY(-50%)"}}>
+                      {this.props.person !== undefined &&
+                        <AdminDiscountChange person={this.props.person} close={this.props.setVisibleFalse} />
+                      }
+                  </div>
+                }
+                    <div className="popup_cross" onClick={this.props.setVisibleFalse}>
                     <svg role="presentation" className="t-popup__close-icon" width="23px" height="23px"
                          viewBox="0 0 23 23" version="1.1" xmlns="https://www.w3.org/2000/svg">
                         <g stroke="none" strokeWidth="1" fill="#f81c87" fillRule="evenodd">
