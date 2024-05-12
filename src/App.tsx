@@ -16,6 +16,7 @@ import Regulations from "./components/regulations/Regulations";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
 import PageNotFound from "./pages/PageNotFound";
+import Chat from "./pages/Chat";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
             </div> }/>
             {localStorage.getItem("admin") === "true" &&
                 <Route path="/admin_page" element={<AdminPage />} />}
+            <Route path="/chat" element={<Chat />} />
             <Route path="*" element={<PageNotFound />}/>
           </Routes>
         </Layout>
