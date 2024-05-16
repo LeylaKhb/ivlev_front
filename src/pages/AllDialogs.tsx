@@ -16,7 +16,7 @@ class AllDialogs extends React.Component<AllDialogsProps, AllDialogsState>  {
         }
     }
     componentDidMount() {
-        fetch("http://localhost:8080/all_dialogs",{
+        fetch("https://kodrfb.ru/all_dialogs",{
             method: "GET"
         }).then(resp =>
             resp.json()

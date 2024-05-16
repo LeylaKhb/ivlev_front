@@ -37,8 +37,8 @@ class Chat extends React.Component<ChatProps, ChatState> {
 
     componentDidMount() {
         let me = this;
-        let url = this.props.dialogId === undefined ? "http://localhost:8080/dialog" :
-            "http://localhost:8080/dialog/" + this.props.dialogId
+        let url = this.props.dialogId === undefined ? "https://kodrfb.ru/dialog" :
+            "https://kodrfb.ru/dialog/" + this.props.dialogId
 
         fetch(url, {
             method: "GET",
@@ -51,7 +51,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
             resp.json()
                 .then(function (data) {
                     me.setState({dialog: data})
-                    let socket = new SockJS("http://localhost:8080/ws");
+                    let socket = new SockJS("https://kodrfb.ru/ws");
                     let stompClient = Stomp.over(socket);
                     stompClient.connect({}, function () {
                         me.setState({wsConnected: true})
