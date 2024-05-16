@@ -55,7 +55,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
                     let stompClient = Stomp.over(socket);
                     stompClient.connect({}, function () {
                         me.setState({wsConnected: true})
-                        stompClient.subscribe("/chat/dialog/"+localStorage.getItem("jwt") + "/" + data.id.toString(),
+                        stompClient.subscribe("/chat/dialog/"+ data.id.toString(),
                             function (message: Message) {
                             me.updateChat(message.body)
                         })
