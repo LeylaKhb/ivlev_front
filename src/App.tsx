@@ -18,6 +18,8 @@ import {HelmetProvider} from "react-helmet-async";
 import PageNotFound from "./pages/PageNotFound";
 import Chat from "./pages/Chat";
 import DiscountAdminPage from "./pages/DiscountAdminPage";
+import AllDialogs from "./pages/AllDialogs";
+import {ChatFunc} from "./pages/ChatFunc";
 
 
 function App() {
@@ -53,6 +55,10 @@ function App() {
             {localStorage.getItem("admin") === "true" &&
                 <Route path="/admin_discount" element={<DiscountAdminPage />} />}
             <Route path="/chat" element={<Chat />} />
+            {localStorage.getItem("admin") === "true" &&
+              <Route path="/all_dialogs" element={<AllDialogs />} /> }
+            {localStorage.getItem("admin") === "true" &&
+                <Route path="/dialog/:id" element={<ChatFunc />} /> }
             <Route path="*" element={<PageNotFound />}/>
           </Routes>
         </Layout>

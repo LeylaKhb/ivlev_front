@@ -5,6 +5,7 @@ import Stomp, {Message} from 'stompjs'
 import MessageModel from "../models/Message";
 
 interface ChatProps {
+    dialogId?: string | undefined
 }
 
 interface ChatState {
@@ -36,8 +37,10 @@ class Chat extends React.Component<ChatProps, ChatState> {
 
     componentDidMount() {
         let me = this;
+        let url = this.props.dialogId === undefined ? "http://localhost:8080/dialog" :
+            "http://localhost:8080/dialog/" + this.props.dialogId
 
-        fetch("https://kodrfb.ru/dialog", {
+        fetch(url, {
             method: "GET",
             headers: {
                 'Authorization' : 'Bearer ' + localStorage.getItem("jwt"),
@@ -48,7 +51,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
             resp.json()
                 .then(function (data) {
                     me.setState({dialog: data})
-                    let socket = new SockJS("https://kodrfb.ru/ws");
+                    let socket = new SockJS("http://localhost:8080/ws");
                     let stompClient = Stomp.over(socket);
                     stompClient.connect({}, function () {
                         me.setState({wsConnected: true})
