@@ -12,7 +12,7 @@ interface ChatState {
     messageText: string,
     webSocket: Stomp.Client | null,
     dialog: DialogModel | null,
-    messageUpdated: boolean,
+    wsSubscribed: boolean,
     wsConnected: boolean
 }
 
@@ -24,14 +24,13 @@ class Chat extends React.Component<ChatProps, ChatState> {
             messageText: "",
             webSocket: null,
             dialog: null,
-            messageUpdated: true,
+            wsSubscribed: false,
             wsConnected: false
         }
 
         this.updateChat = this.updateChat.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
         this.onMessageInput = this.onMessageInput.bind(this);
-        // this.updateChat = this.updateChat.bind(this);
 
     }
 
@@ -53,25 +52,27 @@ class Chat extends React.Component<ChatProps, ChatState> {
                     me.setState({dialog: data})
                     let socket = new SockJS("https://kodrfb.ru/ws");
                     let stompClient = Stomp.over(socket);
-                    stompClient.connect({}, function () {
-                        me.setState({wsConnected: true})
-                        stompClient.subscribe("/chat/dialog/"+ data.id.toString(),
-                            function (message: Message) {
-                            me.updateChat(message.body)
-                        })
-                    });
-                    me.setState({webSocket: stompClient})
+                    if (!me.state.wsSubscribed) {
+                        stompClient.connect({}, function () {
+                            me.setState({wsConnected: true})
+                            stompClient.subscribe("/chat/dialog/" + data.id.toString(),
+                                function (message: Message) {
+                                    me.updateChat(message.body)
+                                })
+                        });
+                        me.setState({webSocket: stompClient, wsSubscribed: true})
+                    }
                 })
         })
     }
 
     updateChat(msg: string) {
-        if (this.state.dialog !== null && !this.state.messageUpdated) {
+        if (this.state.dialog !== null) {
             let messages = this.state.dialog.messages
             messages.push(new MessageModel(msg.split("~%&")[1], msg.split("~%&")[0]))
             let newDialog = new DialogModel(this.state.dialog.id,
                 messages)
-            this.setState({dialog: newDialog, messageUpdated: true})
+            this.setState({dialog: newDialog})
         }
     }
     onMessageInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -83,7 +84,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
         if (this.state.messageText !== "") {
             this.state.webSocket?.send("/app/dialog/"+localStorage.getItem("jwt") + "/" + this.state.dialog?.id.toString(),
                 {}, this.state.messageText)
-            this.setState({messageText: "", messageUpdated: false})
+            this.setState({messageText: ""})
         }
     }
 
