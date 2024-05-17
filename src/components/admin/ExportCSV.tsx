@@ -14,11 +14,14 @@ export const ExportCSV: React.FC<ExportCSVProps> = ({csvData, fileName}) => {
     const exportToCSV = (csvData: Orders[], fileName: string) => {
         for (let order of csvData) {
             let boxesString = "";
+            let amount = 0;
             if (!order.boxes) return
             for (let box of order.boxes) {
-                boxesString += box.length + "/" + box.height + "/" + box.width + "-" + box.amount + '\n'
+                boxesString += box.length + "/" + box.height + "/" + box.width + "-" + box.amount + '\n';
+                amount += box.amount;
             }
             order.boxesString = boxesString
+            order.boxesAmount = amount;
         }
         const ws = XLSX.utils.json_to_sheet(csvData);
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
