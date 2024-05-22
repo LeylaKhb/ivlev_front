@@ -18,7 +18,11 @@ const TenthBlock: React.FC = () => {
     return (
         <div className="page_content" id="contacts">
             <div style={backgroundImage} className="tenth_block">
-                <div className="block_info_title">Контакты</div>
+                <div className="block_info_title">Контакты
+                    <div className="block_info_desc" style={{width: '100%'}}>ИП Ивлев Алексей Васильевич</div>
+                    <div className="block_info_desc" style={{width: '100%', fontWeight: "normal", fontSize: 14}}>ИНН: 631897815748</div>
+                    <div className="block_info_desc" style={{width: '100%', fontWeight: "normal", fontSize: 14}}>ОГРНИП: 316631300087432</div>
+                </div>
                 <div className="contacts_block">
                     <div className="contact">
                         Телефон:
@@ -29,7 +33,7 @@ const TenthBlock: React.FC = () => {
                         <br/>info@ivlev-ff.ru
                     </div>
                     <div className="contact">
-                        Адреса:
+                        Адрес:
                         <br/>г. Самара, ул. Ближняя д. 3
                     </div>
                     <SocialNetwork />

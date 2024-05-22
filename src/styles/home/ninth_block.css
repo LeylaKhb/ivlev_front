@@ -105,6 +105,7 @@
     }
     .question {
         width: 85%;
+        font-size: 16px;
     }
     .br_first_answer {
         display: initial;
