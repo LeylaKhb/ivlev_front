@@ -11,7 +11,6 @@ import {Orders} from "../../models/Orders";
 import {Box} from "../../models/Box";
 import Form from "../forms/Form";
 import {Link} from "react-router-dom";
-import ofertaDoc from "../../static/oferta.docx"
 
 
 
@@ -222,7 +221,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             return;
         }
         if (me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01') {
-            if (!moment().add(1, "days").isBefore(moment(this.props.supply.departureDate)
+            if (!moment().add(1, "days").isBefore(moment(me.state.departureDate)
                 .add(22, 'hours'), 'hour')) {
                 this.setState({telError: 'Нельзя отправить заявку после 22:00'})
                 return;
