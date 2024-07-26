@@ -444,6 +444,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                         </Link>
                     </span>
 
+                    <br/>
                     <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate+me.props.supply.departureDate}
                            required={true}/>
                     <label htmlFor={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate+me.props.supply.departureDate}
