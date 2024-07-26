@@ -11,3 +11,13 @@
 .regulations ol li {
     margin-bottom: 10px;
 }
+
+.regulations h1, h2 {
+    text-align: center;
+}
+.regulations p, li {
+    margin-bottom: 10px;
+}
+.signature {
+    margin-top: 20px;
+}

@@ -20,6 +20,7 @@ import Chat from "./pages/Chat";
 import DiscountAdminPage from "./pages/DiscountAdminPage";
 import AllDialogs from "./pages/AllDialogs";
 import {ChatFunc} from "./pages/ChatFunc";
+import Oferta from "./components/regulations/Oferta";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <Route path="/orders_history" element={localStorage.getItem("jwt") === null ?
                 <Login /> : <AllOrders />} />
             <Route path="/regulations" element={<Regulations /> }/>
+            <Route path="/oferta" element={<Oferta /> }/>
             <Route path="/partners" element={<div>
               <HelmetProvider>
                 <Helmet
