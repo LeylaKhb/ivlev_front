@@ -11,6 +11,7 @@ import {Orders} from "../../models/Orders";
 import {Box} from "../../models/Box";
 import Form from "../forms/Form";
 import {Link} from "react-router-dom";
+import ofertaDoc from "../../static/oferta.docx"
 
 
 
@@ -448,7 +449,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                     <label htmlFor={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate+me.props.supply.departureDate}
                            className="custom-checkbox"></label>
                     <span style={{marginLeft: 9}}>Я согласен с&nbsp;
-                        <a className="book_link" href={require("../../static/oferta.docx")} download="oferta.docx">договором офертой</a>
+                        <a className="book_link" href={ofertaDoc} download="oferta.docx">договором офертой</a>
                     </span>
 
                     <button type="submit" className="schedule_form_button">Отправить</button>
