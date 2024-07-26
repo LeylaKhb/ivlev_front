@@ -134,7 +134,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
     setTelInputToParent(value: string) {
         this.setState({telInput: value,
-                            telError: ""})
+            telError: ""})
 
     }
     handleNameInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -220,6 +220,13 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             this.setState({telError: 'Нельзя отправить заявку после 22:00'})
             return;
         }
+        if (me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01') {
+            if (!moment().add(1, "days").isBefore(moment(this.props.supply.departureDate)
+                .add(22, 'hours'), 'hour')) {
+                this.setState({telError: 'Нельзя отправить заявку после 22:00'})
+                return;
+            }
+        }
         fetch('https://kodrfb.ru/new_order', {
             method: 'POST',
             credentials: "same-origin",
@@ -296,7 +303,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
                     <div className="schedule_form_title" >Размеры и количество коробок/паллет</div>
                     <div className="form_error" style={{visibility: me.state.inputsValid ? "hidden" : "visible",
-                    top: 155}}>Коробки заполнены не корректно</div>
+                        top: 155}}>Коробки заполнены не корректно</div>
                     <BoxSizes inputs={me.state.inputs} handleInputs={this.handleInputs}/>
 
                     <div className="schedule_form_title">Тип поставки</div>
@@ -350,11 +357,11 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                     </div>
 
                     {me.props.supply.warehouses[me.state.selectedStoreIndex].store === 'Ozon' &&
-                        <div>
-                            <div className="schedule_form_title">Номер заказа (Ozon)</div>
-                            <input type="text" onInput={me.handleOzonNumber} style={{marginTop: 15, marginLeft: 13,
-                                height: 25, width: 300}} required={true} defaultValue={me.state.ozonNumber}/>
-                        </div>
+                      <div>
+                        <div className="schedule_form_title">Номер заказа (Ozon)</div>
+                        <input type="text" onInput={me.handleOzonNumber} style={{marginTop: 15, marginLeft: 13,
+                            height: 25, width: 300}} required={true} defaultValue={me.state.ozonNumber}/>
+                      </div>
                     }
 
                     <div className="schedule_form_title">Город отправки</div>
@@ -373,28 +380,28 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                         ))}
                     </div>
                     {me.props.supply.departureDate.toString() === '1970-01-01' &&
-                        <>
-                            <div className="schedule_form_title">Дата отправки</div>
-                            <DatePicker selected={me.state.departureDate}
-                                        onChange={(date) => me.setState({departureDate: date})}
-                                        filterDate={me.isWeekday}
-                                        minDate={moment().add(1, 'day').toDate()}
-                                        dateFormat={"dd.MM.YYYY"}
-                                        required={true}
-                                        placeholderText="Выберите дату..."/>
-                        </>
+                      <>
+                        <div className="schedule_form_title">Дата отправки</div>
+                        <DatePicker selected={me.state.departureDate}
+                                    onChange={(date) => me.setState({departureDate: date})}
+                                    filterDate={me.isWeekday}
+                                    minDate={moment().add(1, 'day').toDate()}
+                                    dateFormat={"dd.MM.YYYY"}
+                                    required={true}
+                                    placeholderText="Выберите дату..."/>
+                      </>
                     }
                     {me.props.supply.departureDate.toString() === '1980-01-01' &&
-                        <>
-                            <div className="schedule_form_title">Дата отправки</div>
-                            <DatePicker selected={me.state.departureDate}
-                                        onChange={(date) => me.setState({departureDate: date})}
-                                        filterDate={me.isWeekdayWithoutSunday}
-                                        minDate={moment().add(1, 'day').toDate()}
-                                        dateFormat={"dd.MM.YYYY"}
-                                        required={true}
-                                        placeholderText="Выберите дату..."/>
-                        </>
+                      <>
+                        <div className="schedule_form_title">Дата отправки</div>
+                        <DatePicker selected={me.state.departureDate}
+                                    onChange={(date) => me.setState({departureDate: date})}
+                                    filterDate={me.isWeekdayWithoutSunday}
+                                    minDate={moment().add(1, 'day').toDate()}
+                                    dateFormat={"dd.MM.YYYY"}
+                                    required={true}
+                                    placeholderText="Выберите дату..."/>
+                      </>
                     }
 
 
@@ -424,16 +431,25 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
                     <div className="schedule_form_title">Доп. комментарий</div>
                     <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
-                    onInput={this.handleComment} defaultValue={me.state.comment} required={me.state.willTaken}/>
+                              onInput={this.handleComment} defaultValue={me.state.comment} required={me.state.willTaken}/>
 
                     <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
-                    required={true}/>
+                           required={true}/>
                     <label htmlFor={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
                            className="custom-checkbox"></label>
                     <span style={{marginLeft: 9}}>Я согласен с&nbsp;
                         <Link to="/regulations" target="_blank">
                             <span>условиями и положениями </span>
                         </Link>
+                    </span>
+
+                    <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate+me.props.supply.departureDate}
+                           required={true}/>
+                    <label htmlFor={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate+me.props.supply.departureDate}
+                           className="custom-checkbox"></label>
+                    <span style={{marginLeft: 9}}>Я согласен с&nbsp;
+                        <a className="book_link" href={require("../../static/oferta.docx")} download="oferta.docx">договором офертой</a>
+
                     </span>
 
                     <button type="submit" className="schedule_form_button">Отправить</button>

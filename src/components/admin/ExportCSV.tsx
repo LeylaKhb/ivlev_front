@@ -22,6 +22,7 @@ export const ExportCSV: React.FC<ExportCSVProps> = ({csvData, fileName}) => {
             }
             order.boxesString = boxesString
             order.boxesAmount = amount;
+            order.email = order.person?.email;
         }
         const ws = XLSX.utils.json_to_sheet(csvData);
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };

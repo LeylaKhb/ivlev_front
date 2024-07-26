@@ -1,4 +1,5 @@
 import {Box} from "./Box";
+import {Person} from "./Person";
 
 export class Orders {
     entity: string;
@@ -20,13 +21,15 @@ export class Orders {
     changeable?: boolean;
     id?: number;
     boxesString?: string;
-    boxesAmount?: number
+    boxesAmount?: number;
+    email?: string;
+    person?: Person;
 
 
     constructor(entity: string, departureDate: Date, phoneNumber: string, sendCity: string, departureCity: string,
                 store: string, supplyType: string, volume: number, price: string, willTaken: boolean, comment: string,
                 numberOzon: string, supplyTitle: string, id?: number, orderDate?: Date, status?: string,
-                changeable?: boolean,  boxes?: Box[]) {
+                changeable?: boolean,  boxes?: Box[], email?: string, person?: Person) {
         this.entity = entity;
         this.departureDate = departureDate;
         this.phoneNumber = phoneNumber;
@@ -45,5 +48,7 @@ export class Orders {
         this.status = status;
         this.changeable = changeable;
         this.id = id;
+        this.email = email;
+        this.person = person;
     }
 }
