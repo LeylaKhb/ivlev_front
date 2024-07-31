@@ -92,7 +92,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                          onDrop={(event) => event.preventDefault()}/>
                   <input type="hidden" name="user_result_callback" value={"https://ivlev-ff.ru/orders/" + order.id}/>
                   <input type='hidden' name='service_name'
-                         value={'Заказ в ' + order.departureCity + "от " + order.departureDate}/>
+                         value={'Заказ в ' + order.sendCity + " " + order.store + " от " + order.departureDate}/>
                   <input type='submit' value='Оплатить онлайн' className="change_order"
                          style={{width: 150, cursor: "pointer"}}/>
                 </form>
