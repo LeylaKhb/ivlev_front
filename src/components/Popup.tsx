@@ -132,7 +132,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
                     <div className="popup_window popup_order" style={{opacity: this.props.isVisible ? 1 : 0,
                         transform: "translateY(-50%)"}}>
                         {this.props.order !== undefined &&
-                            <OrderInfo order={this.props.order} openSecondPopup={this.props.openSecondPopup}/>
+                            <OrderInfo order={this.props.order} openSecondPopup={this.props.openSecondPopup} orderPrice={this.props.order.price}/>
                         }
                     </div>
                 }

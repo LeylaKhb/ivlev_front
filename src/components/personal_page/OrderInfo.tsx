@@ -1,12 +1,17 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import {Orders} from "../../models/Orders";
 
 interface OrderInfoProps {
     order: Orders;
+    orderPrice: string,
     openSecondPopup: any
 }
 
-const OrderInfo: React.FC<OrderInfoProps> = ({order, openSecondPopup}) => {
+const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup}) => {
+    const phoneRef = useRef<HTMLInputElement>(null);
+    const sumRef = useRef<HTMLInputElement>(null);
+    const serviceRef = useRef<HTMLInputElement>(null);
+
     function deleteOrder() {
         fetch("https://kodrfb.ru/delete_order", {
             method: 'POST',
@@ -23,6 +28,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, openSecondPopup}) => {
         })
     }
 
+
     return (
         <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column'}}>
             <div className="order_form">
@@ -38,12 +44,13 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, openSecondPopup}) => {
                 <strong>Склад назначения: </strong> {order.sendCity} ({order.store})
             </div>
             {order.store === "Ozon" &&
-                <div className="order_form">
-                    <strong>Номер поставки (Ozon): </strong> {order.numberOzon}
-                </div>
+              <div className="order_form">
+                <strong>Номер поставки (Ozon): </strong> {order.numberOzon}
+              </div>
             }
             <div className="order_form">
-                <strong>Дата поставки: </strong> {order.departureDate === undefined ? "" : order.departureDate.toString()}
+                <strong>Дата
+                    поставки: </strong> {order.departureDate === undefined ? "" : order.departureDate.toString()}
             </div>
             <div className="order_form">
                 <strong>Город отправки: </strong> {order.departureCity}
@@ -73,10 +80,23 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, openSecondPopup}) => {
             </div>
 
             {order.changeable &&
-                <>
-                    <button className="change_order" onClick={openSecondPopup}>Изменить</button>
-                    <button className="change_order" onClick={deleteOrder} style={{marginTop: 10}}>Удалить</button>
-                </>
+              <>
+                <form method='POST' action='https://ivlev-ff.server.paykeeper.ru/create/'>
+                  <input type='hidden' name='client_phone' value={order.phoneNumber}/>
+                  <input type='hidden' name='sum' value={orderPrice} readOnly
+                         onKeyDown={(event) => event.preventDefault()}
+                         onPaste={(event) => event.preventDefault()}
+                         onCut={(event) => event.preventDefault()}
+                         onDragStart={(event) => event.preventDefault()}
+                         onDrop={(event) => event.preventDefault()}/>
+                  <input type="hidden" name="user_result_callback" value={"https://ivlev-ff.ru/orders/" + order.id}/>
+                  <input type='hidden' name='service_name' value='Фулфилмент Ивлева'/>
+                  <input type='submit' value='Оплатить онлайн' className="change_order"
+                         style={{width: 150, cursor: "pointer"}}/>
+                </form>
+                <button className="change_order" onClick={openSecondPopup} style={{marginTop: 10}}>Изменить</button>
+                <button className="change_order" onClick={deleteOrder} style={{marginTop: 10}}>Удалить</button>
+              </>
             }
         </div>
     )
