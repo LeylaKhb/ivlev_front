@@ -83,6 +83,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
               <>
                 <form method='POST' action='https://ivlev-ff.server.paykeeper.ru/create/'>
                   <input type='hidden' name='client_phone' value={order.phoneNumber}/>
+                  <input type='hidden' name='client_id' value={order.entity}/>
                   <input type='hidden' name='sum' value={orderPrice} readOnly
                          onKeyDown={(event) => event.preventDefault()}
                          onPaste={(event) => event.preventDefault()}
@@ -90,7 +91,8 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                          onDragStart={(event) => event.preventDefault()}
                          onDrop={(event) => event.preventDefault()}/>
                   <input type="hidden" name="user_result_callback" value={"https://ivlev-ff.ru/orders/" + order.id}/>
-                  <input type='hidden' name='service_name' value='Фулфилмент Ивлева'/>
+                  <input type='hidden' name='service_name'
+                         value={'Заказ в ' + order.departureCity + "от " + order.departureDate === undefined ? "" : order.departureDate.toString()}/>
                   <input type='submit' value='Оплатить онлайн' className="change_order"
                          style={{width: 150, cursor: "pointer"}}/>
                 </form>
