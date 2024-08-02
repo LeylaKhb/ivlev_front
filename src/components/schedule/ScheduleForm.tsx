@@ -29,6 +29,7 @@ interface ScheduleFormState {
     selectedStoreIndex: number;
     selectedDepartureCity: string;
     willTaken: boolean;
+    payment: boolean;
     ozonNumber: string;
     departureDate: null | Date;
     inputsValid: boolean;
@@ -78,6 +79,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 selectedStoreIndex: selectedIndex,
                 selectedDepartureCity: props.order.departureCity,
                 willTaken: props.order.willTaken,
+                payment: props.order.paymentSite,
                 ozonNumber: props.order.numberOzon,
                 departureDate: props.order.departureDate,
                 inputsValid: true,
@@ -99,6 +101,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 selectedStoreIndex: 0,
                 selectedDepartureCity: this.props.supply.departureCities[0].cityName,
                 willTaken: false,
+                payment: false,
                 ozonNumber: "",
                 departureDate: null,
                 inputsValid: true,
@@ -113,6 +116,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         this.changeInputStore = this.changeInputStore.bind(this);
         this.changeInputDepartureCity = this.changeInputDepartureCity.bind(this);
         this.changeInputWillTaken = this.changeInputWillTaken.bind(this);
+        this.changeInputPayment = this.changeInputPayment.bind(this);
         this.handleOzonNumber = this.handleOzonNumber.bind(this);
         this.isWeekday = this.isWeekday.bind(this);
         this.handleForm = this.handleForm.bind(this);
@@ -168,6 +172,10 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         this.setState({willTaken: e.target.value === "Да"});
     }
 
+    changeInputPayment(e: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({payment: e.target.value === "Онлайн на сайте"});
+    }
+
     handleOzonNumber(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({ozonNumber: e.target.value})
     }
@@ -211,7 +219,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             order: new Orders(state.nameText, new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
                 phoneNumber, selectedWarehouse.sendCity,
                 state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
-                price, state.willTaken, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,
+                price, state.willTaken, state.payment, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,
                 me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable),
             boxes: boxes
         });
@@ -426,6 +434,30 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                                    className="price_radio"/>
                             <div className="price_radio_indicator"></div>
                             Нет
+                        </label>
+                    </div>
+
+                    <div className="schedule_form_title">Способ оплаты</div>
+                    <div style={{marginLeft: 13}}>
+                        <label className="price_radio_label">
+                            <input type="radio"
+                                   name="payment"
+                                   value={"Онлайн на сайте"}
+                                   onChange={me.changeInputPayment}
+                                   checked={me.state.payment}
+                                   className="price_radio"/>
+                            <div className="price_radio_indicator"></div>
+                            Онлайн на сайте
+                        </label>
+                        <label className="price_radio_label">
+                            <input type="radio"
+                                   name="payment"
+                                   value={"В офисе"}
+                                   onChange={me.changeInputPayment}
+                                   checked={!me.state.payment}
+                                   className="price_radio"/>
+                            <div className="price_radio_indicator"></div>
+                            В офисе
                         </label>
                     </div>
 

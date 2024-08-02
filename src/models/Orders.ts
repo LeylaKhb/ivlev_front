@@ -12,12 +12,14 @@ export class Orders {
     volume: number;
     price: string;
     willTaken: boolean;
+    paymentSite: boolean;
     comment: string;
     numberOzon: string;
     supplyTitle: string;
     boxes?: Box[];
     orderDate?: Date;
     status?: string;
+    paymentStatus?: boolean;
     changeable?: boolean;
     id?: number;
     boxesString?: string;
@@ -27,9 +29,9 @@ export class Orders {
 
 
     constructor(entity: string, departureDate: Date, phoneNumber: string, sendCity: string, departureCity: string,
-                store: string, supplyType: string, volume: number, price: string, willTaken: boolean, comment: string,
+                store: string, supplyType: string, volume: number, price: string, willTaken: boolean, paymentSite: boolean, comment: string,
                 numberOzon: string, supplyTitle: string, id?: number, orderDate?: Date, status?: string,
-                changeable?: boolean,  boxes?: Box[], email?: string, person?: Person) {
+                changeable?: boolean,  boxes?: Box[], email?: string, person?: Person, paymentStatus?: boolean) {
         this.entity = entity;
         this.departureDate = departureDate;
         this.phoneNumber = phoneNumber;
@@ -40,6 +42,7 @@ export class Orders {
         this.volume = volume;
         this.price = price;
         this.willTaken = willTaken;
+        this.paymentSite = paymentSite;
         this.comment = comment;
         this.numberOzon = numberOzon;
         this.supplyTitle = supplyTitle;
@@ -50,5 +53,6 @@ export class Orders {
         this.id = id;
         this.email = email;
         this.person = person;
+        this.paymentStatus = paymentStatus;
     }
 }

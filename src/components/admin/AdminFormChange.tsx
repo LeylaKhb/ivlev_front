@@ -8,9 +8,15 @@ interface AdminFormChangeProps {
 
 const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
     const [status, setStatus] = useState("Не оплачен");
+    const [paymentStatus, setPaymentStatus] = useState("no");
     const [changeable, setChangeable] = useState("yes");
+
     function changeStatus(e: React.ChangeEvent<HTMLSelectElement>) {
         setStatus(e.target.value);
+    }
+
+    function changePaymentStatus(e: React.ChangeEvent<HTMLSelectElement>) {
+        setPaymentStatus(e.target.value);
     }
 
     function changeChangeable(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -20,10 +26,11 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
     function handleForm(event: React.FormEvent) {
         event.preventDefault();
         let body = JSON.stringify({
-                orders: orders,
-                status: status,
-                changeable: changeable
-            });
+            orders: orders,
+            status: status,
+            changeable: changeable,
+            paymentStatus: paymentStatus
+        });
 
         fetch('https://kodrfb.ru/api/admin_change', {
             method: 'POST',
@@ -32,14 +39,14 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
                 'Accept': 'application/json',
             },
             body: body
-        }).then(function (){
-            close()
+        }).then(function () {
+                close()
             }
         )
     }
 
     return (
-        <form  onSubmit={handleForm}>
+        <form onSubmit={handleForm}>
             <div className="admin_title">Изменить статус</div>
             <select value={status} onChange={changeStatus} className="select_admin">
                 <option value="Не оплачен">Не оплачен</option>
@@ -56,7 +63,15 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
                 <option value=""></option>
             </select>
 
-            <button type="submit" className="change_password_button" style={{marginBottom: 100}}>Изменить заказы</button>
+            <div className="admin_title">Статус оплаты</div>
+            <select value={paymentStatus} onChange={changePaymentStatus} className="select_admin">
+                <option value="yes">Оплачен</option>
+                <option value="no">Не оплачен</option>
+                <option value=""></option>
+            </select>
+
+            <button type="submit" className="change_password_button" style={{marginBottom: 100}}>Изменить заказы
+            </button>
 
         </form>
     )
