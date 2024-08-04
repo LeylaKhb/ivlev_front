@@ -481,24 +481,22 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                               onInput={this.handleComment} defaultValue={me.state.comment}
                               required={me.state.willTaken}/>
 
-                    <input type="checkbox" id={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate}
-                           required={true}/>
-                    <label htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate}
-                           className="custom-checkbox"></label>
-                    <span style={{marginLeft: 9}}>Я согласен с&nbsp;
-                        <Link to="/regulations" target="_blank">
-                            <span>условиями и положениями </span>
-                        </Link>
-                    </span>
-
-                    <br/>
                     {this.props.order === undefined &&
-                      <><input type="checkbox"
+                      <><input type="checkbox" id={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate}
+                               required={true}/><label
+                        htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate}
+                        className="custom-checkbox"></label><span style={{marginLeft: 9}}>Я согласен с&nbsp;
+                        <Link to="/regulations" target="_blank">
+                                    <span>условиями и положениями </span>
+                                </Link>
+                            </span>
+                        <br/>
+                        <input type="checkbox"
                                id={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureDate}
                                required={true}/><label
-                        htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureDate}
-                        className="custom-checkbox"></label><span style={{marginLeft: 9}}>Я согласен с&nbsp;
-                        <Link to="/oferta" target="_blank">
+                          htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureDate}
+                          className="custom-checkbox"></label><span style={{marginLeft: 9}}>Я согласен с&nbsp;
+                          <Link to="/oferta" target="_blank">
                                     <span>договором-офертой</span>
                                 </Link>
                             </span></>
