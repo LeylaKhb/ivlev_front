@@ -13,7 +13,6 @@ import Form from "../forms/Form";
 import {Link} from "react-router-dom";
 
 
-
 interface ScheduleFormProps {
     supply: Supply;
     order?: Orders;
@@ -137,26 +136,31 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
     };
 
     setTelInputToParent(value: string) {
-        this.setState({telInput: value,
-            telError: ""})
+        this.setState({
+            telInput: value,
+            telError: ""
+        })
 
     }
+
     handleNameInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
         let lastChar = inputValue.charAt(inputValue.length - 1);
-        if(!(/^[a-zA-Zа-яА-Я- ]+$/.test(lastChar))) {
+        if (!(/^[a-zA-Zа-яА-Я- ]+$/.test(lastChar))) {
             e.target.value = inputValue.slice(0, -1);
         }
-        this.setState({nameText: inputValue,
-            nameValid: true})
+        this.setState({
+            nameText: inputValue,
+            nameValid: true
+        })
     }
 
-    handleInputs(inputsValues: inputOptions[]){
+    handleInputs(inputsValues: inputOptions[]) {
         this.setState({inputs: inputsValues, inputsValid: true})
     }
 
     changeInputSupplyType(e: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({dataSupplyType: { ...this.state.dataSupplyType, selectedRadioInput: e.target.value }})
+        this.setState({dataSupplyType: {...this.state.dataSupplyType, selectedRadioInput: e.target.value}})
     }
 
     changeInputStore(index: number) {
@@ -179,6 +183,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
     handleOzonNumber(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({ozonNumber: e.target.value})
     }
+
     checkPhone() {
         let me = this;
         if (me.state.telInput.length !== 15) {
@@ -249,6 +254,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             window.location.assign('https://ivlev-ff.ru/current_orders');
         })
     }
+
     handleForm(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         let me = this;
@@ -304,14 +310,20 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             <div className="schedule_form">
                 <form onSubmit={this.handleForm}>
                     <div className="modal_window_title">Заполните все необходимые поля</div>
-                    <Form handleInput={this.handleNameInput} error={me.state.nameValid ? "" : "Поле не может быть пустым"}
-                          text={this.state.nameText} label="Юридическое лицо" name={""} defaultValue={this.props.order?.entity}/>
-                    <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError} spanClass="popup_span_tel"
-                               inputClass="popup_tel_input"  defaultValue={this.state.telInput}/>
+                    <Form handleInput={this.handleNameInput}
+                          error={me.state.nameValid ? "" : "Поле не может быть пустым"}
+                          text={this.state.nameText} label="Юридическое лицо" name={""}
+                          defaultValue={this.props.order?.entity}/>
+                    <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError}
+                               spanClass="popup_span_tel"
+                               inputClass="popup_tel_input" defaultValue={this.state.telInput}/>
 
-                    <div className="schedule_form_title" >Размеры и количество коробок/паллет</div>
-                    <div className="form_error" style={{visibility: me.state.inputsValid ? "hidden" : "visible",
-                        top: 155}}>Коробки заполнены не корректно</div>
+                    <div className="schedule_form_title">Размеры и количество коробок/паллет</div>
+                    <div className="form_error" style={{
+                        visibility: me.state.inputsValid ? "hidden" : "visible",
+                        top: 155
+                    }}>Коробки заполнены не корректно
+                    </div>
                     <BoxSizes inputs={me.state.inputs} handleInputs={this.handleInputs}/>
 
                     <div className="schedule_form_title">Тип поставки</div>
@@ -343,7 +355,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                                    onChange={this.changeInputSupplyType}
                                    checked={me.state.dataSupplyType.selectedRadioInput === me.state.dataSupplyType.value3}
                                    className="price_radio"/>
-                            <div className="price_radio_indicator" style={{borderColor:'#000000'}}></div>
+                            <div className="price_radio_indicator" style={{borderColor: '#000000'}}></div>
                             {me.state.dataSupplyType.value3}
                         </label>
                     </div>
@@ -367,8 +379,10 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                     {me.props.supply.warehouses[me.state.selectedStoreIndex].store === 'Ozon' &&
                       <div>
                         <div className="schedule_form_title">Номер заказа (Ozon)</div>
-                        <input type="text" onInput={me.handleOzonNumber} style={{marginTop: 15, marginLeft: 13,
-                            height: 25, width: 300}} required={true} defaultValue={me.state.ozonNumber}/>
+                        <input type="text" onInput={me.handleOzonNumber} style={{
+                            marginTop: 15, marginLeft: 13,
+                            height: 25, width: 300
+                        }} required={true} defaultValue={me.state.ozonNumber}/>
                       </div>
                     }
 
@@ -462,12 +476,14 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                     </div>
 
                     <div className="schedule_form_title">Доп. комментарий</div>
-                    <textarea className="schedule_comment" placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
-                              onInput={this.handleComment} defaultValue={me.state.comment} required={me.state.willTaken}/>
+                    <textarea className="schedule_comment"
+                              placeholder="Укажите, откуда забрать товар или напишите иные комментарии"
+                              onInput={this.handleComment} defaultValue={me.state.comment}
+                              required={me.state.willTaken}/>
 
-                    <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
+                    <input type="checkbox" id={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate}
                            required={true}/>
-                    <label htmlFor={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate}
+                    <label htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate}
                            className="custom-checkbox"></label>
                     <span style={{marginLeft: 9}}>Я согласен с&nbsp;
                         <Link to="/regulations" target="_blank">
@@ -476,15 +492,17 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                     </span>
 
                     <br/>
-                    <input type="checkbox" id={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate+me.props.supply.departureDate}
-                           required={true}/>
-                    <label htmlFor={"checkbox_"+me.props.supply.title+me.props.supply.acceptanceDate+me.props.supply.departureDate}
-                           className="custom-checkbox"></label>
-                    <span style={{marginLeft: 9}}>Я согласен с&nbsp;
+                    {this.props.order === undefined &&
+                      <><input type="checkbox"
+                               id={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureDate}
+                               required={true}/><label
+                        htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureDate}
+                        className="custom-checkbox"></label><span style={{marginLeft: 9}}>Я согласен с&nbsp;
                         <Link to="/oferta" target="_blank">
-                            <span>договором-офертой</span>
-                        </Link>
-                    </span>
+                                    <span>договором-офертой</span>
+                                </Link>
+                            </span></>
+                    }
 
                     <button type="submit" className="schedule_form_button">Отправить</button>
                 </form>
