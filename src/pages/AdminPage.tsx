@@ -209,6 +209,7 @@ const AdminPage: React.FC = () => {
                         <th style={{width: '5%'}}>Объем</th>
                         <th style={{width: '5%'}}>Цена</th>
                         <th style={{width: '5%'}}>Забор</th>
+                        <th style={{width: '5%'}}>Где оплата</th>
                         <th style={{width: '5%'}}>Оплачен</th>
                         <th style={{width: '10%'}}>Статус</th>
                         <th style={{width: '5%'}}>Изменяемый</th>
@@ -234,6 +235,7 @@ const AdminPage: React.FC = () => {
                             <td style={{width: '5%'}}>{order.volume}</td>
                             <td style={{width: '5%'}}>{order.price}</td>
                             <td style={{width: '5%'}}>{order.willTaken ? "Да" : "Нет"}</td>
+                            <td style={{width: '5%'}}>{order.paymentSite ? "Онлайн" : "Оффлайн"}</td>
                             <td style={{width: '5%'}}>{order.paymentStatus ? "Да" : "Нет"}</td>
                             <td style={{width: '10%'}}>{order.status}</td>
                             <td style={{width: '5%'}}>{order.changeable ? "Да" : "Нет"}</td>
