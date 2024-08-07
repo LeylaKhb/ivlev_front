@@ -10,6 +10,8 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
     const [status, setStatus] = useState("Доставка на склад");
     const [paymentStatus, setPaymentStatus] = useState("no");
     const [changeable, setChangeable] = useState("yes");
+    const [paymentSite, setPaymentSite] = useState("yes");
+
 
     function changeStatus(e: React.ChangeEvent<HTMLSelectElement>) {
         setStatus(e.target.value);
@@ -17,6 +19,10 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
 
     function changePaymentStatus(e: React.ChangeEvent<HTMLSelectElement>) {
         setPaymentStatus(e.target.value);
+    }
+
+    function changePaymentSite(e: React.ChangeEvent<HTMLSelectElement>) {
+        setPaymentSite(e.target.value);
     }
 
     function changeChangeable(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -29,7 +35,8 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
             orders: orders,
             status: status,
             changeable: changeable,
-            paymentStatus: paymentStatus
+            paymentStatus: paymentStatus,
+            paymentSite: paymentSite
         });
 
         fetch('https://kodrfb.ru/api/admin_change', {
@@ -66,6 +73,13 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
             <select value={paymentStatus} onChange={changePaymentStatus} className="select_admin">
                 <option value="yes">Оплачен</option>
                 <option value="no">Не оплачен</option>
+                <option value=""></option>
+            </select>
+
+            <div className="admin_title">Способ оплаты</div>
+            <select value={paymentSite} onChange={changePaymentSite} className="select_admin">
+                <option value="yes">Онлайн</option>
+                <option value="no">Оффлайн</option>
                 <option value=""></option>
             </select>
 
