@@ -81,7 +81,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                 <strong>Статус оплаты: </strong> {order.paymentStatus ? "Оплачен" : "Не оплачен"}
             </div>
 
-            {order.paymentSite && order.changeable &&
+            {order.paymentSite && !order.paymentStatus &&
               <form method='POST' action='https://ivlev-ff.server.paykeeper.ru/create/'>
                 <input type='hidden' name='client_phone' value={order.phoneNumber}/>
                 <input type='hidden' name='clientid' value={order.entity}/>
