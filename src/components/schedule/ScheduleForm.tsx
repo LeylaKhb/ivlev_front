@@ -228,16 +228,26 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable),
             boxes: boxes
         });
-        const cutoffDate = moment(this.props.supply.acceptanceDate).subtract(1, 'days').set({ hour: 22, minute: 0, second: 0, millisecond: 0 });
+        const cutoffDate = moment(this.props.supply.acceptanceDate).subtract(1, 'days').set({
+            hour: 22,
+            minute: 0,
+            second: 0,
+            millisecond: 0
+        });
 
-        if (moment().isAfter(cutoffDate)) {
+        if (moment().isAfter(cutoffDate) && this.props.order === undefined) {
             this.setState({telError: 'Нельзя отправить заявку после 22:00'})
             return;
         }
         if (me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01') {
-            const cutoffDate = moment(this.props.supply.acceptanceDate).subtract(1, 'days').set({ hour: 22, minute: 0, second: 0, millisecond: 0 });
+            const cutoffDate = moment(this.props.supply.acceptanceDate).subtract(1, 'days').set({
+                hour: 22,
+                minute: 0,
+                second: 0,
+                millisecond: 0
+            });
 
-            if (moment().isAfter(cutoffDate)) {
+            if (moment().isAfter(cutoffDate) && this.props.order === undefined) {
                 this.setState({telError: 'Нельзя отправить заявку после 22:00'})
                 return;
             }
