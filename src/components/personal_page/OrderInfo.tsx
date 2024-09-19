@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React from "react";
 import {Orders} from "../../models/Orders";
 
 interface OrderInfoProps {
@@ -86,12 +86,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                 <input type='hidden' name='client_phone' value={order.phoneNumber}/>
                 <input type='hidden' name='clientid' value={order.entity}/>
                 <input type='hidden' name='orderid' value={order.id}/>
-                  <input type='hidden' name='sum' value={orderPrice} readOnly
-                       onKeyDown={(event) => event.preventDefault()}
-                       onPaste={(event) => event.preventDefault()}
-                       onCut={(event) => event.preventDefault()}
-                       onDragStart={(event) => event.preventDefault()}
-                       onDrop={(event) => event.preventDefault()}/>
+                <input type='hidden' name='sum' value={orderPrice} />
                 <input type="hidden" name="user_result_callback" value={"https://ivlev-ff.ru/personal_account"}/>
                 <input type='hidden' name='service_name'
                        value={'Заказ в ' + order.sendCity + " " + order.store + " от " + order.departureDate}/>
