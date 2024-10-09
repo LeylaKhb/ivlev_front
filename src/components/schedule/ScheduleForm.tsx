@@ -5,7 +5,7 @@ import PhoneForm from "../forms/PhoneForm";
 import BoxSizes from "../forms/BoxSizes";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
+import moment from 'moment-timezone';
 import {PriceRequest} from "../../models/PriceRequest";
 import {Orders} from "../../models/Orders";
 import {Box} from "../../models/Box";
@@ -228,26 +228,32 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable),
             boxes: boxes
         });
-        const cutoffDate = moment(this.props.supply.acceptanceDate).subtract(1, 'days').set({
-            hour: 22,
-            minute: 0,
-            second: 0,
-            millisecond: 0
-        });
-
-        if (moment().isAfter(cutoffDate) && this.props.order === undefined) {
-            this.setState({telError: 'Нельзя отправить заявку после 22:00'})
-            return;
-        }
-        if (me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01') {
-            const cutoffDate = moment(this.props.supply.acceptanceDate).subtract(1, 'days').set({
+        const cutoffDate = moment(this.props.supply.acceptanceDate, 'Europe/Samara')
+            .subtract(1, 'days')
+            .set({
                 hour: 22,
                 minute: 0,
                 second: 0,
                 millisecond: 0
             });
 
-            if (moment().isAfter(cutoffDate) && this.props.order === undefined) {
+        const currentServerTime = moment().tz('Europe/Samara');
+
+        if (currentServerTime.isAfter(cutoffDate) && this.props.order === undefined) {
+            this.setState({telError: 'Нельзя отправить заявку после 22:00'})
+            return;
+        }
+        if (me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01') {
+            const cutoffDate = moment(this.props.supply.acceptanceDate, 'Europe/Samara')
+                .subtract(1, 'days')
+                .set({
+                    hour: 22,
+                    minute: 0,
+                    second: 0,
+                    millisecond: 0
+                });
+
+            if (currentServerTime.isAfter(cutoffDate) && this.props.order === undefined) {
                 this.setState({telError: 'Нельзя отправить заявку после 22:00'})
                 return;
             }
