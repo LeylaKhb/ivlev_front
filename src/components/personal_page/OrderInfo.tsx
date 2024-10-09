@@ -26,7 +26,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
 
 
     return (
-        <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column', overflow: 'scroll'}}>
+        <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column'}}>
             <div className="order_form">
                 <strong>Дата заказа: </strong> {order.orderDate === undefined ? "" : order.orderDate.toString()}
             </div>
