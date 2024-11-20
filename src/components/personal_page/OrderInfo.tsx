@@ -26,7 +26,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
 
 
     return (
-        <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column'}}>
+        <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column', marginBottom: 100}}>
             <div className="order_form">
                 <strong>Дата заказа: </strong> {order.orderDate === undefined ? "" : order.orderDate.toString()}
             </div>
@@ -84,9 +84,10 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
             {order.paymentSite && !order.paymentStatus &&
               <form method='POST' action='https://ivlev-ff.server.paykeeper.ru/create/'>
                 <input type='hidden' name='client_phone' value={order.phoneNumber}/>
+                <input type='hidden' name='client_email' value={order.person?.email}/>
                 <input type='hidden' name='clientid' value={order.entity}/>
                 <input type='hidden' name='orderid' value={order.id}/>
-                <input type='hidden' name='sum' value={orderPrice} />
+                <input type='hidden' name='sum' value={orderPrice}/>
                 <input type="hidden" name="user_result_callback" value={"https://ivlev-ff.ru/personal_account"}/>
                 <input type='hidden' name='service_name'
                        value={'Заказ в ' + order.sendCity + " " + order.store + " от " + order.departureDate}/>
