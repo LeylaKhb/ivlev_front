@@ -16,7 +16,7 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
     const stores = ["Wildberries", "Ozon", "Яндекс Маркет"]
 
     const citiesOzon = ["Адыгейск", "Ростов-на-Дону", "Чапаевск", "Казань", "Софьино", "Пушкино 1",
-        "Пушкино 2", "Хоругвино", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Преображенка"];
+        "Пушкино 2", "Хоругвино", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Преображенка", "Невинномысск"];
     const [cityOzonIndex, setCityOzonIndex] = useState(0);
 
     const [cityMarketIndex, setCityMarketIndex] = useState(0);
