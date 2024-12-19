@@ -128,7 +128,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
     isWeekday(date: Date) {
         const day = date.getDay();
 
-        const startDate = new Date('2024-12-28');
+        const startDate = new Date('2024-12-27');
         const endDate = new Date('2025-01-06');
         if (date >= startDate && date <= endDate) {
             return false;
@@ -140,7 +140,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
     isWeekdayWithoutSunday(date: Date) {
         const day = date.getDay();
 
-        const startDate = new Date('2024-12-28');
+        const startDate = new Date('2024-12-27');
         const endDate = new Date('2025-01-06');
         if (date >= startDate && date <= endDate) {
             return false;
