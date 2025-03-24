@@ -257,7 +257,8 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             this.setState({telError: 'Нельзя отправить заявку после 22:00'})
             return;
         }
-        if (me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01') {
+        if (me.props.supply.departureDate.toString() === '1970-01-01' || me.props.supply.departureDate.toString() === '1980-01-01'
+            || me.props.supply.departureDate.toString() === '1990-01-01') {
             const cutoffDate = moment(this.props.supply.acceptanceDate, 'Europe/Samara')
                 .subtract(1, 'days')
                 .set({
@@ -445,7 +446,8 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                                     placeholderText="Выберите дату..."/>
                       </>
                     }
-                    {me.props.supply.departureDate.toString() === '1980-01-01' &&
+                    {(me.props.supply.departureDate.toString() === '1980-01-01'
+                        || me.props.supply.departureDate.toString() === '1990-01-01') &&
                       <>
                         <div className="schedule_form_title">Дата отправки</div>
                         <DatePicker selected={me.state.departureDate}

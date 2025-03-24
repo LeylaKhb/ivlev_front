@@ -4,10 +4,9 @@ import FirstBlock from "../components/schedule/FirstBlock";
 import CalcuatorBlock from "../components/schedule/CalcuatorBlock";
 import {Helmet, HelmetProvider} from "react-helmet-async";
 import {Supply} from "../models/Supply";
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import Popup from "../components/Popup";
 import moment from "moment";
-
 
 
 interface ScheduleProps {
@@ -28,17 +27,18 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         }
     }
 
-     setPopupTrue(index: number) {
+    setPopupTrue(index: number) {
         let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
         copy[index] = true;
         this.setState({isPopupVisible: copy});
         document.body.style.overflow = "hidden";
     }
-     setPopupFalse(index: number) {
-         let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
-         copy[index] = false;
-         this.setState({isPopupVisible: copy});
-         document.body.style.overflow = "scroll";
+
+    setPopupFalse(index: number) {
+        let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
+        copy[index] = false;
+        this.setState({isPopupVisible: copy});
+        document.body.style.overflow = "scroll";
     }
 
     componentDidMount() {
@@ -49,7 +49,7 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
             headers: {
                 'Accept': 'application/json',
             }
-        }).then(function(resp) {
+        }).then(function (resp) {
             resp.json()
                 .then(function (data) {
                     me.setState({supplies: data})
@@ -66,15 +66,15 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         let me = this;
 
         return (
-            <div className="page_content" style={{ flexFlow: "column"}}>
+            <div className="page_content" style={{flexFlow: "column"}}>
                 <HelmetProvider>
                     <Helmet
                         title="Расписание поставок"
                     />
                 </HelmetProvider>
 
-                <FirstBlock />
-                <CalcuatorBlock />
+                <FirstBlock/>
+                <CalcuatorBlock/>
 
                 <div className="table_header">
                     <label className="first_column_schedule">Дата поставки</label>
@@ -84,39 +84,46 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                 </div>
 
                 {me.state.supplies.map((value, index) => (
-                    <div className="table_row" key={index} style={{backgroundColor: index % 2 === 0 ? '#f2f2f2' : 'white'}}>
+                    <div className="table_row" key={index}
+                         style={{backgroundColor: index % 2 === 0 ? '#f2f2f2' : 'white'}}>
                         {value.departureDate.toString() === '1970-01-01' &&
-                            <label className="first_column_schedule" style={{bottom: 20}}>
-                                Вт, Ср, Пт, Сб
-                            </label>}
-                        {value.departureDate.toString() === '1980-01-01' &&
-                            <label className="first_column_schedule" style={{bottom: 0}}>
-                                Пн, Вт, Ср, Чт,
-                                <br /> Пт, Сб
-                            </label>}
-                        {value.departureDate.toString() !== '1970-01-01' && value.departureDate.toString() !== '1980-01-01' &&
-                                <><label className="first_column_schedule">
-                                    {format(value.departureDate, "dd.MM.yy")} ({this.getWeekDay(value.departureDate)})
-                                </label><label className="first_column_schedule" style={{top: 45, fontSize: 12}}>
-                                    Приём до {format(value.acceptanceDate, "dd.MM")}
-                                </label></>
+                          <label className="first_column_schedule" style={{bottom: 20}}>
+                            Вт, Ср, Пт, Сб
+                          </label>}
+                        {(value.departureDate.toString() === '1980-01-01' || value.departureDate.toString() === '1990-01-01')
+                            && <label className="first_column_schedule" style={{bottom: 0}}>
+                            Пн, Вт, Ср, Чт,
+                            <br/> Пт, Сб
+                          </label>}
+                        {value.departureDate.toString() !== '1970-01-01' && value.departureDate.toString() !== '1980-01-01'
+                            && value.departureDate.toString() !== '1990-01-01' &&
+                          <><label className="first_column_schedule">
+                              {format(value.departureDate, "dd.MM.yy")} ({this.getWeekDay(value.departureDate)})
+                          </label><label className="first_column_schedule" style={{top: 45, fontSize: 12}}>
+                            Приём до {format(value.acceptanceDate, "dd.MM")}
+                          </label></>
                         }
                         <label className="second_column_schedule" style={{bottom: 17}}>{value.departureCities
                             .map(departureCity => departureCity.cityName)
                             .join(", ")}</label>
-                        <label className="third_column_schedule"  >{value.title}</label>
+                        <label className="third_column_schedule">{value.title}</label>
                         <label className="fourth_column_schedule" style={{bottom: 17}}>
                             <button className="sign_up_schedule_button" onClick={() => this.setPopupTrue(index)}
-                            style={{display: moment().add(1, "days").isBefore(moment(value.acceptanceDate)
-                                    .add(22, 'hours'), 'hour') ? "initial" : "none"}}>Записаться</button>
+                                    style={{
+                                        display: moment().add(1, "days").isBefore(moment(value.acceptanceDate)
+                                            .add(22, 'hours'), 'hour') ? "initial" : "none"
+                                    }}>Записаться
+                            </button>
                         </label>
                         {localStorage.getItem("jwt") !== null &&
-                            <Popup isVisible={me.state.isPopupVisible[index]} setVisibleFalse={() => me.setPopupFalse(index)}
-                               content="schedule_form" supply={this.state.supplies[index]}/>
+                          <Popup isVisible={me.state.isPopupVisible[index]}
+                                 setVisibleFalse={() => me.setPopupFalse(index)}
+                                 content="schedule_form" supply={this.state.supplies[index]}/>
                         }
                         {localStorage.getItem("jwt") === null &&
-                            <Popup isVisible={me.state.isPopupVisible[index]} setVisibleFalse={() => me.setPopupFalse(index)}
-                                   content="schedule_form_error"/>
+                          <Popup isVisible={me.state.isPopupVisible[index]}
+                                 setVisibleFalse={() => me.setPopupFalse(index)}
+                                 content="schedule_form_error"/>
                         }
                     </div>
                 ))}
