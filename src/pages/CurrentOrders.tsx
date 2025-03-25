@@ -81,7 +81,7 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
     render() {
         let me = this;
         return (
-            <div style={{height: '90vh', paddingTop: 120}}>
+            <div style={{height: '90vh', paddingTop: 120, overflow: "scroll"}}>
                 <HelmetProvider>
                     <Helmet
                         title="Текущие заказы"
