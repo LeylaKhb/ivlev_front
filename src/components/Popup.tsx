@@ -38,7 +38,7 @@ class Popup extends React.Component<PopupProps, PopupState> {
     componentDidMount() {
         let me = this;
         if (me.props.order !== undefined && this.props.supply === undefined) {
-            fetch('https://kodrfb.ru/api/get_supply', {
+            fetch('https://kodrf.ru/api/get_supply', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

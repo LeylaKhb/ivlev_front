@@ -39,7 +39,7 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
             paymentSite: paymentSite
         });
 
-        fetch('https://kodrfb.ru/api/admin_change', {
+        fetch('https://kodrf.ru/api/admin_change', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

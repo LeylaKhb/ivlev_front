@@ -9,7 +9,7 @@ interface OrderInfoProps {
 
 const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup}) => {
     function deleteOrder() {
-        fetch("https://kodrfb.ru/delete_order", {
+        fetch("https://kodrf.ru/delete_order", {
             method: 'POST',
             credentials: "same-origin",
             headers: {

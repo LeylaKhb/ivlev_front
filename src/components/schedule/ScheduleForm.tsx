@@ -273,7 +273,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 return;
             }
         }
-        fetch('https://kodrfb.ru/new_order', {
+        fetch('https://kodrf.ru/new_order', {
             method: 'POST',
             credentials: "same-origin",
             headers: {
@@ -315,7 +315,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
         let pallet = me.state.dataSupplyType.selectedRadioInput === 'Монопаллет';
 
-        fetch('https://kodrfb.ru/api/calculator', {
+        fetch('https://kodrf.ru/api/calculator', {
             method: 'POST',
             credentials: "same-origin",
             headers: {

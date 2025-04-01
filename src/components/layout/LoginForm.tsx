@@ -65,7 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
 
         let person = new Person(nameText, emailText, passwordText);
 
-        let url = location === "registration" ? 'https://kodrfb.ru/registration' : 'https://kodrfb.ru/login';
+        let url = location === "registration" ? 'https://kodrf.ru/registration' : 'https://kodrf.ru/login';
         fetch(url, {
             method: 'POST',
             credentials: "same-origin",

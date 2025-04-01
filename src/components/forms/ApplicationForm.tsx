@@ -63,7 +63,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({location, priceData}) 
             req = new AnswerRequest(nameInput, "8" + telInput)
         }
 
-        fetch('https://kodrfb.ru/api/answer_request', {
+        fetch('https://kodrf.ru/api/answer_request', {
             // mode: 'no-cors',
             method: 'POST',
             credentials: "same-origin",

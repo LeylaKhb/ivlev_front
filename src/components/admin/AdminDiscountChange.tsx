@@ -23,7 +23,7 @@ const AdminDiscountChange : React.FC<AdminDiscountChangeProps> = ({person, close
         person.discount = discount
         let body = JSON.stringify(person);
 
-        fetch('https://kodrfb.ru/api/admin_change_discount', {
+        fetch('https://kodrf.ru/api/admin_change_discount', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -44,7 +44,7 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
     componentDidMount() {
         let me = this;
 
-        fetch('https://kodrfb.ru/api/schedule', {
+        fetch('https://kodrf.ru/api/schedule', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

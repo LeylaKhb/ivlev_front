@@ -12,7 +12,7 @@ export const OrderPayment = () => {
 
         if (result === "success") {
             setResult(true)
-            fetch('https://kodrfb.ru/change_status_after_payment/' + id, {
+            fetch('https://kodrf.ru/change_status_after_payment/' + id, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem("jwt")

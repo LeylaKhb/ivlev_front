@@ -35,7 +35,7 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
     componentDidMount() {
         let me = this;
 
-        fetch('https://kodrfb.ru/current_orders', {
+        fetch('https://kodrf.ru/current_orders', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

@@ -40,7 +40,7 @@ const ChangePasswordForm: React.FC = () => {
             setSecondPasswordVError("Пароли не могут совпадать");
             return;
         }
-        fetch('https://kodrfb.ru/change_password', {
+        fetch('https://kodrf.ru/change_password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

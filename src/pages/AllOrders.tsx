@@ -28,7 +28,7 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
     componentDidMount() {
         let me = this;
 
-        fetch('https://kodrfb.ru/orders_history', {
+        fetch('https://kodrf.ru/orders_history', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

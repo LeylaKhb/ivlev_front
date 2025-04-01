@@ -33,7 +33,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
     componentDidMount() {
         let me = this;
 
-        fetch('https://kodrfb.ru/personal_account', {
+        fetch('https://kodrf.ru/personal_account', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
