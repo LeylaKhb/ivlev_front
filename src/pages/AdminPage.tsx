@@ -79,6 +79,7 @@ const AdminPage: React.FC = () => {
                     endDepartureDate?.setDate(endDepartureDate?.getDate() - 1)
                     startOrderDate?.setDate(startOrderDate?.getDate() - 1)
                     endOrderDate?.setDate(endOrderDate?.getDate() - 1)
+                    acceptanceDate?.setDate(acceptanceDate?.getDate() - 1)
                 })
         });
     }
