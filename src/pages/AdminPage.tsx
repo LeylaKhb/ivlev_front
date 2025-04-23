@@ -20,6 +20,7 @@ const AdminPage: React.FC = () => {
     const [endDepartureDate, setEndDepartureDate] = useState<null | Date>(null)
     const [startOrderDate, setStartOrderDate] = useState<null | Date>(null)
     const [endOrderDate, setEndOrderDate] = useState<null | Date>(null);
+    const [acceptanceDate, setAcceptanceDate] = useState<null | Date>(null);
     const [status, setStatus] = useState("");
     const [sortBy, setSortBy] = useState("");
     const [orders, setOrders] = useState<Array<Orders>>([]);
@@ -160,6 +161,13 @@ const AdminPage: React.FC = () => {
                 <DatePicker selected={endOrderDate}
                             onChange={(date: Date) => {
                                 setEndOrderDate(date)}
+                            }
+                            dateFormat={"dd.MM.YYYY"}/>
+
+                <div className="admin_title">Дата приема</div>
+                <DatePicker selected={acceptanceDate}
+                            onChange={(date: Date) => {
+                                setAcceptanceDate(date)}
                             }
                             dateFormat={"dd.MM.YYYY"}/>
 
