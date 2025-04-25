@@ -31,6 +31,7 @@ interface ScheduleFormState {
     payment: boolean;
     ozonNumber: string;
     departureDate: null | Date;
+    acceptanceDate: null | Date;
     inputsValid: boolean;
     comment: string
 }
@@ -81,6 +82,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 payment: props.order.paymentSite,
                 ozonNumber: props.order.numberOzon,
                 departureDate: props.order.departureDate,
+                acceptanceDate: props.order.acceptanceDate,
                 inputsValid: true,
                 comment: props.order.comment
             }
@@ -103,6 +105,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 payment: false,
                 ozonNumber: "",
                 departureDate: null,
+                acceptanceDate: null,
                 inputsValid: true,
                 comment: ""
             }
@@ -225,6 +228,8 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         const state = me.state;
 
         let departureDate = state.departureDate === null ? me.props.supply.departureDate : state.departureDate;
+        let acceptanceDate = state.acceptanceDate === null ? me.props.supply.acceptanceDate : state.acceptanceDate;
+
         let selectedWarehouse = me.props.supply.warehouses[me.state.selectedStoreIndex];
         let boxes: Box[] = [];
 
@@ -234,8 +239,10 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
         let phoneNumber = "8" + state.telInput.replaceAll("(", "").replaceAll(") ", "").replaceAll("-", "");
         departureDate = new Date(departureDate);
+        acceptanceDate = new Date(acceptanceDate);
         let body = JSON.stringify({
             order: new Orders(state.nameText, new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
+                new Date(acceptanceDate.getFullYear(), acceptanceDate.getMonth(), acceptanceDate.getDate() + 1),
                 phoneNumber, selectedWarehouse.sendCity,
                 state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
                 price, state.willTaken, state.payment, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,

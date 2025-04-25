@@ -4,6 +4,7 @@ import {Person} from "./Person";
 export class Orders {
     entity: string;
     departureDate: Date;
+    acceptanceDate: Date;
     phoneNumber: string;
     sendCity: string;
     departureCity: string;
@@ -28,12 +29,13 @@ export class Orders {
     person?: Person;
 
 
-    constructor(entity: string, departureDate: Date, phoneNumber: string, sendCity: string, departureCity: string,
+    constructor(entity: string, departureDate: Date, acceptanceDate: Date, phoneNumber: string, sendCity: string, departureCity: string,
                 store: string, supplyType: string, volume: number, price: string, willTaken: boolean, paymentSite: boolean, comment: string,
                 numberOzon: string, supplyTitle: string, id?: number, orderDate?: Date, status?: string,
                 changeable?: boolean,  boxes?: Box[], email?: string, person?: Person, paymentStatus?: boolean) {
         this.entity = entity;
         this.departureDate = departureDate;
+        this.acceptanceDate = acceptanceDate;
         this.phoneNumber = phoneNumber;
         this.sendCity = sendCity;
         this.departureCity = departureCity;
