@@ -7,7 +7,6 @@ const PageNotFound : React.FC = () => {
                 fontWeight: 'normal', alignItems: 'center', height: '75vh', textAlign: 'center'}}>
                 Страница не найдена
                 <a href="/" style={{fontSize: 25, marginTop: 30, marginBottom: 60}}>Перейти на главную</a>
-                <img src="check.png"/>
             </div>
         </div>
     )
