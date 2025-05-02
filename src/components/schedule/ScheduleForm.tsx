@@ -240,9 +240,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         let phoneNumber = "8" + state.telInput.replaceAll("(", "").replaceAll(") ", "").replaceAll("-", "");
         if (acceptanceDate.toString() === '1970-01-01' || acceptanceDate.toString() === '1980-01-01'
             || acceptanceDate.toString() === '1990-01-01') {
-            const departure = new Date(departureDate);
-            departure.setDate(departure.getDate() - 1); // Минус 1 день
-            acceptanceDate = departure;
+            acceptanceDate = new Date(departureDate);
         } else {
             acceptanceDate = new Date(acceptanceDate);
         }
