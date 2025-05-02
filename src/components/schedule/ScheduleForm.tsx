@@ -238,8 +238,16 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         });
 
         let phoneNumber = "8" + state.telInput.replaceAll("(", "").replaceAll(") ", "").replaceAll("-", "");
+        if (acceptanceDate.toString() === '1970-01-01' || acceptanceDate.toString() === '1980-01-01'
+            || acceptanceDate.toString() === '1990-01-01') {
+            const departure = new Date(departureDate);
+            departure.setDate(departure.getDate() - 1); // Минус 1 день
+            acceptanceDate = departure;
+        } else {
+            acceptanceDate = new Date(acceptanceDate);
+        }
         departureDate = new Date(departureDate);
-        acceptanceDate = new Date(acceptanceDate);
+
         let body = JSON.stringify({
             order: new Orders(state.nameText, new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
                 new Date(acceptanceDate.getFullYear(), acceptanceDate.getMonth(), acceptanceDate.getDate() + 1),
