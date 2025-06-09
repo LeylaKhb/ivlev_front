@@ -1,5 +1,19 @@
 .select_calculator {
     width: 60%;
+    font-size: 14px;
+}
+.schedule_form .select_calculator {
+    width: 100%;
+}
+.schedule_form .__select {
+    width: 100%;
+    height: 60px;
+}
+.schedule_form .__select__content {
+    top: 60px;
+}
+.schedule_form .__select__label {
+    height: 60px;
 }
 
 .calculator_label {

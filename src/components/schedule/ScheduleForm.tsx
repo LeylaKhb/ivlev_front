@@ -9,20 +9,19 @@ import moment from 'moment-timezone';
 import {PriceRequest} from "../../models/PriceRequest";
 import {Orders} from "../../models/Orders";
 import {Box} from "../../models/Box";
-import Form from "../forms/Form";
 import {Link} from "react-router-dom";
+import CalculatorDropdown from "../calculator/CalculatorDropdown";
 
 
 interface ScheduleFormProps {
     supply: Supply;
+    companies?: string[];
     order?: Orders;
 }
 
 interface ScheduleFormState {
     telInput: string;
     telError: string;
-    nameValid: boolean;
-    nameText: string;
     inputs: inputOptions[];
     dataSupplyType: typeOptions;
     selectedStoreIndex: number;
@@ -33,7 +32,8 @@ interface ScheduleFormState {
     departureDate: null | Date;
     acceptanceDate: null | Date;
     inputsValid: boolean;
-    comment: string
+    comment: string;
+    entityIndex: number;
 }
 
 type inputOptions = {
@@ -67,8 +67,6 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 telInput: "(" + props.order.phoneNumber.slice(1, 4) + ") " + props.order.phoneNumber.slice(4, 7) + "-"
                     + props.order.phoneNumber.slice(7, 9) + "-" + props.order.phoneNumber.slice(9, 11),
                 telError: "",
-                nameValid: true,
-                nameText: props.order.entity,
                 inputs: inputsVal,
                 dataSupplyType: {
                     value1: 'Короб',
@@ -84,14 +82,13 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 departureDate: props.order.departureDate,
                 acceptanceDate: props.order.acceptanceDate,
                 inputsValid: true,
-                comment: props.order.comment
+                comment: props.order.comment,
+                entityIndex: props.companies === undefined ? 0 : props.companies.indexOf(props.order.entity),
             }
         } else {
             this.state = {
                 telInput: "",
                 telError: "",
-                nameValid: true,
-                nameText: "",
                 inputs: [{length: 0, width: 0, height: 0, amount: 0}],
                 dataSupplyType: {
                     value1: 'Короб',
@@ -107,12 +104,12 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 departureDate: null,
                 acceptanceDate: null,
                 inputsValid: true,
-                comment: ""
+                comment: "",
+                entityIndex: 0,
             }
         }
 
         this.setTelInputToParent = this.setTelInputToParent.bind(this);
-        this.handleNameInput = this.handleNameInput.bind(this);
         this.handleInputs = this.handleInputs.bind(this);
         this.changeInputSupplyType = this.changeInputSupplyType.bind(this);
         this.changeInputStore = this.changeInputStore.bind(this);
@@ -123,9 +120,9 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         this.isWeekday = this.isWeekday.bind(this);
         this.handleForm = this.handleForm.bind(this);
         this.checkPhone = this.checkPhone.bind(this);
-        this.checkName = this.checkName.bind(this);
         this.sendOrder = this.sendOrder.bind(this);
         this.handleComment = this.handleComment.bind(this);
+        this.handleEntityIndex = this.handleEntityIndex.bind(this);
     }
 
     isWeekday(date: Date) {
@@ -160,18 +157,6 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
     }
 
-    handleNameInput(e: React.ChangeEvent<HTMLInputElement>) {
-        let inputValue = e.target.value;
-        let lastChar = inputValue.charAt(inputValue.length - 1);
-        if (!(/^[a-zA-Zа-яА-Я- ]+$/.test(lastChar))) {
-            e.target.value = inputValue.slice(0, -1);
-        }
-        this.setState({
-            nameText: inputValue,
-            nameValid: true
-        })
-    }
-
     handleInputs(inputsValues: inputOptions[]) {
         this.setState({inputs: inputsValues, inputsValid: true})
     }
@@ -201,19 +186,14 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         this.setState({ozonNumber: e.target.value})
     }
 
+    handleEntityIndex(index: number) {
+        this.setState({entityIndex: index});
+    }
+
     checkPhone() {
         let me = this;
         if (me.state.telInput.length !== 15) {
             me.setState({telError: "Номер введён некорректно"});
-            return false;
-        }
-        return true;
-    }
-
-    checkName() {
-        let me = this;
-        if (me.state.nameText.length === 0) {
-            me.setState({nameValid: false});
             return false;
         }
         return true;
@@ -246,8 +226,12 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         }
         departureDate = new Date(departureDate);
 
+        if (this.props.companies === undefined || this.props.companies.length === 0) {
+            return;
+        }
+        console.log(this.props.companies[state.entityIndex])
         let body = JSON.stringify({
-            order: new Orders(state.nameText, new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
+            order: new Orders(this.props.companies[state.entityIndex], new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
                 new Date(acceptanceDate.getFullYear(), acceptanceDate.getMonth(), acceptanceDate.getDate() + 1),
                 phoneNumber, selectedWarehouse.sendCity,
                 state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
@@ -306,14 +290,13 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         let me = this;
 
         let phone = this.checkPhone();
-        let name = this.checkName();
 
         let volume = 0;
         let wrong = false;
         let amount = 0;
         me.state.inputs.map(input => {
             let current = input["length"] * input["width"] * input["height"] * input["amount"];
-            if (current === 0) {
+            if (current <= 0) {
                 wrong = true;
                 me.setState({inputsValid: false})
             }
@@ -321,7 +304,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             amount += input["amount"];
         });
 
-        if (!phone || !name) return;
+        if (!phone) return;
         if (wrong) return;
         volume /= 1000000;
         const supply = me.props.supply;
@@ -356,10 +339,17 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             <div className="schedule_form">
                 <form onSubmit={this.handleForm}>
                     <div className="modal_window_title">Заполните все необходимые поля</div>
-                    <Form handleInput={this.handleNameInput}
-                          error={me.state.nameValid ? "" : "Поле не может быть пустым"}
-                          text={this.state.nameText} label="Юридическое лицо" name={""}
-                          defaultValue={this.props.order?.entity}/>
+
+                    <div className="schedule_form_title" style={{marginTop: 20, marginBottom: 5}}>Юридическое лицо</div>
+                    {(this.props.companies === undefined || this.props.companies.length === 0) &&
+                      <div className="form_error" style={{height: "auto"}}>Вы еще не заполнили данные о своих компаниях.
+                        Пожалуйста, заполните данные в <Link to="/personal_account">личном кабинете</Link></div>
+                    }
+                    {(this.props.companies !== undefined && this.props.companies.length > 0) &&
+                      <CalculatorDropdown items={this.props.companies} handleSelectClick={this.handleEntityIndex}
+                                          selectTitle={this.props.companies[me.state.entityIndex]}/>
+                    }
+
                     <PhoneForm setTelInputToParent={this.setTelInputToParent} error={me.state.telError}
                                spanClass="popup_span_tel"
                                inputClass="popup_tel_input" defaultValue={this.state.telInput}/>
@@ -460,7 +450,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                       </>
                     }
                     {(me.props.supply.departureDate.toString() === '1980-01-01'
-                        || me.props.supply.departureDate.toString() === '1990-01-01') &&
+                            || me.props.supply.departureDate.toString() === '1990-01-01') &&
                       <>
                         <div className="schedule_form_title">Дата отправки</div>
                         <DatePicker selected={me.state.departureDate}

@@ -13,6 +13,7 @@ interface PersonalAccountState {
     person: Person;
     isFirstPopupVisible: boolean;
     isSecondPopupVisible: boolean;
+    isCompaniesPopupVisible: boolean;
 }
 
 class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAccountState> {
@@ -21,15 +22,18 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
         this.state = {
             person: new Person("", "", ""),
             isFirstPopupVisible: false,
-            isSecondPopupVisible: false
+            isSecondPopupVisible: false,
+            isCompaniesPopupVisible: false,
         };
 
         this.setFirstPopupFalse = this.setFirstPopupFalse.bind(this);
         this.setFirstPopupTrue = this.setFirstPopupTrue.bind(this);
         this.setSecondPopupFalse = this.setSecondPopupFalse.bind(this);
         this.setSecondPopupTrue = this.setSecondPopupTrue.bind(this);
-
+        this.setCompaniesPopupTrue = this.setCompaniesPopupTrue.bind(this);
+        this.setCompaniesPopupFalse = this.setCompaniesPopupFalse.bind(this);
     }
+
     componentDidMount() {
         let me = this;
 
@@ -37,14 +41,17 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt")
             }
-        }).then(function(resp) {
-            resp.json()
-                .then(function (data) {
-                    me.setState({
-                        person: new Person(data["name"], data["email"], data["password"], data["photo"])});
-                })
+        }).then(function (resp) {
+            resp.json().then(function (data) {
+                let hasNoCompanies = !data.companies || data.companies.length === 0;
+
+                me.setState({
+                    person: data,
+                    isCompaniesPopupVisible: hasNoCompanies
+                });
+            });
         })
     }
 
@@ -65,6 +72,16 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
 
     setSecondPopupTrue() {
         this.setState({isSecondPopupVisible: true});
+        document.body.style.overflow = "hidden";
+    }
+
+    setCompaniesPopupFalse() {
+        this.setState({isCompaniesPopupVisible: false});
+        document.body.style.overflow = "scroll";
+    }
+
+    setCompaniesPopupTrue() {
+        this.setState({isCompaniesPopupVisible: true});
         document.body.style.overflow = "hidden";
     }
 
@@ -97,11 +114,14 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                         <img src={me.state.person.photo} alt="user profile"/>
                         <div className="personal_info_div">
                             <div className="personal_info">{me.state.person.name}</div>
-                            <div className="personal_info" style={{ color: 'gray', fontSize: 14,
-                            wordBreak: 'break-all'}}>{me.state.person.email}</div>
+                            <div className="personal_info" style={{
+                                color: 'gray', fontSize: 14,
+                                wordBreak: 'break-all'
+                            }}>{me.state.person.email}</div>
+                            <button className="personal_change_info" onClick={me.setCompaniesPopupTrue} style={{marginTop: 6}}>Мои компании</button>
                         </div>
                     </div>
-                    <div style={{display: 'flex', flexFlow: 'column'}} >
+                    <div style={{display: 'flex', flexFlow: 'column'}}>
                         <button className="personal_change_info" onClick={me.setFirstPopupTrue}>Изменить данные</button>
                         <button className="personal_logout_button" onClick={me.handleLogout}>Выйти из аккаунта</button>
                     </div>
@@ -115,11 +135,13 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                         <div className="person_order_button">История заказов</div>
                     </Link>
                 </div>
-                <Popup isVisible={me.state.isFirstPopupVisible} setVisibleFalse={me.setFirstPopupFalse} content="profile"
+                <Popup isVisible={me.state.isFirstPopupVisible} setVisibleFalse={me.setFirstPopupFalse}
+                       content="profile"
                        person={me.state.person} openSecondPopup={this.setSecondPopupTrue}/>
                 <Popup isVisible={me.state.isSecondPopupVisible} setVisibleFalse={me.setSecondPopupFalse}
-                       content="change_password" />
-
+                       content="change_password"/>
+                <Popup isVisible={me.state.isCompaniesPopupVisible} setVisibleFalse={me.setCompaniesPopupFalse}
+                       content="companies" person={me.state.person} />
             </div>
         )
     }

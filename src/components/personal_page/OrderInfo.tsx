@@ -31,7 +31,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                 <strong>Дата заказа: </strong> {order.orderDate === undefined ? "" : order.orderDate.toString()}
             </div>
             <div className="order_form">
-                <strong>Юридическое лицо:</strong> {order.entity}
+                <strong>Юридическое лицо:</strong> {order.entity} ({order.inn})
             </div>
             <div className="order_form">
                 <strong>Номер телефона: </strong> {order.phoneNumber}

@@ -27,12 +27,13 @@ export class Orders {
     boxesAmount?: number;
     email?: string;
     person?: Person;
+    inn?: string;
 
 
     constructor(entity: string, departureDate: Date, acceptanceDate: Date, phoneNumber: string, sendCity: string, departureCity: string,
                 store: string, supplyType: string, volume: number, price: string, willTaken: boolean, paymentSite: boolean, comment: string,
                 numberOzon: string, supplyTitle: string, id?: number, orderDate?: Date, status?: string,
-                changeable?: boolean,  boxes?: Box[], email?: string, person?: Person, paymentStatus?: boolean) {
+                changeable?: boolean,  boxes?: Box[], email?: string, person?: Person, paymentStatus?: boolean, inn?: string) {
         this.entity = entity;
         this.departureDate = departureDate;
         this.acceptanceDate = acceptanceDate;
@@ -56,5 +57,6 @@ export class Orders {
         this.email = email;
         this.person = person;
         this.paymentStatus = paymentStatus;
+        this.inn = inn;
     }
 }

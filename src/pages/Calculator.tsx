@@ -70,6 +70,10 @@ const Calculator: React.FC = () => {
             console.log('There has been a problem with your fetch operation: ' + error.message);
             throw error;
         });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // для плавной прокрутки
+        });
     }
 
     return (

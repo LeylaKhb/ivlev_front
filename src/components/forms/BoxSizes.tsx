@@ -30,6 +30,9 @@ const BoxSizes: React.FC<BoxSizesProps> = ({inputs, handleInputs}) => {
         if (value.length === 1 && value === '0') {
             return;
         }
+        if (lastChar === '-' || lastChar === '+' || lastChar === 'e') {
+            return;
+        }
         const newValue = Number(value);
         // Создаем новый массив с измененным элементом
         const newInputs = inputs.map((input, i) => {

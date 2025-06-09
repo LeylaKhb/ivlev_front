@@ -12,6 +12,7 @@ import {Orders} from "../models/Orders";
 import OrderInfo from "./personal_page/OrderInfo";
 import AdminFormChange from "./admin/AdminFormChange";
 import AdminDiscountChange from "./admin/AdminDiscountChange";
+import CompaniesWindow from "./personal_page/CompaniesWindow";
 
 interface PopupProps {
     isVisible: boolean,
@@ -21,7 +22,8 @@ interface PopupProps {
     person?: Person;
     supply?: Supply;
     order?: Orders;
-    orders?: Orders[] | undefined
+    orders?: Orders[] | undefined;
+    companies?: string[];
 }
 interface PopupState {
     key: number;
@@ -109,10 +111,10 @@ class Popup extends React.Component<PopupProps, PopupState> {
                     <div className="popup_window popup_schedule" style={{opacity: this.props.isVisible ? 1 : 0,
                         transform: "translateY(-50%)"}}>
                         {this.props.supply !== undefined &&
-                            <ScheduleForm supply={this.props.supply}/>
+                            <ScheduleForm supply={this.props.supply} companies={this.props.companies}/>
                         }
                         {this.props.order !== undefined && this.state.supply !== null &&
-                            <ScheduleForm supply={this.state.supply} order={this.props.order}/>
+                            <ScheduleForm supply={this.state.supply} order={this.props.order} companies={this.props.companies}/>
                         }
                     </div>
                 }
@@ -127,6 +129,26 @@ class Popup extends React.Component<PopupProps, PopupState> {
                             <button className="login_schedule">Войти</button>
                         </Link>
                     </div>
+                }
+
+                {this.props.content === "companies" &&
+                  <div className="popup_window popup_window_profile" style={{opacity: this.props.isVisible ? 1 : 0,
+                      transform: "translateY(-50%)",  display: "flex",
+                      flexFlow: 'column'}}>
+                    <CompaniesWindow person={this.props.person} />
+                  </div>
+                }
+                {this.props.content === "no_companies" &&
+                  <div className="popup_window" style={{opacity: this.props.isVisible ? 1 : 0,
+                      transform: "translateY(-50%)", alignItems: 'center', justifyContent: 'center', display: "flex",
+                      flexFlow: 'column'}}>
+                    <div className="schedule_login_text" style={{fontWeight: 500, fontSize: 25}}>
+                      Пожалуйста, заполните данные о своих компаниях в личном кабинете, чтобы продолжить
+                    </div>
+                    <Link to="/personal_account">
+                      <button className="login_schedule" style={{fontSize: 20, height: 50, width: 200}}>Личный кабинет</button>
+                    </Link>
+                  </div>
                 }
                 {this.props.content === "order" &&
                     <div className="popup_window popup_order" style={{opacity: this.props.isVisible ? 1 : 0,

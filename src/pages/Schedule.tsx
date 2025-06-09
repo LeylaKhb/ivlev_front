@@ -14,7 +14,9 @@ interface ScheduleProps {
 
 interface ScheduleState {
     supplies: Supply[];
-    isPopupVisible: boolean[]
+    companies: string[];
+    isPopupVisible: boolean[];
+    isNoCompaniesPopupVisible: boolean;
 }
 
 class Schedule extends React.Component<ScheduleProps, ScheduleState> {
@@ -23,8 +25,13 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
 
         this.state = {
             supplies: [],
-            isPopupVisible: []
+            isPopupVisible: [],
+            companies: [],
+            isNoCompaniesPopupVisible: false,
         }
+
+        this.setNoCompaniesPopupTrue = this.setNoCompaniesPopupTrue.bind(this);
+        this.setNoCompaniesPopupFalse = this.setNoCompaniesPopupFalse.bind(this);
     }
 
     setPopupTrue(index: number) {
@@ -41,6 +48,16 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         document.body.style.overflow = "scroll";
     }
 
+    setNoCompaniesPopupTrue() {
+        this.setState({isNoCompaniesPopupVisible: true});
+        document.body.style.overflow = "hidden";
+    }
+
+    setNoCompaniesPopupFalse() {
+        this.setState({isNoCompaniesPopupVisible: false});
+        document.body.style.overflow = "scroll";
+    }
+
     componentDidMount() {
         let me = this;
 
@@ -53,6 +70,19 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
             resp.json()
                 .then(function (data) {
                     me.setState({supplies: data})
+                })
+        });
+        fetch('https://kodrf.ru/api/companies', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
+            }
+        }).then(function (resp) {
+            resp.json()
+                .then(function (data) {
+                    console.log(data)
+                    me.setState({companies: data, isNoCompaniesPopupVisible: !data || data.length === 0})
                 })
         });
     }
@@ -118,7 +148,8 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                         {localStorage.getItem("jwt") !== null &&
                           <Popup isVisible={me.state.isPopupVisible[index]}
                                  setVisibleFalse={() => me.setPopupFalse(index)}
-                                 content="schedule_form" supply={this.state.supplies[index]}/>
+                                 content="schedule_form" supply={this.state.supplies[index]}
+                                 companies={me.state.companies}/>
                         }
                         {localStorage.getItem("jwt") === null &&
                           <Popup isVisible={me.state.isPopupVisible[index]}
@@ -128,6 +159,9 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                     </div>
                 ))}
 
+                <Popup isVisible={me.state.isNoCompaniesPopupVisible}
+                       setVisibleFalse={this.setNoCompaniesPopupFalse}
+                       content="no_companies"/>
             </div>
         )
     }

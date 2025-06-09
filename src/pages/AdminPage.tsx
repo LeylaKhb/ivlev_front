@@ -215,6 +215,7 @@ const AdminPage: React.FC = () => {
                         <th style={{width: '10%'}}>Склад</th>
                         <th style={{width: '10%'}}>Номер телефона</th>
                         <th style={{width: '10%'}}>Имя</th>
+                        <th style={{width: '5%'}}>ИНН</th>
                         <th style={{width: '10%'}}>Тип поставки</th>
                         <th style={{width: '5%'}}>Объем</th>
                         <th style={{width: '5%'}}>Цена</th>
@@ -241,6 +242,7 @@ const AdminPage: React.FC = () => {
                             <td style={{width: '10%'}}>{order.store}</td>
                             <td style={{width: '10%'}}>{order.phoneNumber}</td>
                             <td style={{width: '10%'}}>{order.entity}</td>
+                            <td style={{width: '5%'}}>{order.inn}</td>
                             <td style={{width: '10%'}}>{order.supplyType}</td>
                             <td style={{width: '5%'}}>{order.volume}</td>
                             <td style={{width: '5%'}}>{order.price}</td>
