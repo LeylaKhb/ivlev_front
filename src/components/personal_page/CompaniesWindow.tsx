@@ -100,18 +100,11 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
             body: JSON.stringify(new Company(name, inn))
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
                 return response.json();
             })
             .then(() => {
                 window.location.assign('https://ivlev-ff.ru/personal_account');
             })
-            .catch(error => {
-                console.error('Ошибка:', error);
-                alert('Не удалось добавить компанию, потому что этот ИНН уже существует в нашей базе. Если вы считаете, что произошла ошибка, напишите нам в поддержку');
-            });
 
     }
 
@@ -129,10 +122,6 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                 }
                 window.location.assign('https://ivlev-ff.ru/personal_account');
             })
-            .catch(error => {
-                console.error('Ошибка:', error);
-                alert('Не удалось удалить компанию. Попробуйте позже.');
-            });
     }
 
 
