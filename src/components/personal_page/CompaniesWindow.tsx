@@ -96,12 +96,23 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
-
             },
             body: JSON.stringify(new Company(name, inn))
-        }).then(function () {
-            window.location.assign('https://ivlev-ff.ru/personal_account');
         })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(() => {
+                window.location.assign('https://ivlev-ff.ru/personal_account');
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Не удалось добавить компанию, потому что этот ИНН уже существует в нашей базе. Если вы считаете, что произошла ошибка, напишите нам в поддержку');
+            });
+
     }
 
     function handleDeleteCompany(companyInn: string) {
@@ -157,8 +168,11 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
 
     return (
         <div style={{display: "flex", flexDirection: "column", minHeight: "60vh"}}>
-            <div style={{display: person?.companies?.length !== undefined && person?.companies?.length  > 0 ? "none" : "flex",
-            color: "red", textAlign: "center"}}>Добавьте свои компании, чтобы продолжить работу с сайтом</div>
+            <div style={{
+                display: person?.companies?.length !== undefined && person?.companies?.length > 0 ? "none" : "flex",
+                color: "red", textAlign: "center"
+            }}>Добавьте свои компании, чтобы продолжить работу с сайтом
+            </div>
 
             <div className="schedule_form_title">Добавленные компании:</div>
             {person?.companies?.length ? (
@@ -169,19 +183,21 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                             <span className="company-name">{company.companyName}</span>
                             <span className="company-inn"> ({company.inn})</span>
                             <a href="#" className="delete-company-link"
-                                style={{marginLeft: '10px', color: 'red', textDecoration: 'none',
-                                    display: 'inline-flex', alignItems: 'center', verticalAlign: 'middle'
-                                }}
+                               style={{
+                                   marginLeft: '10px', color: 'red', textDecoration: 'none',
+                                   display: 'inline-flex', alignItems: 'center', verticalAlign: 'middle'
+                               }}
                                onClick={(e) => {
                                    e.preventDefault();
                                    handleDeleteCompany(company.inn);
                                }}
-                                title="Удалить компанию"
+                               title="Удалить компанию"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                                    className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
-                                    style={{ verticalAlign: 'middle' }}
+                                     fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                     strokeLinejoin="round"
+                                     className="icon icon-tabler icons-tabler-outline icon-tabler-trash"
+                                     style={{verticalAlign: 'middle'}}
                                 >
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M4 7l16 0"/>
