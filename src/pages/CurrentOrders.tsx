@@ -14,6 +14,7 @@ interface CurrentOrdersState {
     isFirstPopupVisible: boolean[];
     isSecondPopupVisible: boolean[];
     supply: Supply | null;
+    companies: string[];
 }
 
 class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersState> {
@@ -23,8 +24,8 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
             orders: [],
             isFirstPopupVisible: [],
             isSecondPopupVisible: [],
-            supply: null
-
+            supply: null,
+            companies: [],
         }
         this.setFirstPopupFalse = this.setFirstPopupFalse.bind(this);
         this.setFirstPopupTrue = this.setFirstPopupTrue.bind(this);
@@ -48,7 +49,21 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
                         orders: data
                     });
                 }
-        )})
+        )});
+
+        fetch('https://kodrf.ru/api/companies', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
+            }
+        }).then(function (resp) {
+            resp.json()
+                .then(function (data) {
+                    console.log(data)
+                    me.setState({companies: data})
+                })
+        });
     }
 
     setFirstPopupTrue(index: number) {
@@ -97,7 +112,8 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
                                setVisibleFalse={() => me.setFirstPopupFalse(index)} order={order}
                                openSecondPopup={() => this.setSecondPopupTrue(index)}/>
                         <Popup content="schedule_form" isVisible={me.state.isSecondPopupVisible[index]}
-                               setVisibleFalse={() => me.setSecondPopupFalse(index)} order={order} />
+                               setVisibleFalse={() => me.setSecondPopupFalse(index)} order={order}
+                               companies={me.state.companies} />
                     </div>
                 ))}
             </div>
