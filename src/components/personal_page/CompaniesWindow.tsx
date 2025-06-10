@@ -99,9 +99,6 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
             },
             body: JSON.stringify(new Company(name, inn))
         })
-            .then(response => {
-                return response.json();
-            })
             .then(() => {
                 window.location.assign('https://ivlev-ff.ru/personal_account');
             })
