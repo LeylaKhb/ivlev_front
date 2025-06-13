@@ -22,6 +22,7 @@ import AllDialogs from "./pages/AllDialogs";
 import {ChatFunc} from "./pages/ChatFunc";
 import Oferta from "./components/regulations/Oferta";
 import {OrderPayment} from "./pages/OrderPayment";
+import PrivacyPolicy from "./components/regulations/PrivacyPolicy";
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
                     <Route path="/orders/:id" element={<OrderPayment/>}/>
                     <Route path="/regulations" element={<Regulations/>}/>
                     <Route path="/oferta" element={<Oferta/>}/>
+                    <Route path="/privacy_policy" element={<PrivacyPolicy/>}/>
                     <Route path="/partners" element={<div>
                         <HelmetProvider>
                             <Helmet

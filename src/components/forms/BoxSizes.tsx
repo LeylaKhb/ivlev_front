@@ -30,7 +30,7 @@ const BoxSizes: React.FC<BoxSizesProps> = ({inputs, handleInputs}) => {
         if (value.length === 1 && value === '0') {
             return;
         }
-        if (lastChar === '-' || lastChar === '+' || lastChar === 'e') {
+        if (lastChar === '-' || lastChar === '+' || lastChar === 'e' || lastChar === '.' || lastChar === ',') {
             return;
         }
         const newValue = Number(value);

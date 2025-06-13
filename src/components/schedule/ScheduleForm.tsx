@@ -536,7 +536,19 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                           <Link to="/oferta" target="_blank">
                                     <span>договором-офертой</span>
                                 </Link>
-                            </span></>
+                            </span>
+                        <br/>
+                        <input type="checkbox"
+                               id={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureCities[0]}
+                               required={true}/><label
+                          htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureCities[0]}
+                          className="custom-checkbox"></label><span style={{marginLeft: 9}}>Я согласен с&nbsp;
+                          <Link to="/privacy_policy" target="_blank">
+                                    <span>политикой конфиденциальности</span>
+                                </Link>
+                            </span>
+                      </>
+
                     }
 
                     <button type="submit" className="schedule_form_button">Отправить</button>
