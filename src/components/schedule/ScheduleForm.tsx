@@ -63,6 +63,10 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 }
                 selectedIndex++;
             }
+            const entityIndex =
+                props.companies === undefined || props.order === undefined
+                    ? 0
+                    : props.companies.findIndex(company => company.includes(props.order!.entity));
             this.state = {
                 telInput: "(" + props.order.phoneNumber.slice(1, 4) + ") " + props.order.phoneNumber.slice(4, 7) + "-"
                     + props.order.phoneNumber.slice(7, 9) + "-" + props.order.phoneNumber.slice(9, 11),
@@ -83,7 +87,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 acceptanceDate: props.order.acceptanceDate,
                 inputsValid: true,
                 comment: props.order.comment,
-                entityIndex: props.companies === undefined ? 0 : props.companies.indexOf(props.order.entity),
+                entityIndex: entityIndex,
             }
         } else {
             this.state = {
