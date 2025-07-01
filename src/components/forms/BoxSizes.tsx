@@ -24,13 +24,16 @@ const BoxSizes: React.FC<BoxSizesProps> = ({inputs, handleInputs}) => {
         // Проверка, что последний символ является числом
         let lastChar = value.charAt(value.length - 1);
         if (isNaN(Number(lastChar)) || lastChar === ' ') {
+            e.target.value = value.slice(0, -1);
             return;
         }
         // Не разрешаем ввод "0" в одиночном символе
         if (value.length === 1 && value === '0') {
+            e.target.value = value.slice(0, -1);
             return;
         }
         if (lastChar === '-' || lastChar === '+' || lastChar === 'e' || lastChar === '.' || lastChar === ',') {
+            e.target.value = value.slice(0, -1);
             return;
         }
         const newValue = Number(value);
@@ -74,28 +77,24 @@ const BoxSizes: React.FC<BoxSizesProps> = ({inputs, handleInputs}) => {
                 <div className="inputs_div" key={input.id}>
                     <input
                         className="sizes_input"
-                        type="number"
                         onChange={(e) => handleChange(e, index, "length")}
                         value={input.length === 0 ? "" : input.length}
                         placeholder="0"
                     />
                     <input
                         className="sizes_input"
-                        type="number"
                         onChange={(e) => handleChange(e, index, "height")}
                         value={input.height === 0 ? "" : input.height}
                         placeholder="0"
                     />
                     <input
                         className="sizes_input"
-                        type="number"
                         onChange={(e) => handleChange(e, index, "width")}
                         value={input.width === 0 ? "" : input.width}
                         placeholder="0"
                     />
                     <input
                         className="sizes_input"
-                        type="number"
                         onChange={(e) => handleChange(e, index, "amount")}
                         value={input.amount === 0 ? "" : input.amount}
                         placeholder="0"
