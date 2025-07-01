@@ -26,7 +26,7 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
     const [cityWildberriesIndex, setCityWildberriesIndex] = useState(0);
     const citiesWildberries = ["Казань", "Невинномысск", "Краснодар", "Чехов 1", "Чехов 2", "Подольск", "Тула",
         "Коледино", "Электросталь", "Екат (перпективный)", "Екат (испытателей)", "Новосибирск", "СПб (Уткина заводь)",
-        "Новосемейкино", "Преображенка", "Котовск", "Рязань", "Волгоград"];
+        "Новосемейкино", "Преображенка", "Котовск", "Рязань", "Волгоград", "Сарапул"];
 
     if (location === "admin") {
         departureCities.push("");
