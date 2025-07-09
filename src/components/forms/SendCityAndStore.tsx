@@ -17,7 +17,7 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
 
     const citiesOzon = ["Адыгейск", "Ростов-на-Дону", "Чапаевск", "Казань", "Софьино", "Пушкино 1",
         "Пушкино 2", "Хоругвино", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Преображенка", "Невинномысск",
-    "Воронеж", "Уфа", "Тюмень", "Волгоград", "Омск"];
+    "Воронеж", "Уфа", "Тюмень", "Волгоград", "Омск", "Бугры", "Колпино", "Шушары", "Ярославль"];
     const [cityOzonIndex, setCityOzonIndex] = useState(0);
 
     const [cityMarketIndex, setCityMarketIndex] = useState(0);
@@ -26,7 +26,7 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
     const [cityWildberriesIndex, setCityWildberriesIndex] = useState(0);
     const citiesWildberries = ["Казань", "Невинномысск", "Краснодар", "Чехов 1", "Чехов 2", "Подольск", "Тула",
         "Коледино", "Электросталь", "Екат (перпективный)", "Екат (испытателей)", "Новосибирск", "СПб (Уткина заводь)",
-        "Новосемейкино", "Преображенка", "Котовск", "Рязань", "Волгоград", "Сарапул"];
+        "Новосемейкино", "Преображенка", "Котовск", "Рязань", "Волгоград", "Сарапул", "Владимир"];
 
     if (location === "admin") {
         departureCities.push("");
