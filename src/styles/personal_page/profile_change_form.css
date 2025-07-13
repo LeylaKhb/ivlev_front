@@ -66,6 +66,11 @@
     margin-top: 10px;
 }
 
+.change_password_button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .change_password_div {
     font-size: 20px;
     display: flex;

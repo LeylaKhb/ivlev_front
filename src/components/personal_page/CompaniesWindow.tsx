@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import CalculatorDropdown from "../calculator/CalculatorDropdown";
 import {Person} from "../../models/Person";
 import Form from "../forms/Form";
 import {Company} from "../../models/Company";
+
+const dadataToken = process.env.DADATA_TOKEN;
 
 interface CompaniesWindowProps {
     person: Person | undefined;
@@ -37,7 +38,10 @@ interface DadataRequestOptions {
 const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
     const [inn, setInn] = useState("");
     const [innError, setInnError] = useState("");
+    const [fio, setFio] = useState("");
+    const [fioError, setFioError] = useState("");
     const [name, setName] = useState("");
+    const [isSelfEmployed, setIsSelfEmployed] = useState(false);
 
     function handleInnInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
@@ -50,6 +54,7 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
         if (inputValue.length === 10 || inputValue.length === 12) {
             setInn(inputValue);
             setInnError("");
+            setIsSelfEmployed(false);
             fetchCompanyByInn(inputValue)
                 .then(data => {
                     if (data.suggestions && data.suggestions.length > 0) {
@@ -61,8 +66,22 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                         console.log("Найдена компания:", company.value);
                     } else {
                         console.log("Не найдена компания:", data.suggestions.length, inputValue);
-                        setInnError("Такая компания не найдена");
-                        setName("");
+                        if (inputValue.length === 12) {
+                            fetchSelfEmployed(inputValue)
+                                .then(data => {
+                                    if (data.Самозанятость.Статус === true) {
+                                        setIsSelfEmployed(true);
+                                        setInnError("Найден самозанятый");
+                                        setName("");
+                                    } else {
+                                        setInnError("Такая компания не найдена");
+                                        setName("");
+                                    }
+                                })
+                        } else {
+                            setInnError("Такая компания не найдена");
+                            setName("");
+                        }
                     }
                 })
                 .catch(error => {
@@ -76,6 +95,25 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
         setInnError("");
     }
 
+    function handleFioInput(e: React.ChangeEvent<HTMLInputElement>) {
+        let inputValue = e.target.value;
+        let lastChar = inputValue.charAt(inputValue.length - 1);
+        if (!/^[a-zA-Zа-яА-ЯёЁ ]$/.test(lastChar)) {
+            e.target.value = inputValue.slice(0, -1);
+            return;
+        }
+
+        if (inputValue) {
+            setFio(inputValue)
+            setName(inputValue);
+            setFioError("");
+        } else {
+            setFioError("Необходимо ввести ФИО");
+            setName("");
+            setFio("")
+        }
+    }
+
     function checkInn() {
         if (!/^\d{10}(\d{2})?$/.test(inn)) {
             setInnError("ИНН должен состоять из 10 или 12 цифр");
@@ -84,9 +122,26 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
         return true;
     }
 
+    function checkSelfEmployed() {
+        if (isSelfEmployed) {
+            if (inn.length !== 12) {
+                setInnError("ИНН должен состоять из 12 цифр");
+                return false;
+            }
+            if (!fio.includes(" ")) {
+                setFioError("Введите корректный ФИО");
+                return false;
+            }
+        }
+        return true;
+    }
+
     function addInn() {
         let isInnCorrect = checkInn();
-        if (!isInnCorrect || name === "")
+        let isSelfEmployedCorrect = checkSelfEmployed();
+        console.log(isInnCorrect)
+        console.log(isSelfEmployedCorrect)
+        if (!isInnCorrect || !isSelfEmployedCorrect || name === "")
             return;
 
         fetch("https://kodrf.ru/api/companies/add", {
@@ -144,11 +199,32 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const result: DadataResponse = await response.json();
-            return result;
+            return await response.json();
         } catch (error) {
             console.error("Error fetching company data:", error);
             throw error;
+        }
+    };
+
+    const fetchSelfEmployed = async (inn: string) => {
+        try {
+            const response = await fetch('https://api-fns.ru/api/fl_status?inn=' + inn
+                + "&key=050b44c5cfc2cd8e4e04bfa91d10d155b461e00b", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка сети или сервера');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error("Ошибка при проверке статуса самозанятого:", error);
+            setInnError("Ошибка при проверке ИНН");
+            setName("");
         }
     };
 
@@ -204,12 +280,17 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                 <div className="schedule_form_title">Добавить новую компанию:</div>
                 <Form handleInput={handleInnInput} error={innError}
                       text={inn} label="ИНН" name="inn"/>
-                <div>{name}</div>
+                {isSelfEmployed &&
+                  <Form handleInput={handleFioInput} error={fioError}
+                        text={fio} label="ФИО" name="fio"/>}
+                {!isSelfEmployed &&
+                  <div>{name}</div>}
                 <div style={{
                     display: "flex", alignItems: "center",
                     justifyContent: "center"
                 }}>
-                    <button className="change_password_button" onClick={addInn} disabled={innError !== ""}>Добавить
+                    <button className="change_password_button" onClick={addInn}
+                            disabled={innError !== "Найден самозанятый" && innError !== ""}>Добавить
                     </button>
                 </div>
             </div>
