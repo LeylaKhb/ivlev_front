@@ -69,10 +69,15 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                         if (inputValue.length === 12) {
                             fetchSelfEmployed(inputValue)
                                 .then(data => {
+                                    console.log(data)
                                     if (data.Самозанятость.Статус === true) {
                                         setIsSelfEmployed(true);
                                         setInnError("Найден самозанятый");
                                         setName("");
+                                        if (data.ФИО) {
+                                            setFio(data.ФИО);
+                                            setName(data.ФИО)
+                                        }
                                     } else {
                                         setInnError("Такая компания не найдена");
                                         setName("");
@@ -281,7 +286,7 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                 <Form handleInput={handleInnInput} error={innError}
                       text={inn} label="ИНН" name="inn"/>
                 {isSelfEmployed &&
-                  <Form handleInput={handleFioInput} error={fioError}
+                  <Form handleInput={handleFioInput} error={fioError} defaultValue={fio}
                         text={fio} label="ФИО" name="fio"/>}
                 {!isSelfEmployed &&
                   <div>{name}</div>}

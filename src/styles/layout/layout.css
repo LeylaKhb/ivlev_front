@@ -45,6 +45,7 @@ footer {
     justify-content: space-between;
     width: 53%;
 }
+
 .links_container_footer {
     display: flex;
     justify-content: space-between;
@@ -53,6 +54,7 @@ footer {
     padding-bottom: 30px;
     align-items: start;
 }
+
 .links_container_footer_block {
     display: flex;
     justify-content: space-between;
@@ -60,6 +62,7 @@ footer {
     width: 50%;
     align-items: center;
 }
+
 .link_header_footer {
     text-decoration: none;
     color: black;
@@ -87,6 +90,7 @@ footer {
     margin-right: 10px;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 }
+
 .footer_button {
     height: 40px;
     width: 150px;
@@ -109,6 +113,7 @@ footer {
     cursor: pointer;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 }
+
 .menu_header_block {
     background-color: #b752c9;
     width: 28px;
@@ -119,6 +124,7 @@ footer {
     z-index: 2;
 
 }
+
 .menu {
     position: absolute;
     top: 0;
@@ -131,15 +137,18 @@ footer {
     margin-right: auto;
     z-index: 1;
 }
+
 .menu_ul {
     text-align: center;
     margin-top: 150px;
     padding-left: 0;
 }
+
 .menu_li {
     list-style-type: none;
     margin: 20px auto;
 }
+
 .menu_li_link {
     line-height: 1.17;
     color: #3d3d3d;
@@ -154,6 +163,7 @@ footer {
     .links_container_header {
         display: none;
     }
+
     .menu_header {
         display: initial;
     }
@@ -163,24 +173,29 @@ footer {
     .logo_and_button .header_footer_buttons {
         display: initial;
     }
+
     footer .header_footer_buttons {
         display: none;
     }
+
     .logo_and_button {
         display: flex;
         justify-content: space-between;
         width: 95%;
     }
+
     footer {
         flex-flow: column;
         padding-bottom: 50px;
         align-items: center;
     }
+
     .links_container_footer {
         width: 300px;
         margin-bottom: 10px;
         margin-top: 10px;
     }
+
     .links_container_footer_block {
         width: 80%;
     }
@@ -191,14 +206,17 @@ footer {
         flex-flow: column;
         justify-content: space-between;
     }
+
     .registration_button, .login_button {
         height: 30px;
         width: 140px;
         font-size: 0.8rem;
     }
+
     .login_button {
         margin-top: 5px;
     }
+
     .links_container_footer {
         width: 450px;
     }
@@ -210,36 +228,45 @@ footer {
         width: 100px;
         font-size: 0.7rem;
     }
+
     .registration_button {
         font-size: 0.57rem;
     }
+
     .links_container_footer {
         flex-flow: column;
         margin-left: 55px;
     }
+
     .links_container_footer .link_header_footer {
         margin-bottom: 10px;
     }
+
     .logo_and_button .header_footer_buttons {
         display: none;
     }
+
     footer .header_footer_buttons {
         margin-left: 55px;
         margin-bottom: 20px;
         display: initial;
     }
+
     footer {
         align-items: flex-start;
     }
+
     .links_container_footer {
         width: 50%;
         gap: 3px;
         padding-bottom: 10px;
     }
+
     .footer_button {
         height: 35px;
         width: 135px;
     }
+
     .links_container_footer_block {
         flex-flow: column;
         width: 100%;
