@@ -128,11 +128,11 @@ class Popup extends React.Component<PopupProps, PopupState> {
                       transform: "translateY(-50%)"
                   }}>
                       {this.props.supply !== undefined &&
-                        <ScheduleForm supply={this.props.supply} companies={this.props.companies}/>
+                        <ScheduleForm supply={this.props.supply} companies={this.props.companies} person={this.props.person}/>
                       }
                       {this.props.order !== undefined && this.state.supply !== null &&
                         <ScheduleForm supply={this.state.supply} order={this.props.order}
-                                      companies={this.props.companies}/>
+                                      companies={this.props.companies} person={this.props.person}/>
                       }
                   </div>
                 }

@@ -7,6 +7,7 @@ import {Supply} from "../models/Supply";
 import {format} from 'date-fns';
 import Popup from "../components/Popup";
 import moment from "moment";
+import {Person} from "../models/Person";
 
 
 interface ScheduleProps {
@@ -17,6 +18,7 @@ interface ScheduleState {
     companies: string[];
     isPopupVisible: boolean[];
     isNoCompaniesPopupVisible: boolean;
+    person: Person | undefined;
 }
 
 class Schedule extends React.Component<ScheduleProps, ScheduleState> {
@@ -28,6 +30,7 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
             isPopupVisible: [],
             companies: [],
             isNoCompaniesPopupVisible: false,
+            person: undefined,
         }
 
         this.setNoCompaniesPopupTrue = this.setNoCompaniesPopupTrue.bind(this);
@@ -72,6 +75,19 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                     me.setState({supplies: data})
                 })
         });
+        fetch('https://kodrf.ru/personal_account', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt")
+            }
+        }).then(function (resp) {
+            resp.json().then(function (data) {
+                me.setState({
+                    person: data,
+                });
+            });
+        });
         fetch('https://kodrf.ru/api/companies', {
             method: 'GET',
             headers: {
@@ -81,7 +97,6 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         }).then(function (resp) {
             resp.json()
                 .then(function (data) {
-                    console.log(data)
                     me.setState({companies: data, isNoCompaniesPopupVisible: !data || data.length === 0})
                 })
         });
@@ -149,7 +164,7 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                           <Popup isVisible={me.state.isPopupVisible[index]}
                                  setVisibleFalse={() => me.setPopupFalse(index)}
                                  content="schedule_form" supply={this.state.supplies[index]}
-                                 companies={me.state.companies}/>
+                                 companies={me.state.companies} person={me.state.person}/>
                         }
                         {localStorage.getItem("jwt") === null &&
                           <Popup isVisible={me.state.isPopupVisible[index]}

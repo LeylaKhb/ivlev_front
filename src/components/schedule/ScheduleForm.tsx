@@ -11,12 +11,16 @@ import {Orders} from "../../models/Orders";
 import {Box} from "../../models/Box";
 import {Link} from "react-router-dom";
 import CalculatorDropdown from "../calculator/CalculatorDropdown";
+import {Person} from "../../models/Person";
+import {format} from 'date-fns';
+
 
 
 interface ScheduleFormProps {
     supply: Supply;
     companies?: string[];
     order?: Orders;
+    person?: Person;
 }
 
 interface ScheduleFormState {
@@ -34,6 +38,7 @@ interface ScheduleFormState {
     inputsValid: boolean;
     comment: string;
     entityIndex: number;
+    order: Orders | null;
 }
 
 type inputOptions = {
@@ -88,6 +93,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 inputsValid: true,
                 comment: props.order.comment,
                 entityIndex: entityIndex,
+                order: props.order,
             }
         } else {
             this.state = {
@@ -110,6 +116,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 inputsValid: true,
                 comment: "",
                 entityIndex: 0,
+                order: null,
             }
         }
 
@@ -207,7 +214,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         this.setState({comment: e.target.value});
     }
 
-    sendOrder(price: string, volume: number) {
+    sendOrder(price: string, volume: number, isPayment: boolean) {
         let me = this;
         const state = me.state;
 
@@ -233,14 +240,19 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         if (this.props.companies === undefined || this.props.companies.length === 0) {
             return;
         }
-        console.log(this.props.companies[state.entityIndex])
+
+        const order = new Orders(this.props.companies[state.entityIndex], new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
+            new Date(acceptanceDate.getFullYear(), acceptanceDate.getMonth(), acceptanceDate.getDate() + 1),
+            phoneNumber, selectedWarehouse.sendCity,
+            state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
+            price, state.willTaken, state.payment, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,
+            me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable);
+
+        this.setState({
+            order: order
+        })
         let body = JSON.stringify({
-            order: new Orders(this.props.companies[state.entityIndex], new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
-                new Date(acceptanceDate.getFullYear(), acceptanceDate.getMonth(), acceptanceDate.getDate() + 1),
-                phoneNumber, selectedWarehouse.sendCity,
-                state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
-                price, state.willTaken, state.payment, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,
-                me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable),
+            order: order,
             boxes: boxes
         });
         const cutoffDate = moment(this.props.supply.acceptanceDate, 'Europe/Samara')
@@ -285,11 +297,16 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             },
             body: body
         }).then(function () {
-            window.location.assign('https://ivlev-ff.ru/current_orders');
+            if (!isPayment) {
+                window.location.assign('https://ivlev-ff.ru/current_orders');
+            } else {
+                const paymentForm = document.getElementById("paymentForm") as HTMLFormElement;
+                if (paymentForm) paymentForm.submit();
+            }
         })
     }
 
-    handleForm(event: React.FormEvent<HTMLFormElement>) {
+    handleForm(event: React.FormEvent<HTMLFormElement> | React.MouseEvent, isPayment: boolean) {
         event.preventDefault();
         let me = this;
 
@@ -308,8 +325,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             amount += input["amount"];
         });
 
-        if (!phone) return;
-        if (wrong) return;
+        if (!phone || wrong) return;
         volume /= 1000000;
         const supply = me.props.supply;
 
@@ -331,7 +347,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             resp.json()
                 .then(function (data) {
                     let answer = data["content"].split("/");
-                    me.sendOrder(answer[0], answer[1]);
+                    me.sendOrder(answer[0], answer[1], isPayment);
                 })
         })
 
@@ -341,7 +357,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         let me = this;
         return (
             <div className="schedule_form">
-                <form onSubmit={this.handleForm}>
+                <form onSubmit={(e) => this.handleForm(e, false)}>
                     <div className="modal_window_title">Заполните все необходимые поля</div>
 
                     <div className="schedule_form_title" style={{marginTop: 20, marginBottom: 5}}>Юридическое лицо</div>
@@ -555,9 +571,38 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
                     }
 
-                    <button type="submit" className="schedule_form_button">Отправить</button>
+                    <button style={{marginBottom: 0}} type="submit" className="schedule_form_button">Сохранить заявку
+                    </button>
+                    {me.state.payment &&
+                      <button style={{marginTop: 10}} type="button" className="schedule_form_button"
+                              onClick={(e) => this.handleForm(e, true)}>Оплатить сразу
+                      </button>
+                    }
                 </form>
 
+                {me.state.order != null && me.state.order.paymentSite && (
+                    <form
+                        method='POST'
+                        action='https://ivlev-ff.server.paykeeper.ru/create/'
+                        id="paymentForm"
+                        style={{ display: 'none' }}
+                    >
+                        <input type='hidden' name='client_phone' value={me.state.order.phoneNumber} />
+                        <input type='hidden' name='client_email' value={me.props.person?.email} />
+                        <input type='hidden' name='clientid' value={me.props.companies !== undefined ? me.props.companies[me.state.entityIndex]
+                            : me.state.order.entity} />
+                        <input type='hidden' name='orderid' value={me.state.order.id} />
+                        <input type='hidden' name='sum' value={me.state.order.price} />
+                        <input type="hidden" name="user_result_callback" value={"https://ivlev-ff.ru/personal_account"} />
+                        <input
+                            type='hidden'
+                            name='service_name'
+                            value={'Заказ в ' + me.state.order.sendCity + " " + me.state.order.store + " от "
+                                + format(me.state.order.departureDate, "yyyy-MM-dd")}
+                        />
+                        <input type='submit' id="paymentSubmit" /> {/* скрытая кнопка сабмита */}
+                    </form>
+                )}
             </div>
         )
     }
