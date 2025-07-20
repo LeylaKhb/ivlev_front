@@ -106,7 +106,7 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
                     <div key={index}>
                         <div className="order_description" onClick={() => this.setFirstPopupTrue(index)}>
                             Заказ в {order.sendCity} ({order.store}), {order.departureDate === undefined ?
-                            "" : order.departureDate.toString()}, {order.price}
+                            "" : order.departureDate.toString()}, {order.price} {order.paymentStatus ? "Оплачено: ✅" : ""}
                         </div>
                         <Popup content="order" isVisible={me.state.isFirstPopupVisible[index]}
                                setVisibleFalse={() => me.setFirstPopupFalse(index)} order={order}
