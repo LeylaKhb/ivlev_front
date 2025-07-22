@@ -293,14 +293,14 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             body: body
         }).then(function (resp) {
             resp.json().then(data => {
-                me.setState({
-                    order: data
-                })
                 if (!isPayment) {
                     window.location.assign('https://ivlev-ff.ru/current_orders');
                 } else {
-                    const paymentForm = document.getElementById("paymentForm") as HTMLFormElement;
-                    if (paymentForm) paymentForm.submit();
+                    me.setState({ order: data }, () => {
+                        console.log("Updated order:", me.state.order);
+                        const paymentForm = document.getElementById("paymentForm") as HTMLFormElement;
+                        if (paymentForm) paymentForm.submit();
+                    });
                 }
             })
         })
