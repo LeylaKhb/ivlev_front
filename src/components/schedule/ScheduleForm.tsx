@@ -241,18 +241,13 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             return;
         }
 
-        const order = new Orders(this.props.companies[state.entityIndex], new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
-            new Date(acceptanceDate.getFullYear(), acceptanceDate.getMonth(), acceptanceDate.getDate() + 1),
-            phoneNumber, selectedWarehouse.sendCity,
-            state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
-            price, state.willTaken, state.payment, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,
-            me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable);
-
-        this.setState({
-            order: order
-        })
         let body = JSON.stringify({
-            order: order,
+            order: new Orders(this.props.companies[state.entityIndex], new Date(departureDate.getFullYear(), departureDate.getMonth(), departureDate.getDate() + 1),
+                new Date(acceptanceDate.getFullYear(), acceptanceDate.getMonth(), acceptanceDate.getDate() + 1),
+                phoneNumber, selectedWarehouse.sendCity,
+                state.selectedDepartureCity, selectedWarehouse.store, state.dataSupplyType.selectedRadioInput, volume,
+                price, state.willTaken, state.payment, state.comment, state.ozonNumber, me.props.supply.title, me.props.order?.id,
+                me.props.order?.orderDate, me.props.order?.status, me.props.order?.changeable),
             boxes: boxes
         });
         const cutoffDate = moment(this.props.supply.acceptanceDate, 'Europe/Samara')
@@ -296,13 +291,18 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
             },
             body: body
-        }).then(function () {
-            if (!isPayment) {
-                window.location.assign('https://ivlev-ff.ru/current_orders');
-            } else {
-                const paymentForm = document.getElementById("paymentForm") as HTMLFormElement;
-                if (paymentForm) paymentForm.submit();
-            }
+        }).then(function (resp) {
+            resp.json().then(data => {
+                me.setState({
+                    order: data
+                })
+                if (!isPayment) {
+                    window.location.assign('https://ivlev-ff.ru/current_orders');
+                } else {
+                    const paymentForm = document.getElementById("paymentForm") as HTMLFormElement;
+                    if (paymentForm) paymentForm.submit();
+                }
+            })
         })
     }
 
