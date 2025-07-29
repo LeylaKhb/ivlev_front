@@ -15,7 +15,6 @@ import {Person} from "../../models/Person";
 import {format} from 'date-fns';
 
 
-
 interface ScheduleFormProps {
     supply: Supply;
     companies?: string[];
@@ -296,7 +295,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 if (!isPayment) {
                     window.location.assign('https://ivlev-ff.ru/current_orders');
                 } else {
-                    me.setState({ order: data }, () => {
+                    me.setState({order: data}, () => {
                         console.log("Updated order:", me.state.order);
                         const paymentForm = document.getElementById("paymentForm") as HTMLFormElement;
                         if (paymentForm) paymentForm.submit();
@@ -558,15 +557,17 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                                 </Link>
                             </span>
                         <br/>
-                        <input type="checkbox"
-                               id={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureCities[0]}
-                               required={true}/><label
-                          htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureCities[0]}
-                          className="custom-checkbox"></label><span style={{marginLeft: 9}}>Я согласен с&nbsp;
-                          <Link to="/privacy_policy" target="_blank">
-                                    <span>политикой конфиденциальности</span>
-                                </Link>
-                            </span>
+                          {!me.props.person?.agreeToTerms &&
+                            <><input type="checkbox"
+                                     id={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureCities[0]}
+                                     required={true}/><label
+                              htmlFor={"checkbox_" + me.props.supply.title + me.props.supply.acceptanceDate + me.props.supply.departureCities[0]}
+                              className="custom-checkbox"></label><span style={{marginLeft: 9}}>Я согласен с&nbsp;
+                              <Link to="/privacy_policy" target="_blank">
+                                        <span>политикой конфиденциальности</span>
+                                    </Link>
+                                </span></>
+                          }
                       </>
 
                     }
@@ -585,22 +586,24 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                         method='POST'
                         action='https://ivlev-ff.server.paykeeper.ru/create/'
                         id="paymentForm"
-                        style={{ display: 'none' }}
+                        style={{display: 'none'}}
                     >
-                        <input type='hidden' name='client_phone' value={me.state.order.phoneNumber} />
-                        <input type='hidden' name='client_email' value={me.props.person?.email} />
-                        <input type='hidden' name='clientid' value={me.props.companies !== undefined ? me.props.companies[me.state.entityIndex]
-                            : me.state.order.entity} />
-                        <input type='hidden' name='orderid' value={me.state.order.id} />
-                        <input type='hidden' name='sum' value={me.state.order.price} />
-                        <input type="hidden" name="user_result_callback" value={"https://ivlev-ff.ru/personal_account"} />
+                        <input type='hidden' name='client_phone' value={me.state.order.phoneNumber}/>
+                        <input type='hidden' name='client_email' value={me.props.person?.email}/>
+                        <input type='hidden' name='clientid'
+                               value={me.props.companies !== undefined ? me.props.companies[me.state.entityIndex]
+                                   : me.state.order.entity}/>
+                        <input type='hidden' name='orderid' value={me.state.order.id}/>
+                        <input type='hidden' name='sum' value={me.state.order.price}/>
+                        <input type="hidden" name="user_result_callback"
+                               value={"https://ivlev-ff.ru/personal_account"}/>
                         <input
                             type='hidden'
                             name='service_name'
                             value={'Заказ в ' + me.state.order.sendCity + " " + me.state.order.store + " от "
                                 + format(me.state.order.departureDate, "yyyy-MM-dd")}
                         />
-                        <input type='submit' id="paymentSubmit" /> {/* скрытая кнопка сабмита */}
+                        <input type='submit' id="paymentSubmit"/> {/* скрытая кнопка сабмита */}
                     </form>
                 )}
             </div>
