@@ -14,11 +14,13 @@ interface ScheduleProps {
 }
 
 interface ScheduleState {
+    allSupplies: Supply[];
     supplies: Supply[];
     companies: string[];
     isPopupVisible: boolean[];
     isNoCompaniesPopupVisible: boolean;
     person: Person | undefined;
+    ozon: boolean;
 }
 
 class Schedule extends React.Component<ScheduleProps, ScheduleState> {
@@ -26,11 +28,13 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         super(props);
 
         this.state = {
+            allSupplies: [],
             supplies: [],
             isPopupVisible: [],
             companies: [],
             isNoCompaniesPopupVisible: false,
             person: undefined,
+            ozon: false,
         }
 
         this.setNoCompaniesPopupTrue = this.setNoCompaniesPopupTrue.bind(this);
@@ -72,7 +76,8 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         }).then(function (resp) {
             resp.json()
                 .then(function (data) {
-                    me.setState({supplies: data})
+                    const supplies = data.filter((supply: Supply) => !supply.ozon)
+                    me.setState({allSupplies: data, supplies: supplies})
                 })
         });
         fetch('https://kodrf.ru/personal_account', {
@@ -107,8 +112,20 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
         return days[new Date(departureDate).getDay()];
     }
 
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedOzon = event.target.value === 'true';
+
+        const filtered = this.state.allSupplies.filter(
+            (supply) => supply.ozon === selectedOzon
+        );
+
+        this.setState({ ozon: selectedOzon,
+        supplies: filtered});
+    };
+
     render() {
         let me = this;
+        const { ozon } = this.state;
 
         return (
             <div className="page_content" style={{flexFlow: "column"}}>
@@ -120,6 +137,25 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
 
                 <FirstBlock/>
                 <CalcuatorBlock/>
+
+                <div className="user-type-selector" id="userTypeSelector">
+                    <div className="user-type-option">
+                        <label className={`user-type-label ${!ozon ? 'active' : ''}`} id="wbChoice">
+                            <input type="radio" name="ozon" value="false" className="hidden-radio"
+                                checked={!ozon} onChange={this.handleChange}
+                            />
+                            WB
+                        </label>
+                    </div>
+                    <div className="user-type-option">
+                        <label className={`user-type-label ${ozon ? 'active' : ''}`} id="ozonChoice">
+                            <input type="radio" name="ozon" value="true" className="hidden-radio" checked={ozon}
+                                onChange={this.handleChange}
+                            />
+                            OZON
+                        </label>
+                    </div>
+                </div>
 
                 <div className="table_header">
                     <label className="first_column_schedule">Дата поставки</label>

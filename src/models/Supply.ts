@@ -7,14 +7,16 @@ export class Supply {
     title: string;
     warehouses: DestinationWarehouse[];
     departureCities: DepartureCity[];
+    ozon: boolean;
 
 
     constructor(departureDate: Date, acceptanceDate: Date, title: string, warehouses: DestinationWarehouse[],
-                departureCities: DepartureCity[]) {
+                departureCities: DepartureCity[], isOzon: boolean) {
         this.departureDate = departureDate;
         this.acceptanceDate = acceptanceDate;
         this.title = title;
         this.warehouses = warehouses;
         this.departureCities = departureCities;
+        this.ozon = isOzon;
     }
 }
