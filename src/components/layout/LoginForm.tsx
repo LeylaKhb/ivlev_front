@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Person} from "../../models/Person";
 import PasswordForm from "../forms/PasswordForm";
 import Form from "../forms/Form";
-
+import {Link} from "react-router-dom";
 
 
 interface LoginFormProps {
@@ -13,6 +13,8 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [nameValid, setNameValid] = useState(true);
+    const [checkboxChecked, setCheckboxChecked] = useState(false);
+    const [checkboxError, setCheckboxError] = useState("");
 
     let buttonText = location === "registration" ? 'Зарегистрироваться' : 'Войти';
     let [emailText, setEmailText] = useState("");
@@ -27,7 +29,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     }
 
     function checkEmail() {
-        if(!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+$/.test(emailText))) {
+        if (!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+$/.test(emailText))) {
             setEmailError("Неправильная электронная почта");
             return false;
         }
@@ -60,6 +62,12 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
         let name = checkName();
         let password = checkPassword();
 
+        if (!checkboxChecked) {
+            setCheckboxError("Вы должны согласиться с политикой конфиденциальности");
+            return;
+        } else {
+            setCheckboxError("");
+        }
         if (!email || !password) return;
         if (!name && location === "registration") return;
 
@@ -74,21 +82,22 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(person),
-        }).then(function(response){
+        }).then(function (response) {
             response.json()
                 .then(function (data) {
-                if (data["header"] !== "error") {
-                    localStorage.setItem("jwt", data["content"]);
-                    if (data["content"].includes('*')) {
-                        let parts = data["content"].split("*")
-                        localStorage.setItem("admin", parts[1]);
-                        localStorage.setItem("jwt", parts[0]);
+                    if (data["header"] !== "error") {
+                        localStorage.setItem("jwt", data["content"]);
+                        if (data["content"].includes('*')) {
+                            let parts = data["content"].split("*")
+                            localStorage.setItem("admin", parts[1]);
+                            localStorage.setItem("jwt", parts[0]);
+                        }
+                        window.location.assign('https://ivlev-ff.ru/personal_account');
+                    } else {
+                        setEmailError(data["content"]);
                     }
-                    window.location.assign('https://ivlev-ff.ru/personal_account');
-                } else {
-                    setEmailError(data["content"]);
-                }
-        })}).catch(function(error) {
+                })
+        }).catch(function (error) {
             console.log('There has been a problem with your fetch operation: ' + error.message);
             throw error;
         });
@@ -103,22 +112,46 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
     function handleNameInput(e: React.ChangeEvent<HTMLInputElement>) {
         let inputValue = e.target.value;
         let lastChar = inputValue.charAt(inputValue.length - 1);
-        if(!(/^[a-zA-Zа-яА-Я-]+$/.test(lastChar))) {
+        if (!(/^[a-zA-Zа-яА-Я-]+$/.test(lastChar))) {
             e.target.value = inputValue.slice(0, -1);
         }
         setNameValid(true);
         setNameText(inputValue);
     }
 
+    function handleCheckboxChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setCheckboxChecked(e.target.checked);
+        setCheckboxError("");
+    }
+
     return (
         <form action="" method="POST" className="registration_form" onSubmit={handleSubmit}>
             {location === "registration" &&
-                <Form handleInput={handleNameInput} error={nameValid ? "" : "Поле не может быть пустым"}
-                                                    text={nameText} label="Имя" name="name"/>}
+              <Form handleInput={handleNameInput} error={nameValid ? "" : "Поле не может быть пустым"}
+                    text={nameText} label="Имя" name="name"/>}
             <Form handleInput={handleEmailInput} error={emailError} text={emailText} label="Email" name="email"/>
             <PasswordForm handleInput={handlePasswordInput} error={passwordError}
                           passwordText={passwordText} label="Пароль"/>
-            <button type="submit" className="registration_form_button">{buttonText}</button>
+            {location === "registration" &&
+              <div>
+                <input
+                  type="checkbox"
+                  id="privacy_policy_checkbox"
+                  checked={checkboxChecked}
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor="privacy_policy_checkbox" className="custom-checkbox" style={{marginTop: 0}}/>
+                <span style={{marginLeft: 9, fontSize: 14}}>
+                    Я согласен с&nbsp;
+                  <Link to="/privacy_policy" target="_blank">
+                        <span>политикой конфиденциальности</span>
+                    </Link>
+                </span>
+              </div>
+            }
+            {checkboxError &&
+              <div className="form_error" style={{fontSize: 13}}>{checkboxError}</div>}
+            <button style={{margin: "25px auto auto"}} type="submit" className="registration_form_button">{buttonText}</button>
 
         </form>
     )

@@ -152,7 +152,7 @@ class Schedule extends React.Component<ScheduleProps, ScheduleState> {
                             <input type="radio" name="ozon" value="true" className="hidden-radio" checked={ozon}
                                 onChange={this.handleChange}
                             />
-                            OZON
+                            OZON / ЯМ / Забор с ТК
                         </label>
                     </div>
                 </div>

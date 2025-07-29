@@ -118,7 +118,9 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                                 color: 'gray', fontSize: 14,
                                 wordBreak: 'break-all'
                             }}>{me.state.person.email}</div>
-                            <button className="personal_change_info" onClick={me.setCompaniesPopupTrue} style={{marginTop: 6}}>Мои компании</button>
+                            <button className="personal_change_info" onClick={me.setCompaniesPopupTrue}
+                                    style={{marginTop: 6}}>Мои компании
+                            </button>
                         </div>
                     </div>
                     <div style={{display: 'flex', flexFlow: 'column'}}>
@@ -126,6 +128,16 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                         <button className="personal_logout_button" onClick={me.handleLogout}>Выйти из аккаунта</button>
                     </div>
                 </div>
+
+                {me.state.person.agreeToTerms && <div style={{marginLeft: 40, fontSize: 13, marginTop: 10}}>
+                    <>
+                        Согласие на обработку данных дано {me.state.person.agreeToTermsDate} в соответствии с&nbsp;
+                        <Link to="/privacy_policy" target="_blank">
+                            <span>политикой конфиденциальности</span>
+                        </Link>.
+                    </>
+                </div>
+                }
 
                 <div className="personal_orders_links">
                     <Link to="/current_orders" className="person_order_link" style={backgroundImage}>
@@ -141,7 +153,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                 <Popup isVisible={me.state.isSecondPopupVisible} setVisibleFalse={me.setSecondPopupFalse}
                        content="change_password"/>
                 <Popup isVisible={me.state.isCompaniesPopupVisible} setVisibleFalse={me.setCompaniesPopupFalse}
-                       content="companies" person={me.state.person} />
+                       content="companies" person={me.state.person}/>
             </div>
         )
     }
