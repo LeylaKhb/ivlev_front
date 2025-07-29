@@ -38,6 +38,7 @@ interface ScheduleFormState {
     comment: string;
     entityIndex: number;
     order: Orders | null;
+    isSubmitting: boolean;
 }
 
 type inputOptions = {
@@ -93,6 +94,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 comment: props.order.comment,
                 entityIndex: entityIndex,
                 order: props.order,
+                isSubmitting: false,
             }
         } else {
             this.state = {
@@ -116,6 +118,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 comment: "",
                 entityIndex: 0,
                 order: null,
+                isSubmitting: false,
             }
         }
 
@@ -280,6 +283,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 return;
             }
         }
+
         fetch('https://kodrf.ru/new_order', {
             method: 'POST',
             credentials: "same-origin",
@@ -309,6 +313,9 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         event.preventDefault();
         let me = this;
 
+        if (me.state.isSubmitting) return;
+        me.setState({ isSubmitting: true });
+
         let phone = this.checkPhone();
 
         let volume = 0;
@@ -324,7 +331,10 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
             amount += input["amount"];
         });
 
-        if (!phone || wrong) return;
+        if (!phone || wrong) {
+            me.setState({ isSubmitting: false });
+            return;
+        }
         volume /= 1000000;
         const supply = me.props.supply;
 
@@ -572,11 +582,12 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
 
                     }
 
-                    <button style={{marginBottom: 0}} type="submit" className="schedule_form_button">Сохранить заявку
+                    <button style={{marginBottom: 0}} type="submit" className="schedule_form_button" disabled={me.state.isSubmitting}>Сохранить заявку
                     </button>
                     {me.state.payment &&
-                      <button style={{marginTop: 10}} type="button" className="schedule_form_button"
-                              onClick={(e) => this.handleForm(e, true)}>Оплатить сразу
+                      <button style={{marginTop: 10}} type="button" className="schedule_form_button" id="scheduleFormButton"
+                              onClick={(e) => this.handleForm(e, true)}
+                              disabled={me.state.isSubmitting}>Оплатить сразу
                       </button>
                     }
                 </form>
