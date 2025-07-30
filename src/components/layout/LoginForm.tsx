@@ -62,7 +62,7 @@ const LoginForm: React.FC<LoginFormProps> = ({location}) => {
         let name = checkName();
         let password = checkPassword();
 
-        if (!checkboxChecked) {
+        if (!checkboxChecked && location === "registration") {
             setCheckboxError("Вы должны согласиться с политикой конфиденциальности");
             return;
         } else {
