@@ -1,10 +1,11 @@
 import React from "react";
-import {Orders} from "../models/Orders";
+import { Orders } from "../models/Orders";
 import Popup from "../components/Popup";
 import "../styles/personal_page/order.css";
-import {Supply} from "../models/Supply";
-import {Helmet} from "react-helmet";
-import {HelmetProvider} from "react-helmet-async";
+import { Supply } from "../models/Supply";
+import { Helmet } from "react-helmet";
+import { HelmetProvider } from "react-helmet-async";
+import OrdersTable from "../components/OrdersTable";
 
 interface CurrentOrdersProps {
 }
@@ -15,6 +16,7 @@ interface CurrentOrdersState {
     isSecondPopupVisible: boolean[];
     supply: Supply | null;
     companies: string[];
+    loading: boolean;
 }
 
 class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersState> {
@@ -26,6 +28,8 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
             isSecondPopupVisible: [],
             supply: null,
             companies: [],
+            loading: true,
+
         }
         this.setFirstPopupFalse = this.setFirstPopupFalse.bind(this);
         this.setFirstPopupTrue = this.setFirstPopupTrue.bind(this);
@@ -33,6 +37,7 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
         this.setSecondPopupTrue = this.setSecondPopupTrue.bind(this);
 
     }
+
     componentDidMount() {
         let me = this;
 
@@ -40,22 +45,24 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt")
             }
-        }).then(function(resp) {
+        }).then(function (resp) {
             resp.json()
                 .then(function (data) {
-                    me.setState({
-                        orders: data
-                    });
-                }
-        )});
+                        me.setState({
+                            orders: data,
+                            loading: false,
+                        });
+                    }
+                )
+        });
 
         fetch('https://kodrf.ru/api/companies', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
+                'Authorization': 'Bearer ' + localStorage.getItem("jwt")
             }
         }).then(function (resp) {
             resp.json()
@@ -72,12 +79,14 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
         this.setState({isFirstPopupVisible: copy});
         document.body.style.overflow = "hidden";
     }
+
     setFirstPopupFalse(index: number) {
         let copy = Object.assign([] as boolean[], this.state.isFirstPopupVisible);
         copy[index] = false;
         this.setState({isFirstPopupVisible: copy});
         document.body.style.overflow = "scroll";
     }
+
     setSecondPopupTrue(index: number) {
         let copy = Object.assign([] as boolean[], this.state.isSecondPopupVisible);
         copy[index] = true;
@@ -86,6 +95,7 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
         this.setState({isSecondPopupVisible: copy, isFirstPopupVisible: secondCopy});
         document.body.style.overflow = "hidden";
     }
+
     setSecondPopupFalse(index: number) {
         let copy = Object.assign([] as boolean[], this.state.isSecondPopupVisible);
         copy[index] = false;
@@ -102,22 +112,26 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
                         title="Текущие заказы"
                     />
                 </HelmetProvider>
+
+                <OrdersTable
+                    data={this.state.orders}
+                    loading={this.state.loading}
+                    onEyeClick={(index) => this.setFirstPopupTrue(index)}
+                    isCurrent={true}
+                />
                 {me.state.orders.map((order, index) => (
                     <div key={index}>
-                        <div className="order_description" onClick={() => this.setFirstPopupTrue(index)}>
-                            Заказ в {order.sendCity} ({order.store}), {order.departureDate === undefined ?
-                            "" : order.departureDate.toString()}, {order.price} {order.paymentStatus ? "Оплачено: ✅" : ""}
-                        </div>
                         <Popup content="order" isVisible={me.state.isFirstPopupVisible[index]}
                                setVisibleFalse={() => me.setFirstPopupFalse(index)} order={order}
                                openSecondPopup={() => this.setSecondPopupTrue(index)}/>
                         <Popup content="schedule_form" isVisible={me.state.isSecondPopupVisible[index]}
                                setVisibleFalse={() => me.setSecondPopupFalse(index)} order={order}
-                               companies={me.state.companies} />
+                               companies={me.state.companies}/>
                     </div>
                 ))}
             </div>
         );
     }
 }
+
 export default CurrentOrders;

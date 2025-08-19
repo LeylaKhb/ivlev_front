@@ -8,27 +8,18 @@ interface OrderInfoProps {
 }
 
 const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup}) => {
-    function deleteOrder() {
-        fetch("https://kodrf.ru/delete_order", {
-            method: 'POST',
-            credentials: "same-origin",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem("jwt"),
-
-            },
-            body: JSON.stringify(order)
-        }).then(function () {
-            window.location.assign('https://ivlev-ff.ru/current_orders');
-        })
+    function formatDate(dateInput: Date | string): string {
+        const date = dateInput instanceof Date ? dateInput : new Date(dateInput);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = String(date.getFullYear()).slice(-2);
+        return `${day}.${month}.${year}`;
     }
-
 
     return (
         <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column', marginBottom: 100}}>
             <div className="order_form">
-                <strong>Дата заказа: </strong> {order.orderDate === undefined ? "" : order.orderDate.toString()}
+                <strong>Дата заказа: </strong> {order.orderDate === undefined ? "" : formatDate(order.orderDate)}
             </div>
             <div className="order_form">
                 <strong>Юридическое лицо:</strong> {order.entity} ({order.inn})
@@ -46,7 +37,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
             }
             <div className="order_form">
                 <strong>Дата
-                    поставки: </strong> {order.departureDate === undefined ? "" : order.departureDate.toString()}
+                    поставки: </strong> {order.departureDate === undefined ? "" : formatDate(order.departureDate)}
             </div>
             <div className="order_form">
                 <strong>Город отправки: </strong> {order.departureCity}
@@ -98,7 +89,6 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
             {order.changeable &&
               <>
                 <button className="change_order" onClick={openSecondPopup} style={{marginTop: 10}}>Изменить</button>
-                <button className="change_order" onClick={deleteOrder} style={{marginTop: 10}}>Удалить</button>
               </>
             }
         </div>

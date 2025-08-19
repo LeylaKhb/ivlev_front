@@ -58,7 +58,6 @@ const AdminFormChange: React.FC<AdminFormChangeProps> = ({orders, close}) => {
             <select value={status} onChange={changeStatus} className="select_admin">
                 <option value="Доставка на склад">Доставка на склад</option>
                 <option value="Доставлен">Доставлен</option>
-                <option value="Отправлен">Отправлен</option>
                 <option value=""></option>
             </select>
 

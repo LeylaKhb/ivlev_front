@@ -4,6 +4,7 @@ import Popup from "../components/Popup";
 import "../styles/personal_page/order.css";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
+import OrdersTable from "../components/OrdersTable";
 
 interface AllOrdersProps {
 }
@@ -11,6 +12,7 @@ interface AllOrdersProps {
 interface AllOrdersState {
     orders: Orders[];
     isPopupVisible: boolean[];
+    loading: boolean;
 }
 
 class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
@@ -19,29 +21,30 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
         this.state = {
             orders: [],
             isPopupVisible: [],
-
-        }
+            loading: true,
+        };
         this.setPopupFalse = this.setPopupFalse.bind(this);
         this.setPopupTrue = this.setPopupTrue.bind(this);
-
     }
-    componentDidMount() {
-        let me = this;
 
-        fetch('https://kodrf.ru/orders_history', {
-            method: 'GET',
+    componentDidMount() {
+        fetch("https://kodrf.ru/orders_history", {
+            method: "GET",
             headers: {
-                'Accept': 'application/json',
-                'Authorization' : 'Bearer ' + localStorage.getItem("jwt")
-            }
-        }).then(function(resp) {
-            resp.json()
-                .then(function (data) {
-                        me.setState({
-                            orders: data
-                        });
-                    }
-                )})
+                Accept: "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                this.setState({
+                    orders: data,
+                    loading: false,
+                });
+            })
+            .catch(() => {
+                this.setState({loading: false});
+            });
     }
 
     setPopupTrue(index: number) {
@@ -50,6 +53,7 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
         this.setState({isPopupVisible: copy});
         document.body.style.overflow = "hidden";
     }
+
     setPopupFalse(index: number) {
         let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
         copy[index] = false;
@@ -58,26 +62,30 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
     }
 
     render() {
-        let me = this;
         return (
-            <div style={{height: '90vh', paddingTop: 120, overflow: "scroll"}}>
+            <div style={{height: "90vh", paddingTop: 100, overflow: "scroll"}}>
                 <HelmetProvider>
-                    <Helmet
-                        title="Все заказы"
-                    />
+                    <Helmet title="Все заказы"/>
                 </HelmetProvider>
-                {me.state.orders.map((order, index) => (
+
+                <OrdersTable
+                    data={this.state.orders}
+                    loading={this.state.loading}
+                    onEyeClick={(index) => this.setPopupTrue(index)}
+                    isCurrent={false}/>
+                {this.state.orders.map((order, index) => (
                     <div key={index}>
-                        <div className="order_description" onClick={() => this.setPopupTrue(index)}>
-                            Заказ в {order.sendCity} ({order.store}), {order.departureDate === undefined ?
-                            "" : order.departureDate.toString()}, {order.price}
-                        </div>
-                        <Popup content="order" isVisible={me.state.isPopupVisible[index]}
-                               setVisibleFalse={() => me.setPopupFalse(index)} order={order}/>
+                        <Popup
+                            content="order"
+                            isVisible={this.state.isPopupVisible[index]}
+                            setVisibleFalse={() => this.setPopupFalse(index)}
+                            order={order}
+                        />
                     </div>
                 ))}
             </div>
         );
     }
 }
+
 export default AllOrders;

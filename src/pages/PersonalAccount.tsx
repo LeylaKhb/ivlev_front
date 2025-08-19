@@ -32,6 +32,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
         this.setSecondPopupTrue = this.setSecondPopupTrue.bind(this);
         this.setCompaniesPopupTrue = this.setCompaniesPopupTrue.bind(this);
         this.setCompaniesPopupFalse = this.setCompaniesPopupFalse.bind(this);
+        this.formatDate = this.formatDate.bind(this);
     }
 
     componentDidMount() {
@@ -90,6 +91,15 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
         window.location.assign('https://ivlev-ff.ru/');
     }
 
+    formatDate(dateInput: Date | string | undefined): string {
+        if (dateInput === undefined) return "";
+        const date = dateInput instanceof Date ? dateInput : new Date(dateInput);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = String(date.getFullYear());
+        return `${day}.${month}.${year}`;
+    }
+
     render() {
         let me = this;
         const backgroundImage = {
@@ -131,7 +141,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
 
                 {me.state.person.agreeToTerms && <div style={{marginLeft: 40, fontSize: 13, marginTop: 10}}>
                     <>
-                        Согласие на обработку данных дано {me.state.person.agreeToTermsDate} в соответствии с&nbsp;
+                        Согласие на обработку данных дано {me.formatDate(me.state.person.agreeToTermsDate)} в соответствии с&nbsp;
                         <Link to="/privacy_policy" target="_blank">
                             <span>политикой конфиденциальности</span>
                         </Link>.

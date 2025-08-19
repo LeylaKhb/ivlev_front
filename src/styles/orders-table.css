@@ -1,0 +1,297 @@
+/* Общие стили таблицы */
+table.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-hover tbody tr:hover > * {
+    box-shadow: none !important;
+    background-color: #f6f9fc !important;
+}
+
+table thead th,
+table tbody td {
+    text-align: center;
+    border-style: solid none solid none;
+    border-color: #ebf1f6 !important;
+    border-width: 1px;
+    padding: 20px;
+    color: #282828;
+}
+
+/* Заголовок */
+table thead th {
+    background-color: #9986F4 !important;
+}
+
+/* Левый и правый бордер */
+table thead th:first-child,
+table tbody td:first-child {
+    border-left-style: solid;
+}
+
+table thead th:last-child,
+table tbody td:last-child {
+    border-right-style: solid;
+}
+
+/* Скругление углов */
+table thead tr:first-child th:first-child {
+    border-top-left-radius: var(--bs-border-radius-xl);
+    border-top-style: solid;
+}
+
+table thead tr:first-child th:last-child {
+    border-top-right-radius: var(--bs-border-radius-xl);
+    border-top-style: solid;
+}
+
+table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: var(--bs-border-radius-xl);
+    border-bottom-style: solid;
+}
+
+table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: var(--bs-border-radius-xl);
+    border-bottom-style: solid;
+}
+
+/* Нижняя граница */
+.border-bottom-1px {
+    border-bottom: solid 1px #dae9ff;
+}
+
+.spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #e0e0e0; /* светлый круг */
+    border-top: 6px solid #9986F4; /* цвет вращающейся части */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.status-cell {
+    vertical-align: middle;
+    text-align: center; /* можно менять на start/end */
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    min-width: 80px;
+}
+
+/* Статусы */
+.status-pending-ff {
+    border: 1px solid #507DE7;
+    color: #507DE7;
+}
+
+.status-pending-payment {
+    border: 1px solid #fa896b;
+    color: #fa896b;
+}
+
+.status-delivery {
+    border: 1px solid #E7BA50;
+    color: #E7BA50;
+}
+
+.status-delivered {
+    border: 1px solid #50E76E;
+    color: #50E76E;
+}
+
+.status-default {
+    border: 1px solid #adb5bd;
+    color: #495057;
+}
+
+.actions-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.action-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.action-btn:hover {
+    transform: scale(1.2);
+}
+
+.eye-btn {
+    color: #8b9ef1;
+}
+
+.delete-btn {
+    color: #dc3545;
+}
+
+.no-orders-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.no-orders-icon {
+    margin-bottom: 20px;
+    color: #999;
+}
+
+.no-orders-text {
+    font-size: 1.2rem;
+    color: #555;
+}
+.mobile-table-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 10px;
+}
+
+.mobile-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mobile-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.mobile-card-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.mobile-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.mobile-action-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.mobile-eye-btn {
+    background-color: #d1e7ff;
+    color: #0d6efd;
+}
+
+.mobile-delete-btn {
+    background-color: #ffe0e0;
+    color: #d93025;
+}
+
+.mobile-badge {
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.status-filter {
+    display: flex;
+    flex-direction: column; /* вертикальное расположение */
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* растягиваем на всю ширину */
+}
+
+.custom-select-wrapper.full-width {
+    width: 100%;
+}
+
+.custom-select {
+    width: 100%;
+    padding: 8px 36px 8px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.custom-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.custom-arrow {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333;
+    transform: translateY(-50%);
+}
