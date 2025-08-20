@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import background from "../static/background.png";
 import Popup from "../components/Popup";
 import {Helmet, HelmetProvider} from "react-helmet-async";
+import user_profile from "../static/user_profile.png";
 
 interface PersonalAccountProps {
 }
@@ -121,7 +122,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
                 </HelmetProvider>
                 <div className="personal_account_div">
                     <div style={{display: 'flex', flexFlow: 'row'}}>
-                        <img src={me.state.person.photo} alt="user profile"/>
+                        <img src={user_profile} alt="user profile"/>
                         <div className="personal_info_div">
                             <div className="personal_info">{me.state.person.name}</div>
                             <div className="personal_info" style={{

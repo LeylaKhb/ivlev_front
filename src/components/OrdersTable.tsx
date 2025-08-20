@@ -13,6 +13,17 @@ interface MyTableProps {
 const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurrent}) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [statusFilter, setStatusFilter] = useState<string>("all");
+    const [sortColumn, setSortColumn] = useState<string>("departureDate");
+    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+
+    function handleSort(column: string) {
+        if (sortColumn === column) {
+            setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+        } else {
+            setSortColumn(column);
+            setSortDirection("asc");
+        }
+    }
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -62,6 +73,26 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
     const filteredData = statusFilter === "all"
         ? data
         : data.filter(order => order.status === statusFilter);
+
+    const sortedData = [...filteredData].sort((a, b) => {
+        if (!sortColumn) return 0;
+
+        let valA: any = (a as any)[sortColumn];
+        let valB: any = (b as any)[sortColumn];
+
+        if (sortColumn === "price") {
+            valA = Number(String(valA).replace(/\s+/g, ""));
+            valB = Number(String(valB).replace(/\s+/g, ""));
+        }
+        if (sortColumn === "acceptanceDate" || sortColumn === "departureDate") {
+            valA = new Date(valA).getTime();
+            valB = new Date(valB).getTime();
+        }
+
+        if (valA < valB) return sortDirection === "asc" ? -1 : 1;
+        if (valA > valB) return sortDirection === "asc" ? 1 : -1;
+        return 0;
+    });
 
     if (loading) {
         return (
@@ -191,22 +222,46 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                     <table className="table-full orders-table">
                         <thead>
                         <tr>
-                            <th>ИП / ООО / Самозанятый</th>
-                            <th>Приемный день</th>
-                            <th>Дата доставки</th>
-                            <th>МП</th>
-                            <th>Склад</th>
-                            <th>Объем, м³</th>
-                            <th>Забор груза</th>
-                            <th>Стоимость</th>
-                            <th>Способ оплаты</th>
-                            <th>Статус оплаты</th>
-                            <th>Статус доставки</th>
+                            {[
+                                { key: "entity", label: "ИП / ООО / Самозанятый" },
+                                { key: "acceptanceDate", label: "Приемный день" },
+                                { key: "departureDate", label: "Дата доставки" },
+                                { key: "store", label: "МП" },
+                                { key: "sendCity", label: "Склад" },
+                                { key: "volume", label: "Объем, м³" },
+                                { key: "willTaken", label: "Забор груза" },
+                                { key: "price", label: "Стоимость" },
+                                { key: "paymentSite", label: "Способ оплаты" },
+                                { key: "paymentStatus", label: "Статус оплаты" },
+                                { key: "status", label: "Статус доставки" },
+                            ].map(col => {
+                                const isActive = sortColumn === col.key;
+                                return (
+                                    <th key={col.key} onClick={() => handleSort(col.key)}>
+                                        {col.label}{" "}
+                                        <br/>
+                                        <span
+                                            style={{
+                                                color: isActive && sortDirection === "asc" ? "black" : "#ccc",
+                                                fontSize: 15, padding: 0,
+                                                fontFamily: "Arial, sans-serif",
+                                            }}
+                                        >▲</span>
+                                        <span
+                                            style={{
+                                                color: isActive && sortDirection === "desc" ? "black" : "#ccc",
+                                                fontSize: 15,padding: 0,
+                                                fontFamily: "Arial, sans-serif",
+                                            }}
+                                        >▼</span>
+                                    </th>
+                                );
+                            })}
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {filteredData.map((order, i) => (
+                        {sortedData.map((order, i) => (
                             <tr key={i}>
                                 <td>{order.entity}</td>
                                 <td>{formatDate(order.acceptanceDate)}</td>

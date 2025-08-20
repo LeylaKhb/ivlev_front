@@ -22,6 +22,7 @@
 /* Заголовок */
 .orders-table thead th {
     background-color: #9986F4 !important;
+    cursor: pointer;
 }
 
 /* Левый и правый бордер */
