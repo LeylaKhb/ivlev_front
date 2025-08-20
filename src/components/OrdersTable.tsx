@@ -179,7 +179,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                 <button className="mobile-action-btn mobile-eye-btn" onClick={() => onEyeClick(i)}>
                                     Просмотр
                                 </button>
-                                {order.changeable && <button className="mobile-action-btn mobile-delete-btn">
+                                {order.changeable && <button onClick={() => deleteOrder(order)} className="mobile-action-btn mobile-delete-btn">
                                     Удалить
                                 </button>}
                             </div>
@@ -187,8 +187,8 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                     ))}
                 </div>
             ) : (
-                <div className="table-responsive overflow-hidden mt-2 mb-2" style={{width: '100%'}}>
-                    <table className="table fs-8 text-wrap align-middle w-100 mb-0 table-initial-config">
+                <div className="table-wrapper">
+                    <table className="table-full orders-table">
                         <thead>
                         <tr>
                             <th>ИП / ООО / Самозанятый</th>
@@ -213,9 +213,9 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                 <td>{formatDate(order.departureDate)}</td>
                                 <td>{order.store}</td>
                                 <td>{order.sendCity}</td>
-                                <td className="text-start">{order.volume}</td>
+                                <td>{order.volume}</td>
                                 <td>{order.willTaken ? "Да" : "Нет"}</td>
-                                <td className="text-start">{order.price}</td>
+                                <td>{order.price}</td>
                                 <td>{order.paymentSite ? "онлайн" : "офлайн"}</td>
                                 <td>{order.paymentStatus ? "Оплачено ✅" : "Не оплачено"}</td>
                                 <td className="status-cell">

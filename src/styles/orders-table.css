@@ -1,5 +1,5 @@
 /* Общие стили таблицы */
-table.table {
+.orders-table{
     border-collapse: separate;
     border-spacing: 0;
 }
@@ -9,8 +9,8 @@ table.table {
     background-color: #f6f9fc !important;
 }
 
-table thead th,
-table tbody td {
+.orders-table thead th,
+.orders-table tbody td {
     text-align: center;
     border-style: solid none solid none;
     border-color: #ebf1f6 !important;
@@ -20,40 +20,57 @@ table tbody td {
 }
 
 /* Заголовок */
-table thead th {
+.orders-table thead th {
     background-color: #9986F4 !important;
 }
 
 /* Левый и правый бордер */
-table thead th:first-child,
-table tbody td:first-child {
+.orders-table thead th:first-child,
+.orders-table tbody td:first-child {
     border-left-style: solid;
 }
 
-table thead th:last-child,
-table tbody td:last-child {
+.orders-table thead th:last-child,
+.orders-table tbody td:last-child {
     border-right-style: solid;
 }
 
 /* Скругление углов */
-table thead tr:first-child th:first-child {
+.orders-table thead tr:first-child th:first-child {
     border-top-left-radius: var(--bs-border-radius-xl);
     border-top-style: solid;
 }
 
-table thead tr:first-child th:last-child {
+.orders-table thead tr:first-child th:last-child {
     border-top-right-radius: var(--bs-border-radius-xl);
     border-top-style: solid;
 }
 
-table tbody tr:last-child td:first-child {
+.orders-table tbody tr:last-child td:first-child {
     border-bottom-left-radius: var(--bs-border-radius-xl);
     border-bottom-style: solid;
 }
 
-table tbody tr:last-child td:last-child {
+.orders-table tbody tr:last-child td:last-child {
     border-bottom-right-radius: var(--bs-border-radius-xl);
     border-bottom-style: solid;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* чтобы при узком экране можно было скроллить */
+}
+
+.table-full {
+    width: 100%;
+    border-collapse: collapse; /* убирает двойные линии между ячейками */
+}
+
+.table-full th,
+.table-full td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
 /* Нижняя граница */
