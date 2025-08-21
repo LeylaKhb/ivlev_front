@@ -12,8 +12,8 @@ interface CurrentOrdersProps {
 
 interface CurrentOrdersState {
     orders: Orders[];
-    isFirstPopupVisible: boolean[];
-    isSecondPopupVisible: boolean[];
+    isFirstPopupVisible: Record<number, boolean>;
+    isSecondPopupVisible: Record<number, boolean>;
     supply: Supply | null;
     companies: string[];
     loading: boolean;
@@ -73,33 +73,32 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
         });
     }
 
-    setFirstPopupTrue(index: number) {
-        let copy = Object.assign([] as boolean[], this.state.isFirstPopupVisible);
-        copy[index] = true;
-        this.setState({isFirstPopupVisible: copy});
+    setFirstPopupTrue(id: number) {
+        this.setState(prev => ({
+            isFirstPopupVisible: {...prev.isFirstPopupVisible, [id]: true}
+        }));
         document.body.style.overflow = "hidden";
     }
 
-    setFirstPopupFalse(index: number) {
-        let copy = Object.assign([] as boolean[], this.state.isFirstPopupVisible);
-        copy[index] = false;
-        this.setState({isFirstPopupVisible: copy});
+    setFirstPopupFalse(id: number) {
+        this.setState(prev => ({
+            isFirstPopupVisible: {...prev.isFirstPopupVisible, [id]: false}
+        }));
         document.body.style.overflow = "scroll";
     }
 
-    setSecondPopupTrue(index: number) {
-        let copy = Object.assign([] as boolean[], this.state.isSecondPopupVisible);
-        copy[index] = true;
-        let secondCopy = Object.assign([] as boolean[], this.state.isFirstPopupVisible);
-        secondCopy[index] = false;
-        this.setState({isSecondPopupVisible: copy, isFirstPopupVisible: secondCopy});
+    setSecondPopupTrue(id: number) {
+        this.setState(prev => ({
+            isSecondPopupVisible: {...prev.isSecondPopupVisible, [id]: true},
+            isFirstPopupVisible: {...prev.isFirstPopupVisible, [id]: false},
+        }));
         document.body.style.overflow = "hidden";
     }
 
-    setSecondPopupFalse(index: number) {
-        let copy = Object.assign([] as boolean[], this.state.isSecondPopupVisible);
-        copy[index] = false;
-        this.setState({isSecondPopupVisible: copy});
+    setSecondPopupFalse(id: number) {
+        this.setState(prev => ({
+            isSecondPopupVisible: {...prev.isSecondPopupVisible, [id]: false}
+        }));
         document.body.style.overflow = "scroll";
     }
 
@@ -116,19 +115,28 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
                 <OrdersTable
                     data={this.state.orders}
                     loading={this.state.loading}
-                    onEyeClick={(index) => this.setFirstPopupTrue(index)}
+                    onEyeClick={(id) => this.setFirstPopupTrue(id)}
                     isCurrent={true}
                 />
-                {me.state.orders.map((order, index) => (
-                    <div key={index}>
-                        <Popup content="order" isVisible={me.state.isFirstPopupVisible[index]}
-                               setVisibleFalse={() => me.setFirstPopupFalse(index)} order={order}
-                               openSecondPopup={() => this.setSecondPopupTrue(index)}/>
-                        <Popup content="schedule_form" isVisible={me.state.isSecondPopupVisible[index]}
-                               setVisibleFalse={() => me.setSecondPopupFalse(index)} order={order}
-                               companies={me.state.companies}/>
+                {me.state.orders.map((order) => (
+                    <div key={order.id}>
+                        <Popup
+                            content="order"
+                            isVisible={order.id !== undefined ? this.state.isFirstPopupVisible[order.id] : false}
+                            setVisibleFalse={() => order.id !== undefined && this.setFirstPopupFalse(order.id)}
+                            openSecondPopup={() => order.id !== undefined && this.setSecondPopupTrue(order.id)}
+                            order={order}
+                        />
+                        <Popup
+                            content="schedule_form"
+                            isVisible={order.id !== undefined ? this.state.isSecondPopupVisible[order.id] : false}
+                            setVisibleFalse={() => order.id !== undefined && this.setSecondPopupFalse(order.id)}
+                            order={order}
+                            companies={this.state.companies}
+                        />
                     </div>
                 ))}
+
             </div>
         );
     }
