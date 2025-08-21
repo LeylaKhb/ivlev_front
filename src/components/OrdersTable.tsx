@@ -198,7 +198,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
 
                             <div className="mobile-card-row">
                                 <span>Способ оплаты</span>
-                                <span>{order.paymentSite ? "онлайн" : "офлайн"}</span>
+                                <span>{order.paymentSite ? "онлайн" : "оффлайн"}</span>
                             </div>
 
                             <div className="mobile-card-row">
@@ -271,7 +271,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                 <td>{order.volume}</td>
                                 <td>{order.willTaken ? "Да" : "Нет"}</td>
                                 <td>{order.price}</td>
-                                <td>{order.paymentSite ? "онлайн" : "офлайн"}</td>
+                                <td>{order.paymentSite ? "онлайн" : "оффлайн"}</td>
                                 <td>{order.paymentStatus ? "Оплачено ✅" : "Не оплачено"}</td>
                                 <td className="status-cell">
                                         <span className={`badge ${getStatusClass(order.status)}`}>
