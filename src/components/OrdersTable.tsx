@@ -261,8 +261,8 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                         </tr>
                         </thead>
                         <tbody>
-                        {sortedData.map((order, i) => (
-                            <tr key={i}>
+                        {sortedData.map((order) => (
+                            <tr key={order.id}>
                                 <td>{order.entity}</td>
                                 <td>{formatDate(order.acceptanceDate)}</td>
                                 <td>{formatDate(order.departureDate)}</td>
@@ -279,7 +279,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                         </span>
                                 </td>
                                 <td className="actions-cell">
-                                    <button className="action-btn eye-btn" onClick={() => onEyeClick(i)}
+                                    <button className="action-btn eye-btn" onClick={() => onEyeClick(order.id!)}
                                             title="Просмотр">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              viewBox="0 0 24 24"
