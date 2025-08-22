@@ -207,14 +207,14 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                             </div>
 
                             <div className="mobile-card-actions">
-                                <button className="mobile-action-btn mobile-eye-btn"
-                                        onClick={() => onEyeClick(order.id!)}>
+                                <div className="mobile-action-btn mobile-eye-btn"
+                                     onClick={() => onEyeClick(order.id!)}>
                                     Просмотр
-                                </button>
-                                {order.changeable && <button onClick={() => deleteOrder(order)}
-                                                             className="mobile-action-btn mobile-delete-btn">
+                                </div>
+                                {order.changeable && <div onClick={() => deleteOrder(order)}
+                                                          className="mobile-action-btn mobile-delete-btn">
                                   Удалить
-                                </button>}
+                                </div>}
                             </div>
                         </div>
                     ))}
@@ -281,9 +281,9 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                         </span>
                                 </td>
                                 <td className="actions-cell">
-                                    <button type="button" className="action-btn eye-btn"
-                                            onClick={() => onEyeClick(order.id!)}
-                                            title="Просмотр">
+                                    <div className="action-btn eye-btn"
+                                         onClick={() => onEyeClick(order.id!)}
+                                         title="Просмотр">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              viewBox="0 0 24 24"
                                              pointerEvents="none"
@@ -292,10 +292,10 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                             <circle cx="12" cy="12" r="3"></circle>
                                         </svg>
-                                    </button>
+                                    </div>
                                     {order.changeable &&
-                                      <button type="button" onClick={() => deleteOrder(order)}
-                                              className="action-btn delete-btn" title="Удалить">
+                                      <div onClick={() => deleteOrder(order)}
+                                           className="action-btn delete-btn" title="Удалить">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              pointerEvents="none"
                                              viewBox="0 0 24 24"
@@ -305,7 +305,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                           <path
                                             d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m5-3h4a2 2 0 0 1 2 2v0H8v0a2 2 0 0 1 2-2z"></path>
                                         </svg>
-                                      </button>}
+                                      </div>}
                                 </td>
                             </tr>
                         ))}
