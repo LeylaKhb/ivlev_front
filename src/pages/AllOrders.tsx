@@ -11,7 +11,7 @@ interface AllOrdersProps {
 
 interface AllOrdersState {
     orders: Orders[];
-    isPopupVisible: boolean[];
+    isPopupVisible: Record<number, boolean>;
     loading: boolean;
 }
 
@@ -47,17 +47,18 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
             });
     }
 
-    setPopupTrue(index: number) {
-        let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
-        copy[index] = true;
-        this.setState({isPopupVisible: copy});
+    setPopupTrue(id: number) {
+        console.log(id)
+        this.setState(prev => ({
+            isPopupVisible: {...prev.isPopupVisible, [id]: true}
+        }));
         document.body.style.overflow = "hidden";
     }
 
-    setPopupFalse(index: number) {
-        let copy = Object.assign([] as boolean[], this.state.isPopupVisible);
-        copy[index] = false;
-        this.setState({isPopupVisible: copy});
+    setPopupFalse(id: number) {
+        this.setState(prev => ({
+            isPopupVisible: {...prev.isPopupVisible, [id]: false}
+        }));
         document.body.style.overflow = "scroll";
     }
 
@@ -79,6 +80,16 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
                             content="order"
                             isVisible={this.state.isPopupVisible[index]}
                             setVisibleFalse={() => this.setPopupFalse(index)}
+                            order={order}
+                        />
+                    </div>
+                ))}
+                {this.state.orders.map((order) => (
+                    <div key={order.id}>
+                        <Popup
+                            content="order"
+                            isVisible={order.id !== undefined ? this.state.isPopupVisible[order.id] : false}
+                            setVisibleFalse={() => order.id !== undefined && this.setPopupFalse(order.id)}
                             order={order}
                         />
                     </div>
