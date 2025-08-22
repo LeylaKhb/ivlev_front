@@ -207,7 +207,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                             </div>
 
                             <div className="mobile-card-actions">
-                                <button className="mobile-action-btn mobile-eye-btn" onClick={() => onEyeClick(i)}>
+                                <button className="mobile-action-btn mobile-eye-btn" onClick={() => onEyeClick(order.id!)}>
                                     Просмотр
                                 </button>
                                 {order.changeable && <button onClick={() => deleteOrder(order)} className="mobile-action-btn mobile-delete-btn">
