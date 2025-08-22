@@ -74,6 +74,7 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
     }
 
     setFirstPopupTrue(id: number) {
+        console.log(id)
         this.setState(prev => ({
             isFirstPopupVisible: {...prev.isFirstPopupVisible, [id]: true}
         }));

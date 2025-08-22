@@ -207,11 +207,13 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                             </div>
 
                             <div className="mobile-card-actions">
-                                <button className="mobile-action-btn mobile-eye-btn" onClick={() => onEyeClick(order.id!)}>
+                                <button className="mobile-action-btn mobile-eye-btn"
+                                        onClick={() => onEyeClick(order.id!)}>
                                     Просмотр
                                 </button>
-                                {order.changeable && <button onClick={() => deleteOrder(order)} className="mobile-action-btn mobile-delete-btn">
-                                    Удалить
+                                {order.changeable && <button onClick={() => deleteOrder(order)}
+                                                             className="mobile-action-btn mobile-delete-btn">
+                                  Удалить
                                 </button>}
                             </div>
                         </div>
@@ -223,17 +225,17 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                         <thead>
                         <tr>
                             {[
-                                { key: "entity", label: "ИП / ООО / Самозанятый" },
-                                { key: "acceptanceDate", label: "Приемный день" },
-                                { key: "departureDate", label: "Дата доставки" },
-                                { key: "store", label: "МП" },
-                                { key: "sendCity", label: "Склад" },
-                                { key: "volume", label: "Объем, м³" },
-                                { key: "willTaken", label: "Забор груза" },
-                                { key: "price", label: "Стоимость" },
-                                { key: "paymentSite", label: "Способ оплаты" },
-                                { key: "paymentStatus", label: "Статус оплаты" },
-                                { key: "status", label: "Статус доставки" },
+                                {key: "entity", label: "ИП / ООО / Самозанятый"},
+                                {key: "acceptanceDate", label: "Приемный день"},
+                                {key: "departureDate", label: "Дата доставки"},
+                                {key: "store", label: "МП"},
+                                {key: "sendCity", label: "Склад"},
+                                {key: "volume", label: "Объем, м³"},
+                                {key: "willTaken", label: "Забор груза"},
+                                {key: "price", label: "Стоимость"},
+                                {key: "paymentSite", label: "Способ оплаты"},
+                                {key: "paymentStatus", label: "Статус оплаты"},
+                                {key: "status", label: "Статус доставки"},
                             ].map(col => {
                                 const isActive = sortColumn === col.key;
                                 return (
@@ -250,7 +252,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                         <span
                                             style={{
                                                 color: isActive && sortDirection === "desc" ? "black" : "#ccc",
-                                                fontSize: 15,padding: 0,
+                                                fontSize: 15, padding: 0,
                                                 fontFamily: "Arial, sans-serif",
                                             }}
                                         >▼</span>
@@ -279,10 +281,12 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                         </span>
                                 </td>
                                 <td className="actions-cell">
-                                    <button className="action-btn eye-btn" onClick={() => onEyeClick(order.id!)}
+                                    <button type="button" className="action-btn eye-btn"
+                                            onClick={() => onEyeClick(order.id!)}
                                             title="Просмотр">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              viewBox="0 0 24 24"
+                                             pointerEvents="none"
                                              fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                                              strokeLinejoin="round">
                                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -290,8 +294,10 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                         </svg>
                                     </button>
                                     {order.changeable &&
-                                      <button onClick={() => deleteOrder(order)} className="action-btn delete-btn" title="Удалить">
+                                      <button type="button" onClick={() => deleteOrder(order)}
+                                              className="action-btn delete-btn" title="Удалить">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                             pointerEvents="none"
                                              viewBox="0 0 24 24"
                                              fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                                              strokeLinejoin="round">
