@@ -207,7 +207,9 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                             </div>
 
                             <div className="mobile-card-actions">
-                                <div className="mobile-action-btn mobile-eye-btn"
+                                <div role="button"
+                                     tabIndex={0}
+                                     className="mobile-action-btn mobile-eye-btn"
                                      onClick={() => onEyeClick(order.id!)}>
                                     Просмотр
                                 </div>
@@ -281,9 +283,10 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
                                         </span>
                                 </td>
                                 <td className="actions-cell">
-                                    <div className="action-btn eye-btn"
-                                         onClick={() => onEyeClick(order.id!)}
-                                         title="Просмотр">
+                                    <div role="button"
+                                        tabIndex={0}
+                                        className="action-btn eye-btn"
+                                        onClick={() => onEyeClick(order.id!)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                              viewBox="0 0 24 24"
                                              pointerEvents="none"

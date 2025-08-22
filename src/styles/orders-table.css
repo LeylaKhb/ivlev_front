@@ -150,6 +150,11 @@
     justify-content: center;
     align-items: center;
     flex-flow: column;
+    z-index: 10;
+}
+
+.actions-cell svg {
+    pointer-events: none;
 }
 
 .action-btn {
