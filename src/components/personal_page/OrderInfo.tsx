@@ -74,7 +74,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
 
             {order.paymentSite && !order.paymentStatus &&
               <form method='POST' action='https://ivlev-ff.server.paykeeper.ru/create/'>
-                <input type='hidden' name='client_phone' value={order.phoneNumber}/>
+                <input type='hidden' name='client_phone' value={order.phoneNumber.replace(/^8/, "7")}/>
                 <input type='hidden' name='client_email' value={order.person?.email}/>
                 <input type='hidden' name='clientid' value={order.entity}/>
                 <input type='hidden' name='orderid' value={order.id}/>

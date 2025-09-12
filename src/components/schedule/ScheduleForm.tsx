@@ -601,7 +601,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                         id="paymentForm"
                         style={{display: 'none'}}
                     >
-                        <input type='hidden' name='client_phone' value={me.state.order.phoneNumber}/>
+                        <input type='hidden' name='client_phone' value={me.state.order.phoneNumber.replace(/^8/, "7")}/>
                         <input type='hidden' name='client_email' value={me.props.person?.email}/>
                         <input type='hidden' name='clientid'
                                value={me.props.companies !== undefined ? me.props.companies[me.state.entityIndex]
