@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './styles/App.css';
 import Layout from "./components/layout/Layout";
@@ -23,12 +23,44 @@ import {ChatFunc} from "./pages/ChatFunc";
 import Oferta from "./components/regulations/Oferta";
 import {OrderPayment} from "./pages/OrderPayment";
 import PrivacyPolicy from "./components/regulations/PrivacyPolicy";
+import Popup from "./components/Popup";
 
 
 function App() {
+    const [popupVisible, setPopupVisible] = useState(false);
+
+    useEffect(() => {
+        const daysInterval = 3;
+        const lastShown = localStorage.getItem("popupLastShown");
+
+        let shouldShow = true;
+
+        if (lastShown) {
+            const lastDate = new Date(parseInt(lastShown, 10));
+            const now = new Date();
+            const diffDays = (now.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24);
+
+            if (diffDays < daysInterval) {
+                shouldShow = false;
+            }
+        }
+
+        if (shouldShow) {
+            setPopupVisible(true);
+            document.body.style.overflow = "hidden";
+        }
+    }, []);
+
+    const handleClose = () => {
+        setPopupVisible(false);
+        localStorage.setItem("popupLastShown", Date.now().toString());
+        document.body.style.overflow = "scroll";
+    };
+
     return (
         <BrowserRouter>
             <Layout>
+                <Popup content="delivery_issue" isVisible={popupVisible} setVisibleFalse={handleClose}/>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/registration" element={localStorage.getItem("jwt") === null ?

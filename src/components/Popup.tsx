@@ -13,6 +13,7 @@ import OrderInfo from "./personal_page/OrderInfo";
 import AdminFormChange from "./admin/AdminFormChange";
 import AdminDiscountChange from "./admin/AdminDiscountChange";
 import CompaniesWindow from "./personal_page/CompaniesWindow";
+import telegram from "../static/telegram.png";
 
 interface PopupProps {
     isVisible: boolean,
@@ -204,6 +205,26 @@ class Popup extends React.Component<PopupProps, PopupState> {
                       {this.props.person !== undefined &&
                         <AdminDiscountChange person={this.props.person} close={this.props.setVisibleFalse}/>
                       }
+                  </div>
+                }
+                {this.props.content === "delivery_issue" &&
+                  <div className="popup_window popup_delivery" style={{
+                      opacity: this.props.isVisible ? 1 : 0,
+                      transform: "translateY(-50%)", alignItems: 'center', justifyContent: 'center', display: "flex",
+                      flexFlow: 'column'
+                  }}>
+                    <div className="schedule_login_text" style={{fontWeight: 700, fontSize: 25}}>
+                      Не приняли поставку в Новосемейкино? Поможем!
+                    </div>
+                    <div className="schedule_login_text" style={{fontWeight: 500, fontSize: 15, marginTop: 15, marginBottom: 15}}>
+                      Напишите нашему менеджеру и мы оперативно решим вашу проблему
+                    </div>
+                    <a href="tg://resolve?domain=Ivlevff" >
+                      <button type="submit" className="popup_form_button">Написать в Telegram
+                        <div className="popup_button_glare">
+                        </div>
+                      </button>
+                    </a>
                   </div>
                 }
                 <div className="popup_cross" onClick={this.props.setVisibleFalse}>

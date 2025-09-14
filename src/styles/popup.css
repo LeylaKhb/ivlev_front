@@ -26,6 +26,7 @@
     left: 20px;
     animation: window-popup 0.5s ease-in-out;
     z-index: 10000;
+    border-radius: 8px;
 }
 @keyframes window-popup {
     from {
@@ -152,5 +153,18 @@
     .popup_cross {
         top: 30px;
         right: 30px;
+    }
+}
+.popup_delivery {
+    height: 300px;
+    animation: window-popup-delivery 0.5s ease-in-out;
+}
+
+@keyframes window-popup-delivery {
+    from {
+        transform: translateY(-29em) scale(0.5);
+    }
+    to {
+        transform: translateY(-150px) scale(1);
     }
 }
