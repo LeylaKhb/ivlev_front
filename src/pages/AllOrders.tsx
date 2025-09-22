@@ -48,7 +48,6 @@ class AllOrders extends React.Component<AllOrdersProps, AllOrdersState> {
     }
 
     setPopupTrue(id: number) {
-        console.log(id)
         this.setState(prev => ({
             isPopupVisible: {...prev.isPopupVisible, [id]: true}
         }));

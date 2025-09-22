@@ -63,14 +63,23 @@ class Popup extends React.Component<PopupProps, PopupState> {
         }
     }
 
-    handleClose(e: React.MouseEvent) {
-        const target = e.target as Element;
+    handleClose(e: React.MouseEvent<HTMLDivElement>) {
+        const target = e.target as HTMLElement;
         const classList = target.classList;
-        if (classList.contains("consultation_popup") || classList.contains("popup_cross") || classList.contains("cancel_changes")) {
+
+        if (classList.contains("popup_cross") || classList.contains("popup_cross_icon") || target.closest(".popup_cross")
+            || classList.contains("cancel_changes")) {
             this.props.setVisibleFalse();
-            this.setState({key: this.state.key + 1});
+            this.setState({ key: this.state.key + 1 });
+            return;
+        }
+
+        if (e.currentTarget === e.target) {
+            this.props.setVisibleFalse();
+            this.setState({ key: this.state.key + 1 });
         }
     }
+
 
     render() {
         return (
@@ -227,8 +236,8 @@ class Popup extends React.Component<PopupProps, PopupState> {
                     </a>
                   </div>
                 }
-                <div className="popup_cross" onClick={this.props.setVisibleFalse}>
-                    <svg role="presentation" className="t-popup__close-icon" width="23px" height="23px"
+                <div className="popup_cross">
+                    <svg role="presentation" className="popup_cross_icon" width="23px" height="23px"
                          viewBox="0 0 23 23" version="1.1" xmlns="https://www.w3.org/2000/svg">
                         <g stroke="none" strokeWidth="1" fill="#f81c87" fillRule="evenodd">
                             <rect

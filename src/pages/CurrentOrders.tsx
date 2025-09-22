@@ -67,14 +67,12 @@ class CurrentOrders extends React.Component<CurrentOrdersProps, CurrentOrdersSta
         }).then(function (resp) {
             resp.json()
                 .then(function (data) {
-                    console.log(data)
                     me.setState({companies: data})
                 })
         });
     }
 
     setFirstPopupTrue(id: number) {
-        console.log(id)
         this.setState(prev => ({
             isFirstPopupVisible: {...prev.isFirstPopupVisible, [id]: true}
         }));

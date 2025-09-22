@@ -1,5 +1,7 @@
 import React from "react";
 import {Orders} from "../../models/Orders";
+import jsPDF from "jspdf";
+import "../../static/Roboto-normal";
 
 interface OrderInfoProps {
     order: Orders;
@@ -15,6 +17,75 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
         const year = String(date.getFullYear()).slice(-2);
         return `${day}.${month}.${year}`;
     }
+
+    const generatePdf = () => {
+        if (!order.boxes?.length) return;
+
+        // размеры в мм
+        const labelWmm = 60;
+        const labelHmm = 40;
+        const borderMm = 3;
+
+        const totalBoxes = order.boxes.reduce((sum, b) => sum + (b.amount ?? 0), 0);
+        let counter = 1;
+
+        // создаём ОДИН pdf
+        const pdf = new jsPDF({
+            orientation: "landscape",
+            unit: "mm",
+            format: [labelWmm + borderMm * 2, labelHmm + borderMm * 2],
+        });
+
+        for (let i = 0; i < order.boxes.length; i++) {
+            const amount = order.boxes[i].amount ?? 0;
+
+            for (let j = 1; j <= amount; j++) {
+                if (counter > 1) {
+                    // добавляем новую страницу
+                    pdf.addPage([labelWmm + borderMm * 2, labelHmm + borderMm * 2], "landscape");
+                }
+
+                // серый фон (бордер)
+                pdf.setFillColor(228, 228, 228);
+                pdf.rect(0, 0, labelWmm + borderMm * 2, labelHmm + borderMm * 2, "F");
+
+                // белая область (сама наклейка)
+                pdf.setFillColor(255, 255, 255);
+                pdf.roundedRect(borderMm, borderMm, labelWmm, labelHmm, 3, 3, "F");
+
+                // текст
+                pdf.setFont("Roboto", "normal");
+                pdf.setFontSize(15);
+                pdf.setTextColor(0, 0, 0);
+
+                const lines = [
+                    order.entity,
+                    order.sendCity,
+                    order.departureDate === undefined ? "" : formatDate(order.departureDate),
+                    `Короб ${counter}/${totalBoxes}`,
+                ];
+
+                const lineHeight = 6;
+                let currentY =
+                    borderMm +
+                    (labelHmm - lines.length * lineHeight) / 2 +
+                    4; // центрирование текста
+
+                lines.forEach((line) => {
+                    pdf.text(line, labelWmm / 2 + borderMm, currentY, {
+                        align: "center",
+                    });
+                    currentY += lineHeight;
+                });
+
+                counter++;
+            }
+        }
+
+        // сохраняем один PDF
+        pdf.save(`${order.sendCity}_${formatDate(order.departureDate)}.pdf`);
+    };
+
 
     return (
         <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column', marginBottom: 100}}>
@@ -91,6 +162,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                 <button className="change_order" onClick={openSecondPopup} style={{marginTop: 10}}>Изменить</button>
               </>
             }
+            <button className="change_order" onClick={generatePdf} style={{marginTop: 10, width: 150}}>Скачать этикетки</button>
         </div>
     )
 }

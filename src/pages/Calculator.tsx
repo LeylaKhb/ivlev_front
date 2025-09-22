@@ -18,6 +18,7 @@ const Calculator: React.FC = () => {
         useState<Array<inputOptions>>([{length: 0, width: 0, height: 0, amount: 0}]);
 
     const [price, setPrice] = useState("");
+    const [volume, setVolume] = useState(0);
 
 
     function handleDepartureCity(city: string) {
@@ -50,6 +51,8 @@ const Calculator: React.FC = () => {
         });
         if (wrong) return;
         volume /= 1000000;
+        setVolume(volume);
+
         fetch('https://kodrf.ru/api/calculator', {
             method: 'POST',
             credentials: "same-origin",
@@ -72,7 +75,7 @@ const Calculator: React.FC = () => {
         });
         window.scrollTo({
             top: 0,
-            behavior: 'smooth' // для плавной прокрутки
+            behavior: 'smooth'
         });
     }
 
@@ -86,8 +89,18 @@ const Calculator: React.FC = () => {
             <div className="first_info_title" style={{marginTop: 120, marginBottom: 10}}>
                 Калькулятор заказов
             </div>
-            <div style={{visibility: price !== "-" ? "visible" : "hidden", fontSize: 19}}>Цена доставки: {price} рублей</div>
-            <div style={{visibility: price === "-" ? "visible" : "hidden", fontSize: 19}}>Данные введены некорректно</div>
+            {price && (
+                <div style={{ fontSize: 19 }}>
+                    {price !== "-" ? (
+                        <div style={{textAlign: "center"}}>
+                            <div>Цена доставки: {price} рублей</div>
+                            <div>Объём: {volume.toFixed(2)} м³</div>
+                        </div>
+                    ) : (
+                        <div>Данные введены некорректно</div>
+                    )}
+                </div>
+            )}
             <SendCityAndStore  handleSendCity={handleSendCity} handleDepartureCity={handleDepartureCity}
                                 handleStore={handleStore} location="calculator" />
             

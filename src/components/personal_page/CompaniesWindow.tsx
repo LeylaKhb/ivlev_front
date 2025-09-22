@@ -69,7 +69,6 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                         if (inputValue.length === 12) {
                             fetchSelfEmployed(inputValue)
                                 .then(data => {
-                                    console.log(data)
                                     if (data.Самозанятость.Статус === true) {
                                         setIsSelfEmployed(true);
                                         setInnError("Найден самозанятый");
@@ -144,8 +143,6 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
     function addInn() {
         let isInnCorrect = checkInn();
         let isSelfEmployedCorrect = checkSelfEmployed();
-        console.log(isInnCorrect)
-        console.log(isSelfEmployedCorrect)
         if (!isInnCorrect || !isSelfEmployedCorrect || name === "")
             return;
 

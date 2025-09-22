@@ -21,7 +21,6 @@ class AllDialogs extends React.Component<AllDialogsProps, AllDialogsState>  {
         }).then(resp =>
             resp.json()
                 .then(data => {
-                    console.log(data);
                     this.setState({dialogs: data})})
         )
     }
