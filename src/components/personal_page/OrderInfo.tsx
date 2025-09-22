@@ -58,20 +58,25 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                 pdf.setFontSize(15);
                 pdf.setTextColor(0, 0, 0);
 
-                const lines = [
+                const linesRaw = [
                     order.entity,
                     order.sendCity,
                     order.departureDate === undefined ? "" : formatDate(order.departureDate),
                     `Короб ${counter}/${totalBoxes}`,
                 ];
 
+                const maxTextWidth = labelWmm - 4; // небольшой отступ слева/справа
+                const wrappedLines = linesRaw.flatMap(line =>
+                    pdf.splitTextToSize(line, maxTextWidth)
+                );
+
                 const lineHeight = 6;
                 let currentY =
                     borderMm +
-                    (labelHmm - lines.length * lineHeight) / 2 +
+                    (labelHmm - wrappedLines.length * lineHeight) / 2 +
                     4; // центрирование текста
 
-                lines.forEach((line) => {
+                wrappedLines.forEach((line) => {
                     pdf.text(line, labelWmm / 2 + borderMm, currentY, {
                         align: "center",
                     });
@@ -85,7 +90,6 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
         // сохраняем один PDF
         pdf.save(`${order.sendCity}_${formatDate(order.departureDate)}.pdf`);
     };
-
 
     return (
         <div style={{marginTop: 20, display: 'flex', justifyContent: 'center', flexFlow: 'column', marginBottom: 100}}>
