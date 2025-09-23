@@ -2,6 +2,7 @@ import React from "react";
 import {Orders} from "../../models/Orders";
 import jsPDF from "jspdf";
 import "../../static/Roboto-normal";
+import "../../static/Roboto-bold";
 
 interface OrderInfoProps {
     order: Orders;
@@ -59,16 +60,20 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                 pdf.setTextColor(0, 0, 0);
 
                 const linesRaw = [
-                    order.entity,
-                    order.sendCity,
-                    order.departureDate === undefined ? "" : formatDate(order.departureDate),
-                    `Короб ${counter}/${totalBoxes}`,
+                    { text: order.entity, bold: false },
+                    { text: order.sendCity, bold: true },
+                    {
+                        text: order.departureDate === undefined ? "" : formatDate(order.departureDate),
+                        bold: true,
+                    },
+                    { text: `Короб ${counter}/${totalBoxes}`, bold: false },
                 ];
 
                 const maxTextWidth = labelWmm - 4; // небольшой отступ слева/справа
-                const wrappedLines = linesRaw.flatMap(line =>
-                    pdf.splitTextToSize(line, maxTextWidth)
-                );
+                const wrappedLines = linesRaw.flatMap(lineObj => {
+                    const chunks = pdf.splitTextToSize(lineObj.text, maxTextWidth);
+                    return chunks.map((c: any) => ({ text: c, bold: lineObj.bold }));
+                });
 
                 const lineHeight = 6;
                 let currentY =
@@ -76,8 +81,9 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                     (labelHmm - wrappedLines.length * lineHeight) / 2 +
                     4; // центрирование текста
 
-                wrappedLines.forEach((line) => {
-                    pdf.text(line, labelWmm / 2 + borderMm, currentY, {
+                wrappedLines.forEach(({ text, bold }) => {
+                    pdf.setFont("Roboto", bold ? "bold" : "normal");
+                    pdf.text(text, labelWmm / 2 + borderMm, currentY, {
                         align: "center",
                     });
                     currentY += lineHeight;
