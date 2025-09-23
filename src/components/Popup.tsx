@@ -223,6 +223,37 @@ class Popup extends React.Component<PopupProps, PopupState> {
                       flexFlow: 'column'
                   }}>
                     <div className="schedule_login_text" style={{fontWeight: 700, fontSize: 25}}>
+                    Уважаемые партнеры из г.Тольятти!
+                    </div>
+                    <div className="schedule_login_text" style={{fontWeight: 500, fontSize: 15, marginTop: 15, marginBottom: 15}}>
+                      Информируем вас о том, что с <b>понедельника, 29 сентября</b>, наш склад
+                      в г. Тольятти переезжает по новому адресу:
+                      <br /> <br />
+                      Старый адрес: Приморский бульвар, 43в
+                      <br />
+                      Новый адрес: <b>Московский проспект, 6в</b>
+                      <br />
+                      <br />
+                      Всегда актуальные новости у нас в{" "}
+                      <a
+                        href="https://t.me/wbdostavkasamara"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: "#007aff", textDecoration: "none", fontWeight: 500 }}
+                      >
+                        канале
+                      </a>
+                    </div>
+
+                    <hr
+                      style={{
+                          width: "100%",
+                          border: "none",
+                          borderTop: "1px solid #ddd",
+                          margin: "20px 0",
+                      }}
+                    />
+                      <div className="schedule_login_text" style={{fontWeight: 700, fontSize: 25}}>
                       Не приняли поставку в Новосемейкино? Поможем!
                     </div>
                     <div className="schedule_login_text" style={{fontWeight: 500, fontSize: 15, marginTop: 15, marginBottom: 15}}>

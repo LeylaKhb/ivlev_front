@@ -30,7 +30,7 @@ function App() {
     const [popupVisible, setPopupVisible] = useState(false);
 
     useEffect(() => {
-        const daysInterval = 3;
+        const daysInterval = 1;
         const lastShown = localStorage.getItem("popupLastShown");
 
         let shouldShow = true;
