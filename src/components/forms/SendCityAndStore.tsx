@@ -8,25 +8,41 @@ interface SendCityAndStoreProps {
     location: string;
 }
 
-const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity, handleStore, handleSendCity, location}) => {
+const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({
+                                                               handleDepartureCity,
+                                                               handleStore,
+                                                               handleSendCity,
+                                                               location
+                                                           }) => {
     const [departureCityIndex, setDepartureCityIndex] = useState(0);
     const departureCities = ["Самара", "Тольятти"]
 
     const [storeIndex, setStoreIndex] = useState(0);
     const stores = ["Wildberries", "Ozon", "Яндекс Маркет"]
 
-    const citiesOzon = ["Адыгейск", "Ростов-на-Дону", "Чапаевск", "Казань", "Софьино", "Пушкино 1",
-        "Пушкино 2", "Хоругвино", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Преображенка", "Невинномысск",
-    "Воронеж", "Уфа", "Тюмень", "Волгоград", "Омск", "Бугры", "Колпино", "Шушары", "Ярославль"];
+    const citiesOzon = [
+        "Адыгейск", "Бугры", "Волгоград", "Воронеж", "Воронеж 2", "Гривно",
+        "Екатеринбург", "Жуковский", "Казань", "Колпино", "Невинномысск",
+        "Нижний Новгород", "Новосибирск", "Ногинск", "Омск", "Оренбург",
+        "Петровское", "Преображенка", "Пушкино 1", "Пушкино 2", "Ростов-на-Дону",
+        "Санкт-Петербург", "Саратов", "Софьино", "Тверь", "Тюмень", "Уфа",
+        "Хоругвино", "Чапаевск", "Шушары", "Ярославль"
+    ];
     const [cityOzonIndex, setCityOzonIndex] = useState(0);
 
     const [cityMarketIndex, setCityMarketIndex] = useState(0);
-    const citiesMarket = ["Софьино", "Преображенка"]
+    const citiesMarket = [
+        "Преображенка", "Софьино"
+    ];
 
     const [cityWildberriesIndex, setCityWildberriesIndex] = useState(0);
-    const citiesWildberries = ["Казань", "Невинномысск", "Краснодар", "Чехов 1", "Чехов 2", "Подольск", "Тула",
-        "Коледино", "Электросталь", "Екат (перпективный)", "Екат (испытателей)", "Новосибирск", "СПб (Уткина заводь)",
-        "Новосемейкино", "Преображенка", "Котовск", "Рязань", "Волгоград", "Сарапул", "Владимир"];
+    const citiesWildberries = [
+        "Екат (испытателей)", "Екат (перпективный)", "Владимир", "Волгоград",
+        "Казань", "Коледино", "Котовск", "Краснодар", "Невинномысск",
+        "Новосемейкино", "Новосибирск", "Подольск", "Преображенка", "Рязань",
+        "Сарапул", "СПб (Уткина заводь)", "Тула", "Чехов 1", "Чехов 2",
+        "Электросталь"
+    ];
 
     if (location === "admin") {
         departureCities.push("");
@@ -40,18 +56,22 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
         setCityOzonIndex(index);
         handleSendCity(citiesOzon[index]);
     }
+
     function handleCityWildberriesIndex(index: number) {
         setCityWildberriesIndex(index);
         handleSendCity(citiesWildberries[index]);
     }
+
     function handleCityMarketIndex(index: number) {
         setCityMarketIndex(index);
         handleSendCity(citiesMarket[index]);
     }
+
     function handleDepartureCityIndex(index: number) {
         setDepartureCityIndex(index);
         handleDepartureCity(departureCities[index])
     }
+
     function handleStoreIndex(index: number) {
         setStoreIndex(index);
         handleStore(stores[index]);
@@ -69,28 +89,29 @@ const SendCityAndStore: React.FC<SendCityAndStoreProps> = ({handleDepartureCity,
             }
         }
     }
+
     return (
         <div className="page_content" style={{flexFlow: 'column'}}>
             <label className="calculator_label">Город отправки: </label>
-            <CalculatorDropdown  handleSelectClick={handleDepartureCityIndex} items={departureCities}
-                                 selectTitle={departureCities[departureCityIndex]}/>
+            <CalculatorDropdown handleSelectClick={handleDepartureCityIndex} items={departureCities}
+                                selectTitle={departureCities[departureCityIndex]}/>
             <label className="calculator_label">Склад: </label>
-            <CalculatorDropdown  handleSelectClick={handleStoreIndex} items={stores}
-                                 selectTitle={stores[storeIndex]}/>
+            <CalculatorDropdown handleSelectClick={handleStoreIndex} items={stores}
+                                selectTitle={stores[storeIndex]}/>
             <label className="calculator_label">Город назначения: </label>
 
             {storeIndex === 0 &&
-                <CalculatorDropdown  handleSelectClick={handleCityWildberriesIndex} items={citiesWildberries}
-                                     selectTitle={citiesWildberries[cityWildberriesIndex]}/>
+              <CalculatorDropdown handleSelectClick={handleCityWildberriesIndex} items={citiesWildberries}
+                                  selectTitle={citiesWildberries[cityWildberriesIndex]}/>
             }
             {storeIndex === 1 &&
-                <CalculatorDropdown  handleSelectClick={handleCityOzonIndex} items={citiesOzon}
-                                     selectTitle={citiesOzon[cityOzonIndex]}/>
+              <CalculatorDropdown handleSelectClick={handleCityOzonIndex} items={citiesOzon}
+                                  selectTitle={citiesOzon[cityOzonIndex]}/>
             }
             {storeIndex === 2 &&
-                <CalculatorDropdown  handleSelectClick={handleCityMarketIndex} items={citiesMarket}
-                                     selectTitle={citiesMarket[cityMarketIndex]}/>
-            } 
+              <CalculatorDropdown handleSelectClick={handleCityMarketIndex} items={citiesMarket}
+                                  selectTitle={citiesMarket[cityMarketIndex]}/>
+            }
         </div>
     )
 }

@@ -39,7 +39,7 @@ const SocialNetworkButton: React.FC = () => {
                    visibility: open ? 'visible' : "hidden" }}>
                 <img src={whatsapp} alt="whatsapp" style={{ width: '100%'}}/>
             </a>
-            <a href="tel:+79608293555" className="tel_link"
+            <a href="tel:+79171486688" className="tel_link"
                style={{transform: open ? 'translate(0,-495%)' : "none",
                    visibility: open ? 'visible' : "hidden" }}>
                 <svg role="presentation" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="https://www.w3.org/2000/svg">
