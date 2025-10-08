@@ -4,7 +4,6 @@ import {Helmet} from "react-helmet";
 import AdminLayout from "../../components/layout/AdminLayout";
 import Popup from "../../components/Popup";
 import {News} from "../../models/News";
-import {FiPlus} from "react-icons/fi";
 import NewsList from "../../components/news/NewsList";
 
 const NewsAdminPage: React.FC = () => {
