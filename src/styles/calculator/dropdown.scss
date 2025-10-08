@@ -97,6 +97,8 @@
 
   opacity: 0;
   z-index: 8;
+  max-height: 300px;
+  overflow-y: auto;
 }
 .__select__input {
   display: none;

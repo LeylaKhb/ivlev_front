@@ -86,7 +86,7 @@ const Calculator: React.FC = () => {
                     title="Калькулятор"
                 />
             </HelmetProvider>
-            <div className="first_info_title" style={{marginTop: 120, marginBottom: 10}}>
+            <div className="first_info_title" style={{marginTop: 120, marginBottom: 10, textAlign: "center"}}>
                 Калькулятор заказов
             </div>
             {price && (

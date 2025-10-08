@@ -12,8 +12,7 @@ const Header: React.FC<HeaderProps> = () => {
     function handleMenu() {
         if (!open) {
             document.body.style.overflow = "hidden";
-        }
-        else {
+        } else {
             document.body.style.overflow = "scroll";
         }
         setOpen(!open);
@@ -26,8 +25,10 @@ const Header: React.FC<HeaderProps> = () => {
             <div className="menu_and_logo">
                 <div className="menu_header" onClick={handleMenu}>
                     <span className="menu_header_block" style={{top: 25, display: open ? 'none' : "initial"}}></span>
-                    <span className="menu_header_block" style={{top: 33, transform: open ? "rotate(45deg)" : "none"}}></span>
-                    <span className="menu_header_block" style={{top: 33, transform: open ? "rotate(-45deg)" : "none"}}></span>
+                    <span className="menu_header_block"
+                          style={{top: 33, transform: open ? "rotate(45deg)" : "none"}}></span>
+                    <span className="menu_header_block"
+                          style={{top: 33, transform: open ? "rotate(-45deg)" : "none"}}></span>
                     <span className="menu_header_block" style={{top: 41, display: open ? 'none' : "initial"}}></span>
                 </div>
 
@@ -38,25 +39,46 @@ const Header: React.FC<HeaderProps> = () => {
             </div>
 
             <div className="links_container_header">
-                <a href="/#about" className="link_header_footer">О нас</a>
-                <a href="/#service" className="link_header_footer">Наши услуги</a>
-                <a href="/#reviews" className="link_header_footer">Отзывы</a>
-                <a href="/#contacts" className="link_header_footer">Контакты</a>
+                <div className="dropdown">
+                    <div className="link_header_footer">
+                        О нас <span className="arrow">▾</span>
+                    </div>
+                    <div className="dropdown_content">
+                        <a href="/#about" className="link_header_footer">О нас</a>
+                        <a href="/#service" className="link_header_footer">Наши услуги</a>
+                        <a href="/#reviews" className="link_header_footer">Отзывы</a>
+                        <a href="/#contacts" className="link_header_footer">Контакты</a>
+                    </div>
+                </div>
+                {/*<a href="/news" className="link_header_footer">Новости</a>*/}
+                <a href="/calculator" className="link_header_footer">Калькулятор</a>
                 <a href="/schedule" className="link_header_footer">Расписание поставок</a>
                 <a href="https://t.me/+nVp-YvKEbJJjOTRi" className="link_header_footer">Чат в Telegram</a>
             </div>
 
             {localStorage.getItem("jwt") === null &&
-                <div className="header_footer_buttons">
-                    <Link to="/registration"><button className="registration_button">Регистрация</button></Link>
-                    <Link to="/login"><button className="login_button">Войти</button></Link>
-                </div>
+              <div className="header_footer_buttons">
+                <Link to="/registration">
+                  <button className="registration_button">Регистрация</button>
+                </Link>
+                <Link to="/login">
+                  <button className="login_button">Войти</button>
+                </Link>
+              </div>
             }
             {localStorage.getItem("jwt") !== null &&
-                <div className="header_footer_buttons">
-                    <Link to="/personal_account"><button className="registration_button"
-                    style={{height: 40}}>Личный кабинет</button></Link>
-                </div>
+              <div className="header_footer_buttons">
+                <Link to="/personal_account">
+                  <button className="registration_button"
+                          style={localStorage.getItem("admin") === "true" ? {} : {height: 40}
+                          }>Личный кабинет
+                  </button>
+                </Link>
+                  {localStorage.getItem("admin") === "true" &&
+                    <Link to="/admin_page">
+                      <button className="login_button">Админка</button>
+                    </Link>}
+              </div>
             }
         </header>
     )

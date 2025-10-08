@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
-import {Orders} from "../models/Orders";
-import "../styles/orders-table.css";
-import {ExportCSV} from "./admin/ExportCSV";
+import {Orders} from "../../models/Orders";
+import "../../styles/orders-table.css";
+import {ExportCSV} from "../admin/ExportCSV";
 
 interface MyTableProps {
     data: Orders[];
@@ -66,7 +66,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
             },
             body: JSON.stringify(order)
         }).then(function () {
-            window.location.assign('https://ivlev-ff.ru/current_orders');
+            window.location.assign('http://localhost:3000/current_orders');
         })
     }
 

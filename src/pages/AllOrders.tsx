@@ -4,7 +4,7 @@ import Popup from "../components/Popup";
 import "../styles/personal_page/order.css";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
-import OrdersTable from "../components/OrdersTable";
+import OrdersTable from "../components/personal_page/OrdersTable";
 
 interface AllOrdersProps {
 }

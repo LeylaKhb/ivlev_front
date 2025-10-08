@@ -12,10 +12,10 @@
     margin-bottom: 10px;
 }
 
-.regulations h1, h2 {
+.regulations h1, .regulations h2 {
     text-align: center;
 }
-.regulations p, li {
+.regulations p, .regulations li {
     margin-bottom: 10px;
 }
 .signature {

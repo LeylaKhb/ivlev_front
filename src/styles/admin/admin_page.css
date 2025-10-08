@@ -3,10 +3,12 @@
     height: 50px;
     outline: none;
 }
+
 .admin_title {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
 .admin_form {
     width: 100%;
     padding-top: 120px;
@@ -22,6 +24,7 @@
     border-radius: 6px;
     font-size: 16px;
 }
+
 .admin_form .react-datepicker__input-container input {
     display: block;
     width: 100%;
@@ -35,4 +38,72 @@
 
 .admin_table tr td {
     padding-top: 10px;
+}
+
+.menu-button {
+    position: fixed;
+    top: 100px;
+    left: 30px;
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.menu-button:hover {
+    background: #1f2937;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    height: 100%;
+    background: white;
+    color: #111;
+    transition: left 0.3s ease;
+    z-index: 1200;
+    padding: 20px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: #111;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 60px 0 0 20px;
+    margin: 0;
+}
+
+.sidebar nav ul li {
+    margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+    color: #111;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.2s ease;
+}
+
+.sidebar nav ul li a:hover {
+    color: #2563eb;
+    text-decoration: underline;
 }

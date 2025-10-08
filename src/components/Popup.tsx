@@ -13,7 +13,8 @@ import OrderInfo from "./personal_page/OrderInfo";
 import AdminFormChange from "./admin/AdminFormChange";
 import AdminDiscountChange from "./admin/AdminDiscountChange";
 import CompaniesWindow from "./personal_page/CompaniesWindow";
-import telegram from "../static/telegram.png";
+import {News} from "../models/News";
+import {NewsPopup} from "./news/NewsPopup";
 
 interface PopupProps {
     isVisible: boolean,
@@ -25,6 +26,7 @@ interface PopupProps {
     order?: Orders;
     orders?: Orders[] | undefined;
     companies?: string[];
+    news?: News;
 }
 
 interface PopupState {
@@ -214,6 +216,15 @@ class Popup extends React.Component<PopupProps, PopupState> {
                       {this.props.person !== undefined &&
                         <AdminDiscountChange person={this.props.person} close={this.props.setVisibleFalse}/>
                       }
+                  </div>
+                }
+                {this.props.content === "news" &&
+                  <div className="popup_window popup_news" style={{
+                      opacity: this.props.isVisible ? 1 : 0,
+                      transform: "translateY(-50%)", alignItems: 'center', justifyContent: 'center', display: "flex",
+                      flexFlow: 'column'
+                  }}>
+                      <NewsPopup setVisibleFalse={this.props.setVisibleFalse} newsItem={this.props.news}/>
                   </div>
                 }
                 {this.props.content === "delivery_issue" &&

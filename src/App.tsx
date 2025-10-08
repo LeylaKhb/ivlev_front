@@ -10,20 +10,22 @@ import Schedule from "./pages/Schedule";
 import Calculator from "./pages/Calculator";
 import CurrentOrders from "./pages/CurrentOrders";
 import AllOrders from "./pages/AllOrders";
-import AdminPage from "./pages/AdminPage";
+import AdminPage from "./pages/admin/AdminPage";
 import RecoverPassword from "./pages/RecoverPassword";
 import Regulations from "./components/regulations/Regulations";
 import {Helmet} from "react-helmet";
 import {HelmetProvider} from "react-helmet-async";
 import PageNotFound from "./pages/PageNotFound";
 import Chat from "./pages/Chat";
-import DiscountAdminPage from "./pages/DiscountAdminPage";
+import DiscountAdminPage from "./pages/admin/DiscountAdminPage";
 import AllDialogs from "./pages/AllDialogs";
 import {ChatFunc} from "./pages/ChatFunc";
 import Oferta from "./components/regulations/Oferta";
-import {OrderPayment} from "./pages/OrderPayment";
 import PrivacyPolicy from "./components/regulations/PrivacyPolicy";
 import Popup from "./components/Popup";
+import {NewsPage} from "./pages/NewsPage";
+import {OneNewsPage} from "./pages/OneNewsPage";
+import NewsAdminPage from "./pages/admin/NewsAdminPage";
 
 
 function App() {
@@ -65,7 +67,6 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/registration" element={localStorage.getItem("jwt") === null ?
                         <Registration/> : <PersonalAccount/>}/>
-                    {/*<Route path="/registration" element={<Registration />} />*/}
                     <Route path="/login" element={localStorage.getItem("jwt") === null ?
                         <Login/> : <PersonalAccount/>}/>
                     <Route path="/recover_password" element={<RecoverPassword/>}/>
@@ -77,7 +78,8 @@ function App() {
                         <Login/> : <CurrentOrders/>}/>
                     <Route path="/orders_history" element={localStorage.getItem("jwt") === null ?
                         <Login/> : <AllOrders/>}/>
-                    <Route path="/orders/:id" element={<OrderPayment/>}/>
+                    <Route path="/news" element={<NewsPage/>}/>
+                    <Route path="/news/:id" element={<OneNewsPage/>}/>
                     <Route path="/regulations" element={<Regulations/>}/>
                     <Route path="/oferta" element={<Oferta/>}/>
                     <Route path="/privacy_policy" element={<PrivacyPolicy/>}/>
@@ -91,7 +93,9 @@ function App() {
                     {localStorage.getItem("admin") === "true" &&
                       <Route path="/admin_page" element={<AdminPage/>}/>}
                     {localStorage.getItem("admin") === "true" &&
-                      <Route path="/admin_discount" element={<DiscountAdminPage/>}/>}
+                      <Route path="/admin/discount" element={<DiscountAdminPage/>}/>}
+                    {localStorage.getItem("admin") === "true" &&
+                      <Route path="/admin/news" element={<NewsAdminPage/>}/>}
                     <Route path="/chat" element={<Chat/>}/>
                     {localStorage.getItem("admin") === "true" &&
                       <Route path="/all_dialogs" element={<AllDialogs/>}/>}

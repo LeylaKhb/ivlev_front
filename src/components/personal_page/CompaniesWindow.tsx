@@ -157,7 +157,7 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
             body: JSON.stringify(new Company(name, inn))
         })
             .then(() => {
-                window.location.assign('https://ivlev-ff.ru/personal_account');
+                window.location.assign('http://localhost:3000/personal_account');
             })
 
     }
@@ -174,7 +174,7 @@ const CompaniesWindow: React.FC<CompaniesWindowProps> = ({person}) => {
                 if (!response.ok) {
                     throw new Error('Ошибка при удалении компании');
                 }
-                window.location.assign('https://ivlev-ff.ru/personal_account');
+                window.location.assign('http://localhost:3000/personal_account');
             })
     }
 

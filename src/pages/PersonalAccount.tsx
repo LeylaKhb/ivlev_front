@@ -89,7 +89,7 @@ class PersonalAccount extends React.Component<PersonalAccountProps, PersonalAcco
 
     handleLogout() {
         localStorage.removeItem("jwt");
-        window.location.assign('https://ivlev-ff.ru/');
+        window.location.assign('http://localhost:3000/');
     }
 
     formatDate(dateInput: Date | string | undefined): string {

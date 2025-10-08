@@ -168,3 +168,29 @@
         transform: translateY(-300px) scale(1);
     }
 }
+.popup_news {
+    height: 800px;
+    max-width: 900px;
+    width: 100%;
+    animation: window-popup-news 0.5s ease-in-out;
+}
+
+@keyframes window-popup-news {
+    from {
+        transform: translateY(-29em) scale(0.5);
+    }
+    to {
+        transform: translateY(-400px) scale(1);
+    }
+}
+.codex-editor {
+    min-height: 400px;
+    max-height: 500px;
+    padding: 10px 0;
+}
+
+.ce-block__content,
+.ce-toolbar__content {
+    max-width: 100% !important; /* чтобы не было ограничений по ширине */
+}
+
