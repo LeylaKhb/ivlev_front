@@ -96,7 +96,7 @@ const RecoverPassword: React.FC = () => {
             },
             body: JSON.stringify(new Person("", emailText, passwordText))
         }).then(function () {
-            window.location.assign('http://localhost:3000/login');
+            window.location.assign('https://ivlev-ff.ru/login');
         })
     }
 

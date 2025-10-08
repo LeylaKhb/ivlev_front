@@ -91,7 +91,7 @@ export const NewsPopup: React.FC<NewsPopupProps> = ({ setVisibleFalse, newsItem 
             if (!response.ok) throw new Error(`Ошибка при сохранении (${response.status})`);
 
             const result = await response.json();
-            window.location.assign("http://localhost:3000/admin/news");
+            window.location.assign("https://ivlev-ff.ru/admin/news");
         } catch (err) {
             console.error(err);
             alert("Ошибка при сохранении новости");

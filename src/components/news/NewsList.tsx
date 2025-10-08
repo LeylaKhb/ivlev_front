@@ -42,7 +42,7 @@ const NewsList: React.FC<NewsListProps> = ({
         }).then(res => {
             res.json()
                 .then (() => {
-                    window.location.assign("http://localhost:3000/admin/news");
+                    window.location.assign("https://ivlev-ff.ru/admin/news");
                 })
         });
     }

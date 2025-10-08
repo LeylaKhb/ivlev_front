@@ -297,7 +297,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         }).then(function (resp) {
             resp.json().then(data => {
                 if (!isPayment) {
-                    window.location.assign('http://localhost:3000/current_orders');
+                    window.location.assign('https://ivlev-ff.ru/current_orders');
                 } else {
                     me.setState({order: data}, () => {
                         console.log("Updated order:", me.state.order);
@@ -607,7 +607,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                         <input type='hidden' name='orderid' value={me.state.order.id}/>
                         <input type='hidden' name='sum' value={me.state.order.price}/>
                         <input type="hidden" name="user_result_callback"
-                               value={"http://localhost:3000/personal_account"}/>
+                               value={"https://ivlev-ff.ru/personal_account"}/>
                         <input
                             type='hidden'
                             name='service_name'

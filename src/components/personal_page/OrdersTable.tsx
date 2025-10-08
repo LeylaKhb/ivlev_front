@@ -66,7 +66,7 @@ const OrdersTable: React.FC<MyTableProps> = ({data, loading, onEyeClick, isCurre
             },
             body: JSON.stringify(order)
         }).then(function () {
-            window.location.assign('http://localhost:3000/current_orders');
+            window.location.assign('https://ivlev-ff.ru/current_orders');
         })
     }
 

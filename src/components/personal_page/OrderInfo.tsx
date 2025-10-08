@@ -160,7 +160,7 @@ const OrderInfo: React.FC<OrderInfoProps> = ({order, orderPrice, openSecondPopup
                 <input type='hidden' name='clientid' value={order.entity}/>
                 <input type='hidden' name='orderid' value={order.id}/>
                 <input type='hidden' name='sum' value={orderPrice}/>
-                <input type="hidden" name="user_result_callback" value={"http://localhost:3000/personal_account"}/>
+                <input type="hidden" name="user_result_callback" value={"https://ivlev-ff.ru/personal_account"}/>
                 <input type='hidden' name='service_name'
                        value={'Заказ в ' + order.sendCity + " " + order.store + " от " + order.departureDate}/>
                 <input type='submit' value='Оплатить онлайн' className="change_order"
