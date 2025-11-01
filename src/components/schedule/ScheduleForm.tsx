@@ -339,6 +339,18 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
         const supply = me.props.supply;
 
         let pallet = me.state.dataSupplyType.selectedRadioInput === 'Монопаллет';
+        let bodyData: any = {
+            priceRequestDTO: new PriceRequest(me.state.selectedDepartureCity, supply.warehouses[me.state.selectedStoreIndex].store,
+                supply.warehouses[me.state.selectedStoreIndex].sendCity, volume, me.state.willTaken,
+                pallet, amount)};
+
+        if (pallet) {
+            bodyData.boxes = me.state.inputs.map(input =>
+                new Box(input["length"], input["width"], input["height"], input["amount"])
+            );
+        }
+
+        let body = JSON.stringify(bodyData);
 
         fetch('https://kodrf.ru/api/calculator', {
             method: 'POST',
@@ -349,9 +361,7 @@ class ScheduleForm extends React.Component<ScheduleFormProps, ScheduleFormState>
                 'Content-Type': 'application/json',
 
             },
-            body: JSON.stringify(new PriceRequest(me.state.selectedDepartureCity, supply.warehouses[me.state.selectedStoreIndex].store,
-                supply.warehouses[me.state.selectedStoreIndex].sendCity, volume, me.state.willTaken, pallet, amount)
-            ),
+            body: body,
         }).then(function (resp) {
             resp.json()
                 .then(function (data) {
